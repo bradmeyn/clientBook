@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "name": "clientbook",
+  "version": "1.0.0",
+  "description": "basic crud app",
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "brad meyn",
+  "license": "ISC"
+}
