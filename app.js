@@ -46,9 +46,11 @@ app.route('/clients')
   app.get('/clients/new', (req, res) => {
 
     
-    res.send('new client')
+    res.render('clients/new');
   });
 
+
+  //Single client
   app.route('/clients/:id')
   .get((req, res) => {
     res.send('/client show');

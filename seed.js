@@ -19,6 +19,7 @@ const seedDb = async() => {
     await Client.deleteMany({});
 
     const cOne = new Client({
+        clientId: 1,
         firstName: "Brad",
         lastName: "Meyn",
         age: 31,
@@ -28,6 +29,7 @@ const seedDb = async() => {
     await cOne.save();
 
     const cTwo = new Client({
+        clientId: 2,
         firstName: "Emily",
         lastName: "Byram",
         age: 27,
