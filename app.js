@@ -81,8 +81,10 @@ app.route('/clients')
     //   const c = await Client.findByIdAndUpdate(id);
     res.redirect(`${id}`);
   })
-  .delete((req, res) => {
-    res.send('you have sent a post request');
+  .delete( async (req, res) => {
+    const id = req.params.id;
+    await Client.findByIdAndDelete(id);
+    res.redirect('/clients')
   });
 
 
