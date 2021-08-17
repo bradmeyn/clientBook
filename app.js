@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const port =  process.env.PORT || 3000;
+const methodOverride = require('method-override');
 
 const Client = require('./models/client');
 
@@ -26,6 +27,9 @@ db.once('open', () => {
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
+app.use(methodOverride('_method'));
+
 //landing page
 app.get('/', (req, res) => {
   res.render('home')
@@ -33,37 +37,59 @@ app.get('/', (req, res) => {
 
 //all clients
 app.route('/clients')
-    .get(async (req, res) => {
+    .get( async (req, res) => {
       const clients = await Client.find({});
       console.log(clients);
       res.render('clients/index', {clients});
   })
-  .post((req, res) => {
-    res.send('create a client');
+  .post(async (req, res) => {
+
+    let {birthDay, birthMonth, birthYear, ...clientData} = req.body.client;
+    
+    // console.log(clientData, birthDay, birthMonth, birthYear);
+
+    clientData.dateOfBirth = `${birthYear}-${birthMonth}-${birthDay}`;
+    console.log(clientData.dateOfBirth);
+    
+    const newClient = new Client(clientData);
+    await newClient.save()
+    .then(client => res.redirect(`clients/${client._id}`));
+
+
+    
   });
 
   //new client page
   app.get('/clients/new', (req, res) => {
-
-    
     res.render('clients/new');
   });
 
 
   //Single client
   app.route('/clients/:id')
-  .get((req, res) => {
-    res.send('/client show');
+  .get( async (req, res) => {
+      const id = req.params.id;
+      const c = await Client.findById(id);
+      res.render("clients/show", {c});
   })
-  .put((req, res) => {
-    res.send('you have sent a post request');
+  .put(async (req, res) => {
+
+      const id = req.params.id;
+      const updatedClient = req.body.client;
+      await Client.findByIdAndUpdate(id, {...updatedClient});
+      console.log(updatedClient);
+    //   const c = await Client.findByIdAndUpdate(id);
+    res.redirect(`${id}`);
   })
   .delete((req, res) => {
     res.send('you have sent a post request');
   });
 
-  app.get('/clients/:id/update', (req, res) => {
-    res.send('update client')
+
+  app.get('/clients/:id/update', async (req, res) => {
+    const id = req.params.id;
+    const c = await Client.findById(id);
+    res.render("clients/update", {c});
   })
 
 

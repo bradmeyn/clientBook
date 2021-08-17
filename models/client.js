@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 
 //client schema
 const clientSchema = new mongoose.Schema({
-    clientId: Number,
+    // clientId: Number,
     firstName: String,
     lastName: String,
-    age: Number,
+    dateOfBirth: String,
+    phoneNo: String,
     email: String
 
 });

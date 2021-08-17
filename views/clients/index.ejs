@@ -8,8 +8,9 @@
     <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
+            <th scope="col">Client Number</th>
+            <th scope="col">Full Name</th>
+            
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
           </tr>
@@ -19,11 +20,11 @@
             <% clients.forEach(client => { %>
 
                 <tr>
+                    <td><a href="/clients/<%-client._id%>">111116</a></td>
+                    <td> <%= client.firstName %> <%= client.lastName %> </td>
                    
-                    <td> <%= client.firstName %> </td>
-                    <td> <%= client.lastName %> </td>
                     <td> <%= client.email %> </td>
-                    <td> <%= client.phone %> </td>
+                    <td> <%= client.phoneNo %> </td>
                   </tr>
 
 
