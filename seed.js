@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 const Client = require('./models/client');
-const dbUrl = 'mongodb://localhost:27017/client-book';
+const dbUrl = 'mongodb://localhost:27017/dogBook';
 
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -16,7 +16,7 @@ db.once('open', () => {
 const seedDb = async() => {
 
     //clear database
-    await Client.deleteMany({});
+    await Dog.deleteMany({});
 
     const cOne = new Client({
         clientId: 1,

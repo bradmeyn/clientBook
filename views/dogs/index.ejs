@@ -1,0 +1,39 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column vh-100 ">
+    <%- include('../partials/navbar') -%>
+
+<main class="container mt-5">
+
+  <h3>Top Dogs</h3>
+
+    <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Breed</th>
+            <th scope="col">Sex</th>
+
+          </tr>
+        </thead>
+        <tbody>
+
+            <% dogs.forEach(dog => { %>
+
+                <tr>
+                    <td> <a href="/dogs/<%-dog._id%>"> <%- dog.name %> </a></td>
+                    <td> <%= dog.breed %> </td>
+                    <td> <%= dog.sex %> </td>
+                  </tr>
+
+
+            <% }) %>
+
+        </tbody>
+      </table>
+
+</main>
+    
+</body>
+
+<%- include('../partials/footer') -%>
