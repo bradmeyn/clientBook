@@ -1,6 +1,10 @@
 
 const mongoose = require('mongoose');
+<<<<<<< HEAD
 const Dog = require('./models/dog');
+=======
+const Client = require('./models/client');
+>>>>>>> 2e9094ea9a2710baddd7695a80723a6dfb68a8f0
 const dbUrl = 'mongodb://localhost:27017/dogBook';
 
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
@@ -18,6 +22,7 @@ const seedDb = async() => {
     //clear database
     await Dog.deleteMany({});
 
+<<<<<<< HEAD
     const cOne = new Dog({
         dogId: 1,
         name: "Charlie",
@@ -26,6 +31,13 @@ const seedDb = async() => {
         age: 2,
         about: "A good boy that loves playing ball",
         owner: "Brad",
+=======
+    const cOne = new Client({
+        clientId: 1,
+        firstName: "Brad",
+        lastName: "Meyn",
+        age: 31,
+>>>>>>> 2e9094ea9a2710baddd7695a80723a6dfb68a8f0
         email: "bradmeyn@mail.com"
     });
 

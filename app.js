@@ -64,8 +64,13 @@ app.route('/dogs')
   app.route('/dogs/:id')
   .get( async (req, res) => {
       const id = req.params.id;
+<<<<<<< HEAD
       const dog = await Dog.findById(id);
       res.render("dogs/show", {dog});
+=======
+      const c = await Dog.findById(id);
+      res.render("dogs/show", {c});
+>>>>>>> 2e9094ea9a2710baddd7695a80723a6dfb68a8f0
   })
   .put(async (req, res) => {
 

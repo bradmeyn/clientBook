@@ -10,7 +10,10 @@
     <table class="table table-striped">
         <thead>
           <tr>
+<<<<<<< HEAD
             <th scope="col">Id</th>
+=======
+>>>>>>> 2e9094ea9a2710baddd7695a80723a6dfb68a8f0
             <th scope="col">Name</th>
             <th scope="col">Breed</th>
             <th scope="col">Sex</th>
@@ -22,8 +25,12 @@
             <% dogs.forEach(dog => { %>
 
                 <tr>
+<<<<<<< HEAD
                   <td><a href="dogs/<%-dog._id%>"><%-dog.dogId%></a></td>
                     <td> <%- dog.name %> </td>
+=======
+                    <td> <a href="/dogs/<%-dog._id%>"> <%- dog.name %> </a></td>
+>>>>>>> 2e9094ea9a2710baddd7695a80723a6dfb68a8f0
                     <td> <%= dog.breed %> </td>
                     <td> <%= dog.sex %> </td>
                   </tr>
