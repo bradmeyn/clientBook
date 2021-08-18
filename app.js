@@ -4,10 +4,16 @@ const path = require('path');
 const port =  process.env.PORT || 3000;
 const methodOverride = require('method-override');
 
-const Dog = require('./models/dog');
+const Client = require('./models/client');
 
 const mongoose = require('mongoose');
-const dbUrl = 'mongodb://localhost:27017/dogBook';
+const dbUrl = 'mongodb://localhost:27017/client-book';
+
+// const ejs = require('ejs');
+
+
+
+// const clients = require('./routes/clients');
 
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -20,7 +26,6 @@ db.once('open', () => {
 //set view engine to ejs
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
 app.use(methodOverride('_method'));
@@ -30,68 +35,63 @@ app.get('/', (req, res) => {
   res.render('home')
 });
 
-//all dogs
-app.route('/dogs')
+//all clients
+app.route('/clients')
     .get( async (req, res) => {
-      const dogs = await Dog.find({});
-      console.log(dogs);
-      res.render('dogs/index', {dogs});
+      const clients = await Client.find({});
+      console.log(clients);
+      res.render('clients/index', {clients});
   })
   .post(async (req, res) => {
 
-    let {birthDay, birthMonth, birthYear, ...dog} = req.body.dog;
+    let {birthDay, birthMonth, birthYear, ...clientData} = req.body.client;
     
     // console.log(clientData, birthDay, birthMonth, birthYear);
 
-    dog.dateOfBirth = `${birthYear}-${birthMonth}-${birthDay}`;
-    console.log(dog.dateOfBirth);
+    clientData.dateOfBirth = `${birthYear}-${birthMonth}-${birthDay}`;
+    console.log(clientData.dateOfBirth);
     
-    const newDog = new Dog(dog);
-    await newDog.save()
-    .then(dog => res.redirect(`dogs/${dog._id}`));
+    const newClient = new Client(clientData);
+    await newClient.save()
+    .then(client => res.redirect(`clients/${client._id}`));
 
 
     
   });
 
   //new client page
-  app.get('/dogs/new', (req, res) => {
-    res.render('dogs/new');
+  app.get('/clients/new', (req, res) => {
+    res.render('clients/new');
   });
 
 
   //Single client
-  app.route('/dogs/:id')
+  app.route('/clients/:id')
   .get( async (req, res) => {
       const id = req.params.id;
-<<<<<<< HEAD
-      const dog = await Dog.findById(id);
-      res.render("dogs/show", {dog});
-=======
-      const c = await Dog.findById(id);
-      res.render("dogs/show", {c});
->>>>>>> 2e9094ea9a2710baddd7695a80723a6dfb68a8f0
+      const c = await Client.findById(id);
+      res.render("clients/show", {c});
   })
   .put(async (req, res) => {
 
       const id = req.params.id;
-      const updatedDog = req.body.dog;
-      await Dog.findByIdAndUpdate(id, {...updatedDog});
-      console.log(updatedDog);
+      const updatedClient = req.body.client;
+      await Client.findByIdAndUpdate(id, {...updatedClient});
+      console.log(updatedClient);
     //   const c = await Client.findByIdAndUpdate(id);
     res.redirect(`${id}`);
   })
   .delete( async (req, res) => {
     const id = req.params.id;
-    await Dog.findByIdAndDelete(id);
-    res.redirect('/dogs')
+    await Client.findByIdAndDelete(id);
+    res.redirect('/clients')
   });
 
 
-  app.get('/dogs/:id/update', async (req, res) => {
+  app.get('/clients/:id/update', async (req, res) => {
     const id = req.params.id;
-    const dog = await Dog.findById(id);
-    res.render("dogs/update", {dog});
+    const c = await Client.findById(id);
+    res.render("clients/update", {c});
   })
 
 

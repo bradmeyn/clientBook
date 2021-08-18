@@ -1,0 +1,76 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column vh-100 ">
+    <%- include('../partials/navbar') -%>
+
+<main class="container my-5">
+
+    <div class="row">
+        <div class="col-10 offset-1 col-md-8 offset-md-2">
+            <div class="mb-3">
+                <h1>Update Client Details</h1>
+            <p>Please update the desired fields below.</p>
+            </div>
+            
+
+            <form action="/clients/<%-c._id%>?_method=PUT" method="POST">
+        
+                <!-- Client Name -->
+                <div class="mb-4">
+                    <h4>Name</h4>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" class="form-control" placeholder="Enter first name" aria-label="First name" id="firstName" name="client[firstName]" value="<%-c.firstName%>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input type="text" class="form-control" placeholder="Enter last name" aria-label="Last name" id="lastName" name="client[lastName]" value="<%-c.lastName%>">
+                    </div>
+                </div>
+        
+                <!-- date of birth -->
+        
+                <!-- <div class="row mb-3">
+                    <h4>Date of Birth</h4>
+                    <div class="col">
+                        <label for="birthDay" class="form-label">Day</label>
+                        <input type="text" class="form-control" placeholder="DD" aria-label="birth day" id="birthDay" name="client[birthDay]">
+                    </div>
+                    <div class="col">
+                        <label for="birthMonth" class="form-label">Month</label>
+                        <input type="text" class="form-control" placeholder="MM" aria-label="birth month" id="birthMonth" name="client[birthMonth]">
+                    </div>
+                    <div class="col">
+                        <label for="birthYear" class="form-label">Year</label>
+                        <input type="text" class="form-control" placeholder="YYYY" aria-label="birth year" id="birthYear" name="client[birthYear]">
+                    </div>
+                </div> -->
+
+                <div class="mb-4">
+                    <h4>Contact Details</h4>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" placeholder="Enter email" aria-label="email" id="email" name="client[email]" value="<%-c.email%>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNo" class="form-label">Phone Number</label>
+                        <input type="text" class="form-control" placeholder="Enter phone number" aria-label="phone number" id="phoneNo" name="client[phoneNo]" value="<%-c.phoneNo%>">
+                    </div>
+                </div>
+
+                </div>
+                </div>
+            <button type="submit" class="btn btn-primary offset-1 offset-md-2">Update Details</button>
+            </form>
+        </div>
+
+    </div>   
+ 
+
+
+
+</main>
+    
+</body>
+
+<%- include('../partials/footer') -%>
