@@ -1,0 +1,60 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column vh-100 justify-content-center  ">
+    <%- include('../partials/navbar') -%>
+
+
+<main class="px-3 h-100 bg-muted">
+
+  <div class="row col-8 mx-auto mt-5">
+
+    <div class="border border-warning justify-content-center shadow-sm ">
+
+      <div class="border-primary border row p-3">
+        
+        <div class="text-center mx-auto">
+          <img src="/images/IMG_2448.jpg" alt="" style="max-width: 200px" class="w-50 rounded-circle border border-primary border-3">
+          <h1 class="mt-3 text-center">Charlie</h5> 
+    
+        <p class="text-center mt-3"><%-dog.about%></p>
+      </div>
+      </div>
+      
+        
+      <div class="row px-4 border d-flex justify-content-center bg-white">
+          <div class="fs-5 p-2 row border-bottom border-muted border-1">
+              <div class="fw-bold col-6 text-bold text-end">
+                Age:
+              </div>
+              <div class="col-6 text-secondary">
+                <%-dog.age%>
+              </div>
+          </div>
+
+          <div class="fs-5 p-2 row border-bottom border-muted border-1">
+            <div class=" fw-bold col-6 text-bold text-end">
+              Breed:
+            </div>
+            <div class="col-6 text-secondary">
+              <%-dog.breed%>
+            </div>
+          </div>
+          
+          <div class="fs-5 p-2 row border-bottom border-muted border-1">
+            <div class="fw-bold col-6 text-bold text-end">
+              Sex:
+            </div>
+            <div class="col-6 text-secondary">
+              <%-dog.sex%>
+            </div>
+          </div>
+          
+      </div>
+    </div>
+  </div>
+
+</main> 
+    
+</body>
+
+<%- include('../partials/footer') -%>

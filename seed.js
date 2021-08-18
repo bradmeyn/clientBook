@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
-const Client = require('./models/client');
-const dbUrl = 'mongodb://localhost:27017/client-book';
+const Dog = require('./models/dog');
+const dbUrl = 'mongodb://localhost:27017/dogBook';
 
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -16,24 +16,30 @@ db.once('open', () => {
 const seedDb = async() => {
 
     //clear database
-    await Client.deleteMany({});
+    await Dog.deleteMany({});
 
-    const cOne = new Client({
-        clientId: 1,
-        firstName: "Brad",
-        lastName: "Meyn",
-        age: 31,
+    const cOne = new Dog({
+        dogId: 1,
+        name: "Charlie",
+        breed: "Cavoodle",
+        sex: "male",
+        age: 2,
+        about: "A good boy that loves playing ball",
+        owner: "Brad",
         email: "bradmeyn@mail.com"
     });
 
     await cOne.save();
 
-    const cTwo = new Client({
-        clientId: 2,
-        firstName: "Emily",
-        lastName: "Byram",
-        age: 27,
-        email: "emilyb@mail.com"
+    const cTwo = new Dog({
+        dogId: 2,
+        name: "Bonnie",
+        breed: "Schnoodle",
+        sex: "female",
+        age: 1,
+        about: "Still learning to use the doggy door",
+        owner: "Tom",
+        email: "bonnie@mail.com"
     });
 
     await cTwo.save();
