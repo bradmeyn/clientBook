@@ -2,74 +2,120 @@
 
 <body class="d-flex flex-column vh-100 ">
     <%- include('../partials/navbar') -%>
+    <div class="d-flex h-100">
 
-<main class="container my-5">
-
-    <div class="row">
-        <div class="col-10 offset-1 col-md-8 offset-md-2">
-            <div class="mb-3">
-                <h1>Update Client Details</h1>
-            <p>Please update the desired fields below.</p>
-            </div>
-            
-
-            <form action="/clients/<%-c._id%>?_method=PUT" method="POST">
-        
-                <!-- Client Name -->
-                <div class="mb-4">
-                    <h4>Name</h4>
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" placeholder="Enter first name" aria-label="First name" id="firstName" name="client[firstName]" value="<%-c.firstName%>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Last name</label>
-                        <input type="text" class="form-control" placeholder="Enter last name" aria-label="Last name" id="lastName" name="client[lastName]" value="<%-c.lastName%>">
-                    </div>
-                </div>
-        
-                <!-- date of birth -->
-        
-                <!-- <div class="row mb-3">
-                    <h4>Date of Birth</h4>
-                    <div class="col">
-                        <label for="birthDay" class="form-label">Day</label>
-                        <input type="text" class="form-control" placeholder="DD" aria-label="birth day" id="birthDay" name="client[birthDay]">
-                    </div>
-                    <div class="col">
-                        <label for="birthMonth" class="form-label">Month</label>
-                        <input type="text" class="form-control" placeholder="MM" aria-label="birth month" id="birthMonth" name="client[birthMonth]">
-                    </div>
-                    <div class="col">
-                        <label for="birthYear" class="form-label">Year</label>
-                        <input type="text" class="form-control" placeholder="YYYY" aria-label="birth year" id="birthYear" name="client[birthYear]">
-                    </div>
-                </div> -->
-
-                <div class="mb-4">
-                    <h4>Contact Details</h4>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="Enter email" aria-label="email" id="email" name="client[email]" value="<%-c.email%>">
-                    </div>
-                    <div class="mb-3">
-                        <label for="phoneNo" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" placeholder="Enter phone number" aria-label="phone number" id="phoneNo" name="client[phoneNo]" value="<%-c.phoneNo%>">
-                    </div>
-                </div>
-
-                </div>
-                </div>
-            <button type="submit" class="btn btn-primary offset-1 offset-md-2">Update Details</button>
-            </form>
-        </div>
-
-    </div>   
- 
+    <!-- Navbar -->
+    <div class="d-flex flex-column h-100 flex-shrink-0 p-3 bg-light border-end border-muted" style="width: 280px;">
+        <h3 class= "ms-5 my-2 text-dark">
+            <%-c.firstName%> <%-c.lastName%>
+        </h3>
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+              Home
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark ">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+              Balance Sheet
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+              Cashflow
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link link-dark ">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+              Products
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
+              Customers
+            </a>
+          </li>
+        </ul>
+        <hr>
+        <form action="/clients/<%-c._id%>?_method=DELETE" method="POST" class="w-100">
+          <button class="btn btn-danger m-auto w-100">Delete Client</button>
+        </form>
+      </div>
 
 
+<main class="container p-5 " style="background-color: #F5F5F5">
+  <h1>Client Details</h1>
 
-</main>
+<form action="">
+
+  <div class="row shadow-sm w-100 bg-white mt-4">
+
+  
+   <div class="form-row row p-2 border-bottom border-muted m-auto">
+     <div class="col-6 my-auto fw-bold"><label for="inputEmail4">Salutation:</label></div>
+     <div class="col-6 "><select class="form-select" aria-label="Default select example">
+        <option selected>Mr</option>
+        <option value="1">One</option>
+        <option value="2">Two</option>
+        <option value="3">Three</option>
+      </select></div>
+   </div>
+  
+   <div class="form-row row p-2 border-bottom border-muted m-auto">
+    <div class="col-6 my-auto fw-bold"><label for="inputEmail4">First Name:</label></div>
+    <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email" value="<%-c.firstName%>"></div>
+  </div>
+  
+  <div class="form-row row p-2 border-bottom border-muted m-auto">
+    <div class="col-6 my-auto fw-bold"><label for="inputEmail4">Last Name:</label></div>
+    <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email" value="<%-c.lastName%>"></div>
+  </div>
+</div>
+
+
+  <h4 class="mt-5">Contact Details</h4>
+  <div class="row shadow-sm w-100 bg-white mt-3">
+
+  
+    <div class="form-row row p-2 border-bottom border-muted m-auto">
+        <div class="col-6 my-auto fw-bold"><label for="inputEmail4">First Name:</label></div>
+        <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email"></div>
+      </div>
+  
+      <div class="form-row row p-2 border-bottom border-muted m-auto">
+        <div class="col-6 my-auto fw-bold"><label for="inputEmail4">First Name:</label></div>
+        <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email"></div>
+      </div>
+  
+      <div class="form-row row p-2 border-bottom border-muted m-auto">
+        <div class="col-6 my-auto fw-bold"><label for="inputEmail4">First Name:</label></div>
+        <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email"></div>
+      </div>
+</div>
+
+</form>
+  
+  </main>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
     
 </body>
 
