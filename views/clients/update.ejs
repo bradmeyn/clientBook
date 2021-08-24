@@ -2,121 +2,72 @@
 
 <body class="d-flex flex-column vh-100 ">
     <%- include('../partials/navbar') -%>
-    <div class="d-flex h-100">
+    <div class="d-flex h-100 w-100" style="background-color: #F5F5F5">
 
     <!-- Navbar -->
-    <div class="d-flex flex-column h-100 flex-shrink-0 p-3 bg-light border-end border-muted" style="width: 280px;">
-        <h3 class= "ms-5 my-2 text-dark">
-            <%-c.firstName%> <%-c.lastName%>
-        </h3>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark ">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-              Balance Sheet
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-              Cashflow
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark ">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-              Products
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-              Customers
-            </a>
-          </li>
-        </ul>
-        <hr>
-        <form action="/clients/<%-c._id%>?_method=DELETE" method="POST" class="w-100">
-          <button class="btn btn-danger m-auto w-100">Delete Client</button>
-        </form>
-      </div>
+<%- include('../partials/sidenav') -%>
 
 
-<main class="container p-5 " style="background-color: #F5F5F5">
-  <h1>Client Details</h1>
 
-<form action="">
 
-  <div class="row shadow-sm w-100 bg-white mt-4">
+<main class="container px-5 py-4 mx-auto w-100" >
+  <h1>Update Client Details</h1>
 
-  
+<form action="" method="POST">
+
+  <div class="row mx-auto shadow-sm w-100 bg-white mt-4">
    <div class="form-row row p-2 border-bottom border-muted m-auto">
      <div class="col-6 my-auto fw-bold"><label for="inputEmail4">Salutation:</label></div>
      <div class="col-6 "><select class="form-select" aria-label="Default select example">
-        <option selected>Mr</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
+        <option selected value="Mr">Mr</option>
+        <option value="Mrs">Mrs</option>
+        <option value="Miss">Miss</option>
+        <option value="Dr">Dr</option>
       </select></div>
    </div>
   
    <div class="form-row row p-2 border-bottom border-muted m-auto">
-    <div class="col-6 my-auto fw-bold"><label for="inputEmail4">First Name:</label></div>
-    <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email" value="<%-c.firstName%>"></div>
+    <div class="col-6 my-auto fw-bold"><label for="firstName">First Name:</label></div>
+    <div class="col-6 "><input type="text" class="form-control" id="firstName" name="client[firstName]" placeholder="First Name" value="<%-c.firstName%>"></div>
+  </div>
+
+  <div class="form-row row p-2 border-bottom border-muted m-auto">
+    <div class="col-6 my-auto fw-bold"><label for="preferredName">Preferred Name:</label></div>
+    <div class="col-6 "><input type="text" class="form-control" id="preferredName" placeholder="Preferred Name" name="client[preferredName]" value="Preferred Name"></div>
   </div>
   
   <div class="form-row row p-2 border-bottom border-muted m-auto">
-    <div class="col-6 my-auto fw-bold"><label for="inputEmail4">Last Name:</label></div>
-    <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email" value="<%-c.lastName%>"></div>
+    <div class="col-6 my-auto fw-bold"><label for="lastName">Last Name:</label></div>
+    <div class="col-6 "><input type="text" class="form-control" id="lastName" placeholder="Last Name" name="client[lastName]" value="<%-c.lastName%>"></div>
   </div>
 </div>
 
 
-  <h4 class="mt-5">Contact Details</h4>
-  <div class="row shadow-sm w-100 bg-white mt-3">
+<h4 class="mt-5 mb-3">Update Contact Details</h4>
+<div class="row mx-auto shadow-sm w-100 bg-white mb-4">
 
-  
-    <div class="form-row row p-2 border-bottom border-muted m-auto">
-        <div class="col-6 my-auto fw-bold"><label for="inputEmail4">First Name:</label></div>
-        <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email"></div>
-      </div>
-  
-      <div class="form-row row p-2 border-bottom border-muted m-auto">
-        <div class="col-6 my-auto fw-bold"><label for="inputEmail4">First Name:</label></div>
-        <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email"></div>
-      </div>
-  
-      <div class="form-row row p-2 border-bottom border-muted m-auto">
-        <div class="col-6 my-auto fw-bold"><label for="inputEmail4">First Name:</label></div>
-        <div class="col-6 "><input type="text" class="form-control" id="inputEmail4" placeholder="Email"></div>
-      </div>
+  <div class="form-row row p-2 border-bottom border-muted m-auto">
+    <div class="col-6 my-auto fw-bold"><label for="address">Address:</label></div>
+    <div class="col-6 "><input type="text" class="form-control" id="address" placeholder="address" name="client[address]" value="<%-c.address%>"></div>
+  </div>
+
+  <div class="form-row row p-2 border-bottom border-muted m-auto">
+    <div class="col-6 my-auto fw-bold"><label for="phoneNo">Phone Number:</label></div>
+    <div class="col-6 "><input type="text" class="form-control" id="phoneNo" placeholder="Phone Number" name="client[phoneNo]" value="<%-c.phoneNo%>"></div>
+  </div>
+
+  <div class="form-row row p-2 border-bottom border-muted m-auto">
+    <div class="col-6 my-auto fw-bold"><label for="phoneNo">Email:</label></div>
+    <div class="col-6 "><input type="text" class="form-control" id="phoneNo" placeholder="Email" name="client[email]" value="<%-c.email%>"></div>
+  </div>
 </div>
-
+<button type="submit" class="btn btn-primary"><i class="me-2 bi bi-save"></i>Save Details</button>
 </form>
   
   </main>
 </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-    
 </body>
 
 <%- include('../partials/footer') -%>

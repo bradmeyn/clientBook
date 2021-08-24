@@ -1,76 +1,173 @@
 <%- include('../partials/head') -%>
 
-<body class="d-flex flex-column vh-100 ">
+<body class="d-flex flex-column" style="min-height: 100vh;">
     <%- include('../partials/navbar') -%>
+    <div class="d-flex h-100 w-100" style="background-color: #F5F5F5; min-height: 100vh;">
 
-<main class="container my-5">
+    <!-- Navbar -->
 
-    <div class="row">
-        <div class="col-10 offset-1 col-md-8 offset-md-2">
-            <div class="mb-3">
-                <h1>Add Client</h1>
-            <p>Please enter the new clients details in the fields below</p>
+
+<main class="container m-3 px-5 py-4 mx-auto h-100 w-100 " style="max-width: 700px;" >
+  <h1 class="mb-5">New Client</h1>
+
+<form action="" method="POST">
+    <div class="bg-white shadow-sm p-4">
+        <div class="">Saluatation</div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+            <label class="form-check-label" for="inlineRadio1">Mr</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Mrs</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Miss</label>
+        </div>
+        <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+            <label class="form-check-label" for="inlineRadio2">Dr</label>
+        </div>
+    
+
+        <div class="row">
+          <div class="form-group col-md-6 mt-3">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" id="firstName" placeholder="First Name" name="client[firstName]">
+          </div>
+          
+          <div class="form-group col-md-6 mt-3">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" name="client[lastName]" placeholder="Last Name">
+          </div>
+        </div>
+        
+        <div class="row mt-3">
+            <div class="">Date of Birth</div>
+            
+                <div class="col-4">
+                    <select class="form-select" aria-label="Default select example">
+                        <label for="inputEmail4"></label>
+                        <option class="text-muted" selected value="0">Day</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>                    
+                </div>
+                <div class="col-4">
+                    <select class="form-select" aria-label="Default select example">
+                        <label for="inputEmail4"></label>
+                        <option class="text-muted" selected value="0">Month</option>
+                        <option value="1">Jan</option>
+                        <option value="2">Feb</option>
+                        <option value="3">Mar</option>
+                        <option value="4">Apr</option>
+                        <option value="5">May</option>
+                        <option value="6">Jun</option>
+                        <option value="7">Jul</option>
+                        <option value="8">Aug</option>
+                        <option value="9">Sep</option>
+                        <option value="10">Oct</option>
+                        <option value="11">Nov</option>
+                        <option value="12">Dec</option>
+                    </select>       
+                </div>
+                <div class="col-4">
+                    <select class="form-select" aria-label="Default select example">
+                        <label for="inputEmail4"></label>
+                        <option selected value="Mr">Year</option>
+                        <option value="Mrs">Mrs</option>
+                        <option value="Miss">Miss</option>
+                        <option value="Dr">Dr</option>
+                    </select>         
+                </div>
+            
+        </div>
+    </div>
+
+        
+        <div class="p-4 bg-white shadow-sm mt-5">
+            <h4>Contact Details:</h4>
+        
+        <div class="row">
+            <div class="form-group col-md-6 mt-3">
+              <label for="firstName">Email</label>
+              <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
             </div>
             
-
-            <form action="/clients" method="POST">
-        
-                <!-- Client Name -->
-                <div class="mb-4">
-                    <h4>Name</h4>
-                    <div class="mb-3">
-                        <label for="firstName" class="form-label">First Name</label>
-                        <input type="text" class="form-control" placeholder="Enter first name" aria-label="First name" id="firstName" name="client[firstName]">
-                    </div>
-                    <div class="mb-3">
-                        <label for="lastName" class="form-label">Last name</label>
-                        <input type="text" class="form-control" placeholder="Enter last name" aria-label="Last name" id="lastName" name="client[lastName]">
-                    </div>
-                </div>
-        
-                <!-- date of birth -->
-        
-                <div class="row mb-3">
-                    <h4>Date of Birth</h4>
-                    <div class="col">
-                        <label for="birthDay" class="form-label">Day</label>
-                        <input type="text" class="form-control" placeholder="DD" aria-label="birth day" id="birthDay" name="client[birthDay]">
-                    </div>
-                    <div class="col">
-                        <label for="birthMonth" class="form-label">Month</label>
-                        <input type="text" class="form-control" placeholder="MM" aria-label="birth month" id="birthMonth" name="client[birthMonth]">
-                    </div>
-                    <div class="col">
-                        <label for="birthYear" class="form-label">Year</label>
-                        <input type="text" class="form-control" placeholder="YYYY" aria-label="birth year" id="birthYear" name="client[birthYear]">
-                    </div>
-                </div>
-
-                <div class="mb-4">
-                    <h4>Contact Details</h4>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" placeholder="Enter email" aria-label="email" id="email" name="client[email]">
-                    </div>
-                    <div class="mb-3">
-                        <label for="phoneNo" class="form-label">Phone Number</label>
-                        <input type="text" class="form-control" placeholder="Enter phone number" aria-label="phone number" id="phoneNo" name="client[phoneNo]">
-                    </div>
-                </div>
-
-                </div>
-                </div>
-            <button type="submit" class="btn btn-primary offset-1 offset-md-2">Add Client</button>
-            </form>
+            <div class="form-group col-md-6 mt-3">
+              <label for="lastName">Phone</label>
+              <input type="text" class="form-control" id="inputPassword4" placeholder="Password">
+            </div>
+          </div>
+        <div class="form-row mt-3 ">
+            <div class="form-group">
+                <label for="street">Street Address</label>
+                <input type="text" class="form-control" id="street" placeholder="1234 Main St">
+            </div>
         </div>
 
-    </div>   
- 
+        <div class="row mt-1">
+            <div class="form-group col-6">
+              <label for="suburb">Suburb</label>
+              <input type="text" class="form-control" id="suburb">
+            </div>
+
+            <div class="form-group col-3">
+              <label for=state">State</label>
+              <select id="state" class="form-select">
+                <option class="text-muted" selected>State</option>
+                <Option>NSW</Option>
+                <Option>QLD</Option>
+                <Option>VIC</Option>
+                <Option>WA</Option>
+                <Option>SA</Option>
+                <Option>ACT</Option>
+              </select>
+            </div>
+
+            <div class="form-group col-3">
+              <label for="postcode">Postcode</label>
+              <input type="text" class="form-control" id="postcode">
+            </div>
+        </div>
+    </div>
+      
+</form>
+  
+  </main>
+</div>
 
 
-
-</main>
-    
 </body>
 
 <%- include('../partials/footer') -%>

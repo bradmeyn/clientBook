@@ -5,61 +5,35 @@
     <div class="d-flex h-100">
 
     <!-- Navbar -->
-    <div class="d-flex flex-column h-100 flex-shrink-0 p-3 bg-light border-end border-muted" style="width: 280px;">
-        <h3 class= "ms-5 my-2 text-dark">
-            <%-c.firstName%> <%-c.lastName%>
-        </h3>
-        <hr>
-        <ul class="nav nav-pills flex-column mb-auto">
-          <li class="nav-item">
-            <a href="#" class="nav-link active" aria-current="page">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark ">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
-              Balance Sheet
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
-              Cashflow
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link link-dark ">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-              Products
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-link text-white">
-              <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-              Customers
-            </a>
-          </li>
-        </ul>
-        <hr>
-        <form action="/clients/<%-c._id%>?_method=DELETE" method="POST" class="w-100">
-          <button class="btn btn-danger m-auto w-100">Delete Client</button>
-        </form>
-      </div>
-
-
-<main class="container p-5 " style="background-color: #F5F5F5">
-  <h1>Client Details</h1>
-
-
-  <div class="row shadow-sm w-100 bg-white mt-4">
-
+    <%- include('../partials/sidenav') -%>
+    
+<main class="container px-5 py-4" style="background-color: #F5F5F5">
+  <div class="d-flex justify-content-between align-items-center">
+    <h1>Client Details</h1>
+    <a href="<%-c._id%>/update" class="btn btn-primary"><i class="bi bi-pencil-square pe-2"></i>Edit Details</a>
+  </div>
   
+  <div class="row mx-auto shadow-sm w-100 bg-white mt-4">
+
+    <div class="row p-2 border-bottom border-muted m-auto">
+      <div class="col-6 fw-bold">Client Number</div>
+      <div class="col-6 "></div>
+    </div>
+
+    <div class="row p-2 border-bottom border-muted m-auto">
+      <div class="col-6 fw-bold">Salutation:</div>
+      <div class="col-6 "></div>
+    </div>
+
    <div class="row p-2 border-bottom border-muted m-auto">
      <div class="col-6 fw-bold">First Name:</div>
      <div class="col-6 "><%-c.firstName%></div>
    </div>
+
+   <div class="row p-2 border-bottom border-muted m-auto">
+    <div class="col-6 fw-bold">Preferred Name:</div>
+    <div class="col-6 "></div>
+  </div>
   
    <div class="row p-2 border-bottom border-muted m-auto">
     <div class="col-6 fw-bold">Last Name:</div>
@@ -70,28 +44,35 @@
     <div class="col-6 fw-bold">Date of Birth:</div>
     <div class="col-6">10/07/1990 (31 years old)</div>
   </div>
-</div>
 
-
-  <h4 class="mt-5">Contact Details</h4>
-  <div class="row shadow-sm w-100 bg-white mt-4">
-
-  
-   <div class="row p-2 border-bottom border-muted m-auto">
-     <div class="col-6 fw-bold">Address:</div>
-     <div class="col-6">205 Kings Road, New Lambton</div>
-   </div>
-  
-   <div class="row p-2 border-bottom border-muted m-auto">
-    <div class="col-6 fw-bold">Phone Number:</div>
-    <div class="col-6">0413 235 647</div>
-  </div>
-  
   <div class="row p-2 border-bottom border-muted m-auto">
-    <div class="col-6 fw-bold">Email:</div>
-    <div class="col-6">brad@meyn</div>
+    <div class="col-6 fw-bold">Marital Status</div>
+    <div class="col-6">Married <a class="link link-primary">(Emily Byram)</a></div>
   </div>
 </div>
+
+
+  <h4 class="mt-5 mb-3">Contact Details</h4>
+  <div class="row mb-4 mx-auto shadow-sm w-100 bg-white">
+
+    <div class="row p-2 border-bottom border-muted m-auto">
+      <div class="col-6 fw-bold">Home Address:</div>
+      <div class="col-6">205 Kings Road, New Lambton</div>
+    </div>
+  
+    <div class="row p-2 border-bottom border-muted m-auto">
+      <div class="col-6 fw-bold">Phone Number:</div>
+      <div class="col-6">0413 235 647</div>
+    </div>
+  
+    <div class="row p-2 border-bottom border-muted m-auto">
+      <div class="col-6 fw-bold">Email:</div>
+      <div class="col-6">brad@meyn</div>
+    </div>
+
+
+</div>
+
   
   </main>
 </div>
