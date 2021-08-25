@@ -17,12 +17,12 @@
 
     <div class="row p-2 border-bottom border-muted m-auto">
       <div class="col-6 fw-bold">Client Number</div>
-      <div class="col-6 "></div>
+      <div class="col-6 "> <%-c.clientId %></div>
     </div>
 
     <div class="row p-2 border-bottom border-muted m-auto">
       <div class="col-6 fw-bold">Salutation:</div>
-      <div class="col-6 "></div>
+      <div class="col-6 "><%-c.salutation %></div>
     </div>
 
    <div class="row p-2 border-bottom border-muted m-auto">
@@ -57,17 +57,20 @@
 
     <div class="row p-2 border-bottom border-muted m-auto">
       <div class="col-6 fw-bold">Home Address:</div>
-      <div class="col-6">205 Kings Road, New Lambton</div>
+      <div class="col-6">
+        <div class="col-12"><%-c.address.street%>,</div>
+        <div class="col-12 mt-1"><%-c.address.suburb%> <%-c.address.state%> <%-c.address.postcode%></div>
+      </div>
     </div>
   
     <div class="row p-2 border-bottom border-muted m-auto">
       <div class="col-6 fw-bold">Phone Number:</div>
-      <div class="col-6">0413 235 647</div>
+      <div class="col-6"><%-c.phone %></div>
     </div>
   
     <div class="row p-2 border-bottom border-muted m-auto">
       <div class="col-6 fw-bold">Email:</div>
-      <div class="col-6">brad@meyn</div>
+      <div class="col-6"><%-c.email %></div>
     </div>
 
 

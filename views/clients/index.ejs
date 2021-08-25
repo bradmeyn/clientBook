@@ -20,11 +20,11 @@
             <% clients.forEach(client => { %>
 
                 <tr>
-                    <td><a href="/clients/<%-client._id%>">111116</a></td>
+                    <td><a href="/clients/<%-client._id%>"><%=client.clientId %></a></td>
                     <td> <%= client.firstName %> <%= client.lastName %> </td>
                    
                     <td> <%= client.email %> </td>
-                    <td> <%= client.phoneNo %> </td>
+                    <td> <%= client.phone %> </td>
                   </tr>
 
 

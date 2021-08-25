@@ -43,15 +43,15 @@ app.route('/clients')
       res.render('clients/index', {clients});
   })
   .post(async (req, res) => {
-
-    let {birthDay, birthMonth, birthYear, ...clientData} = req.body.client;
     
-    // console.log(clientData, birthDay, birthMonth, birthYear);
+   let {birthDay,birthMonth,birthYear, ...client} = req.body.client;
+  
+    client.dateOfBirth = `${birthYear}/${birthMonth}/${birthDay}`;
+    client.address.suburb = client.address.suburb.toUpperCase();
+    client.clientId = Date.now();
 
-    clientData.dateOfBirth = `${birthYear}-${birthMonth}-${birthDay}`;
-    console.log(clientData.dateOfBirth);
     
-    const newClient = new Client(clientData);
+    const newClient = new Client(client);
     await newClient.save()
     .then(client => res.redirect(`clients/${client._id}`));
 

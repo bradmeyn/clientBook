@@ -20,20 +20,36 @@ const seedDb = async() => {
 
     const cOne = new Client({
         clientId: 1,
-        firstName: "Brad",
+        salutation: 'Mr',
+        firstName: "Bradley",
         lastName: "Meyn",
-        age: 31,
-        email: "bradmeyn@mail.com"
+        dateOfBirth: "10/07/1990",
+        email: "bradjmeyn@gmail.com",
+        phone: '0431558814',
+        address: {
+            street: '205 Kings Road',
+            suburb: 'New Lambton',
+            state: 'NSW',
+            postcode: '2305'
+        }
     });
 
     await cOne.save();
 
     const cTwo = new Client({
         clientId: 2,
+        salutation: 'Miss',
         firstName: "Emily",
         lastName: "Byram",
-        age: 27,
-        email: "emilyb@mail.com"
+        dateOfBirth: "26/9/1993",
+        email: "emilyb@mail.com",
+        phone: '0413235647',
+        address: {
+            street: '205 Kings Road',
+            suburb: 'New Lambton',
+            state: 'NSW',
+            postcode: '2305'
+        }
     });
 
     await cTwo.save();
