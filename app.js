@@ -39,17 +39,17 @@ app.get('/', (req, res) => {
 app.route('/clients')
     .get( async (req, res) => {
       const clients = await Client.find({});
-      console.log(clients);
       res.render('clients/index', {clients});
   })
   .post(async (req, res) => {
     
-   let {birthDay,birthMonth,birthYear, ...client} = req.body.client;
+    let client = req.body.client;
   
-    client.dateOfBirth = `${birthYear}/${birthMonth}/${birthDay}`;
-    client.address.suburb = client.address.suburb.toUpperCase();
-    client.clientId = Date.now();
 
+    client.address.suburb = client.address.suburb.toUpperCase();
+    client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
+    client.clientId = Date.now();
+    console.log(client);
     
     const newClient = new Client(client);
     await newClient.save()

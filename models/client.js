@@ -6,7 +6,12 @@ const clientSchema = new mongoose.Schema({
     salutation: String,
     firstName: String,
     lastName: String,
-    dateOfBirth: String,
+    dob: {
+        birthDay: String,
+        birthMonth: String,
+        birthYear: String,
+        fullDate: String
+    },
     phone: String,
     email: String,
     address: {

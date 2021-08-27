@@ -29,11 +29,6 @@
      <div class="col-6 fw-bold">First Name:</div>
      <div class="col-6 "><%-c.firstName%></div>
    </div>
-
-   <div class="row p-2 border-bottom border-muted m-auto">
-    <div class="col-6 fw-bold">Preferred Name:</div>
-    <div class="col-6 "></div>
-  </div>
   
    <div class="row p-2 border-bottom border-muted m-auto">
     <div class="col-6 fw-bold">Last Name:</div>
@@ -42,13 +37,13 @@
   
   <div class="row p-2 border-bottom border-muted m-auto">
     <div class="col-6 fw-bold">Date of Birth:</div>
-    <div class="col-6">10/07/1990 (31 years old)</div>
+    <div class="col-6"><%-c.dob.fullDate %> (31 years old)</div>
   </div>
 
-  <div class="row p-2 border-bottom border-muted m-auto">
+  <!-- <div class="row p-2 border-bottom border-muted m-auto">
     <div class="col-6 fw-bold">Marital Status</div>
     <div class="col-6">Married <a class="link link-primary">(Emily Byram)</a></div>
-  </div>
+  </div> -->
 </div>
 
 
