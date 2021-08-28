@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const port =  process.env.PORT || 3000;
 const methodOverride = require('method-override');
-
+const {validateClient} = require('./middleware.js');
 const Client = require('./models/client');
 const AppError = require('./utils/AppError');
 const catchAsync = require('./utils/catchAsync');
@@ -43,10 +43,10 @@ app.route('/clients')
       const clients = await Client.find({});
       res.render('clients/index', {clients});
   }))
-  .post(catchAsync (async (req, res) => {
+  .post(validateClient, catchAsync (async (req, res) => {
     
+
     let client = req.body.client;
-  
     client.address.suburb = client.address.suburb.toUpperCase();
     client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
     client.clientId = Date.now();
@@ -75,7 +75,7 @@ app.route('/clients')
       const c = await Client.findById(id);
       res.render("clients/show", {c});
   }))
-  .put( catchAsync (async (req, res) => {
+  .put(validateClient, catchAsync (async (req, res) => {
 
       const id = req.params.id;
       const updatedClient = req.body.client;

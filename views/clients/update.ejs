@@ -1,11 +1,12 @@
 
 <%- include('../partials/head') -%>
-<body class="d-flex flex-column " style="min-height: 100vh;">
+<body class="d-flex flex-column vh-100" style="min-height: 100vh;">
   
   <%- include('../partials/navbar') -%>
-  <div class="d-flex w-100 h-100" style="background-color: #F5F5F5; min-height: 100vh;">
+  <div class="d-flex w-100 h-100" style="background-color: #F5F5F5;">
   <%- include('../partials/sidenav') -%>
-  <main class="container px-5 py-4 mx-auto w-100" style="max-width: 900px">
+
+  <main class="container px-5 py-4 mx-auto h-100 w-100" style="max-width: 900px">
       <h1 class="mt-3">Update Client Details</h1>
         <form action="/clients/<%-c._id%>?_method=PUT" method="POST" novalidate class="needs-validation">
 
