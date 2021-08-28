@@ -9,26 +9,26 @@
 
     <main class="container px-5 py-4 mx-auto w-100" style="max-width: 900px">
       <h1 class="mt-3">New Client Details</h1>
-        <form action="/clients" method="POST" novalidate class=" needs-validation">
+        <form action="/clients" method="POST" novalidate class="needs-validation">
 
         <div class="row mx-auto shadow-sm w-100 bg-white mt-4">
         <div class="form-row row p-2 border-bottom border-muted m-auto">
           <div class="col-6 my-auto fw-bold"><label for="inputEmail4">Salutation:</label></div>
           <div class="col-6 ">
             <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="client[salutation]" id="salutationMr" value="Mr">
+              <input class="form-check-input" type="radio" name="client[salutation]" id="salutationMr" value="Mr" required>
               <label class="form-check-label" for="salutationMr">Mr</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="client[salutation]" id="salutationMrs" value="Mrs">
+              <input class="form-check-input" type="radio" name="client[salutation]" id="salutationMrs" value="Mrs" required>
               <label class="form-check-label" for="salutationMrs">Mrs</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="client[salutation]" id="salutationMiss" value="Miss">
+              <input class="form-check-input" type="radio" name="client[salutation]" id="salutationMiss" value="Miss" required>
               <label class="form-check-label" for="salutationMiss">Miss</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="client[salutation]" id="salutationDr" value="Dr">
+              <input class="form-check-input" type="radio" name="client[salutation]" id="salutationDr" value="Dr" required>
               <label class="form-check-label" for="salutationDr">Dr</label>
           </div>
           </div>
@@ -36,13 +36,13 @@
         
         <div class="form-row row p-2 border-bottom border-muted m-auto">
           <div class="col-6 my-auto fw-bold"><label for="firstName">First Name:</label></div>
-          <div class="col-6 "><input type="text" class="form-control" id="firstName" name="client[firstName]" placeholder="First Name"></div>
+          <div class="col-6 "><input type="text" class="form-control" id="firstName" name="client[firstName]" placeholder="First Name" required></div>
         </div>
 
         
         <div class="form-row row p-2 border-bottom border-muted m-auto">
           <div class="col-6 my-auto fw-bold"><label for="lastName">Last Name:</label></div>
-          <div class="col-6 "><input type="text" class="form-control" id="lastName" placeholder="Last Name" name="client[lastName]"></div>
+          <div class="col-6 "><input type="text" class="form-control" id="lastName" placeholder="Last Name" name="client[lastName]" required></div>
         </div>
 
         <div class="form-row row p-2 border-bottom border-muted  m-auto">
@@ -51,9 +51,9 @@
 
           <div class="col-6 d-flex">
               <div class="col-4">
-                  <select name="client[dob][birthDay]" class="form-select" aria-label="Default select example">
+                  <select name="client[dob][birthDay]" class="form-select" aria-label="Default select example" required>
                       <label for="birthDay"></label>
-                      <option class="text-muted" selected value="0">Day</option>
+                      <option hidden class="text-muted" selected value="">Day</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>
@@ -89,9 +89,9 @@
               </div>
 
               <div class="col-4">
-                  <select name="client[dob][birthMonth]" class="form-select" aria-label="Default select example">
+                  <select name="client[dob][birthMonth]" class="form-select" aria-label="Default select example" required>
                       <label for="birthMonth"></label>
-                      <option class="text-muted" selected value="0">Month:</option>
+                      <option hidden class="text-muted" selected value="">Month:</option>
                       <option value="01">Jan</option>
                       <option value="02">Feb</option>
                       <option value="03">Mar</option>
@@ -108,9 +108,9 @@
               </div>
 
               <div class="col-4">
-                  <select name="client[dob][birthYear]" class="form-select" aria-label="Default select example">
+                  <select name="client[dob][birthYear]" class="form-select" aria-label="Default select example" required>
                     <label for="birthYear"></label>
-                    <option selected value="0">Year:</option>
+                    <option hidden selected value="">Year:</option>
                     <option value="1920">1920</option>
                     <option value="1921">1921</option>
                     <option value="1922">1922</option>
@@ -230,12 +230,12 @@
 
         <div class="form-row row p-2 border-bottom border-muted m-auto">
           <div class="col-6 my-auto fw-bold"><label for="phone">Phone Number:</label></div>
-          <div class="col-6 "><input type="text" class="form-control" id="phone" placeholder="Phone Number" name="client[phone]" ></div>
+          <div class="col-6 "><input type="text" class="form-control" id="phone" placeholder="Phone Number" name="client[phone]" required ></div>
         </div>
 
         <div class="form-row row p-2 border-bottom border-muted m-auto">
           <div class="col-6 my-auto fw-bold"><label for="email">Email:</label></div>
-          <div class="col-6 "><input type="text" class="form-control" id="email" placeholder="Email" name="client[email]" ></div>
+          <div class="col-6 "><input type="text" class="form-control" id="email" placeholder="Email" name="client[email]" required ></div>
         </div>
       </div>
 
@@ -245,18 +245,18 @@
         
             <div class="form-group col-12 mb-2">
               <label for="street">Street Address:</label>
-              <input type="text" class="form-control" id="street" placeholder="Street" name="client[address][street]" >
+              <input type="text" class="form-control" id="street" placeholder="Street" name="client[address][street]" required >
             </div>
         
             <div class="form-group col-6">
               <label for="suburb">Suburb:</label>
-              <input type="text" class="form-control" id="suburb" placeholder="Suburb" name="client[address][suburb]" >
+              <input type="text" class="form-control" id="suburb" placeholder="Suburb" name="client[address][suburb]" required >
             </div>
 
             <div class="form-group col-3">
               <label for='state'>State:</label>
-              <select name="client[address][state]" id="state" class="form-select">
-                <option value="0"  class="text-muted" selected>State</option>
+              <select name="client[address][state]" id="state" class="form-select" required>
+                <option value="" hidden class="text-muted" selected>State</option>
                 <option value="NSW">NSW</option>
                 <option value="QLD">QLD</option>
                 <option value="VIC">VIC</option>
@@ -268,7 +268,7 @@
 
             <div class="form-group col-3">
               <label for="postcode">Postcode:</label>
-              <input type="text" class="form-control" id="postcode" placeholder="Postcode" name="client[address][postcode]" >
+              <input type="text" class="form-control" id="postcode" placeholder="Postcode" name="client[address][postcode]" required >
             </div>
 
         </div>
@@ -286,25 +286,3 @@
 </body>
 
 <%- include('../partials/footer') -%>
-
-<script>
-//   (function () {
-//   'use strict'
-
-//   // Fetch all the forms we want to apply custom Bootstrap validation styles to
-//   var forms = document.querySelectorAll('.needs-validation')
-
-//   // Loop over them and prevent submission
-//   Array.prototype.slice.call(forms)
-//     .forEach(function (form) {
-//       form.addEventListener('submit', function (event) {
-//         if (!form.checkValidity()) {
-//           event.preventDefault()
-//           event.stopPropagation()
-//         }
-
-//         form.classList.add('was-validated')
-//       }, false)
-//     })
-// })()
-</script>
