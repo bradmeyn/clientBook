@@ -4,6 +4,8 @@ const path = require('path');
 const port =  process.env.PORT || 3000;
 const methodOverride = require('method-override');
 const {validateClient} = require('./middleware.js');
+const session = require('express-session');
+const flash = require('connect-flash');
 const Client = require('./models/client');
 const AppError = require('./utils/AppError');
 const catchAsync = require('./utils/catchAsync');
@@ -30,7 +32,27 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
 app.use(methodOverride('_method'));
-app.use(express.static('public'))
+app.use(express.static('public'));
+
+const sessionConfig = {
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+    maxAge: 1000 * 60 * 60 * 24 * 7
+  }
+
+};
+
+app.use(session(sessionConfig));
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  next();
+});
 
 //landing page
 app.get('/', (req, res) => {
@@ -44,15 +66,15 @@ app.route('/clients')
       res.render('clients/index', {clients});
   }))
   .post(validateClient, catchAsync (async (req, res) => {
-    
+
 
     let client = req.body.client;
-    client.address.suburb = client.address.suburb.toUpperCase();
     client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
     client.clientId = Date.now();
     console.log(client);
     
     const newClient = new Client(client);
+    req.flash('success', 'A new client has been created' );
     await newClient.save()
     .then(client => res.redirect(`clients/${client._id}`));
 
@@ -73,6 +95,11 @@ app.route('/clients')
 
       const id = req.params.id;
       const c = await Client.findById(id);
+      if(!c){
+        console.log('nothing found')
+        req.flash('error', 'Cannot find that client');
+        return res.redirect('/clients')
+      }
       res.render("clients/show", {c});
   }))
   .put(validateClient, catchAsync (async (req, res) => {
@@ -80,7 +107,8 @@ app.route('/clients')
       const id = req.params.id;
       const updatedClient = req.body.client;
       await Client.findByIdAndUpdate(id, {...updatedClient});
-      console.log(updatedClient);
+      req.flash('success', 'Details updated.' );
+   
     //   const c = await Client.findByIdAndUpdate(id);
     res.redirect(`${id}`);
   }))
@@ -94,6 +122,11 @@ app.route('/clients')
   app.get('/clients/:id/update', catchAsync( async (req, res) => {
     const id = req.params.id;
     const c = await Client.findById(id);
+    if(!c){
+      console.log('nothing found')
+      req.flash('error', 'Cannot find that client');
+      return res.redirect('/clients')
+    }
     res.render("clients/update", {c});
   }));
 

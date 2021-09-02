@@ -35,16 +35,16 @@
         
         <div class="form-row row p-2 border-bottom border-muted m-auto">
           <div class="col-6 my-auto fw-bold"><label for="firstName">First Name:</label></div>
-          <div class="col-6 "><input type="text" class="form-control" id="firstName" name="client[firstName]" placeholder="First Name" value="<%-c.firstName%>" required></div>
+          <div class="col-6 "><input type="text" class="form-control" id="firstName" name="client[firstName]" placeholder="First Name" value="<%-c.firstName%>" required pattern="^[^0-9]+$"></div>
         </div>
 
         
         <div class="form-row row p-2 border-bottom border-muted m-auto">
           <div class="col-6 my-auto fw-bold"><label for="lastName">Last Name:</label></div>
-          <div class="col-6 "><input type="text" class="form-control" id="lastName" placeholder="Last Name" name="client[lastName]" value="<%-c.lastName%>" required></div>
+          <div class="col-6 "><input type="text" class="form-control" id="lastName" placeholder="Last Name" name="client[lastName]" value="<%-c.lastName%>" required pattern="^[^0-9]+$"></div>
         </div>
 
-        <div class="form-row row p-2 border-bottom border-muted  m-auto">
+        <div class="form-row row p-2 border-bottom border-muted  m-auto"> 
 
           <div class="col-6 my-auto fw-bold"><label for="lastName">Date of Birth:</label></div>
 
@@ -234,7 +234,7 @@
 
         <div class="form-row row p-2 border-bottom border-muted m-auto">
           <div class="col-6 my-auto fw-bold"><label for="email">Email:</label></div>
-          <div class="col-6 "><input type="text" class="form-control" id="email" placeholder="Email" name="client[email]" value="<%-c.email%>" required></div>
+          <div class="col-6 "><input type="email" class="form-control" id="email" placeholder="Email" name="client[email]" value="<%-c.email%>" required></div>
         </div>
       </div>
 
@@ -249,7 +249,7 @@
         
             <div class="form-group col-6">
               <label for="suburb">Suburb:</label>
-              <input type="text" class="form-control" id="suburb" placeholder="Suburb" name="client[address][suburb]" value="<%- c.address.suburb%>" required>
+              <input type="text" class="form-control" id="suburb" placeholder="Suburb" name="client[address][suburb]" value="<%- c.address.suburb%>" required pattern="^[^0-9]+$">
             </div>
 
             <div class="form-group col-3">
@@ -267,7 +267,7 @@
 
             <div class="form-group col-3">
               <label for="postcode">Postcode:</label>
-              <input type="text" class="form-control" id="postcode" placeholder="Postcode" name="client[address][postcode]" value="<%- c.address.postcode%>" required>
+              <input type="text" class="form-control" id="postcode" placeholder="Postcode" name="client[address][postcode]" value="<%- c.address.postcode%>" required pattern="[0-9]{4}">
             </div>
 
         </div>
