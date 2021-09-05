@@ -6,13 +6,17 @@ const methodOverride = require('method-override');
 const {validateClient} = require('./middleware.js');
 const session = require('express-session');
 const flash = require('connect-flash');
-const Client = require('./models/client');
+
 const AppError = require('./utils/AppError');
 const catchAsync = require('./utils/catchAsync');
 const mongoose = require('mongoose');
+const Client = require('./models/client');
+const Company = require('./models/company');
 const dbUrl = 'mongodb://localhost:27017/client-book';
 
-// const ejs = require('ejs');
+
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
 
 
@@ -53,6 +57,14 @@ app.use((req, res, next) => {
   res.locals.error = req.flash('error');
   next();
 });
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(Company.authenticate()));
+
+
+passport.serializeUser(Company.serializeUser());
+passport.serializeUser(Company.deserializeUser());
 
 //landing page
 app.get('/', (req, res) => {
