@@ -3,15 +3,17 @@ const app = express();
 const path = require('path');
 const port =  process.env.PORT || 3000;
 const methodOverride = require('method-override');
-const {validateClient} = require('./middleware.js');
+
 const session = require('express-session');
 const flash = require('connect-flash');
 
-const AppError = require('./utils/AppError');
-const catchAsync = require('./utils/catchAsync');
+//routes
+const client_routes = require('./routes/clients');
+const user_routes = require('./routes/users');
+
 const mongoose = require('mongoose');
-const Client = require('./models/client');
-const Company = require('./models/company');
+
+const User = require('./models/user');
 const dbUrl = 'mongodb://localhost:27017/client-book';
 
 
@@ -60,91 +62,19 @@ app.use((req, res, next) => {
 
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(Company.authenticate()));
+passport.use(new LocalStrategy(User.authenticate()));
 
 
-passport.serializeUser(Company.serializeUser());
-passport.serializeUser(Company.deserializeUser());
+passport.serializeUser(User.serializeUser());
+passport.serializeUser(User.deserializeUser());
+
+app.use('/', user_routes);
+app.use('/clients', client_routes);
 
 //landing page
 app.get('/', (req, res) => {
   res.render('home')
 });
-
-//all clients
-app.route('/clients')
-    .get( catchAsync( async (req, res) => {
-      const clients = await Client.find({});
-      res.render('clients/index', {clients});
-  }))
-  .post(validateClient, catchAsync (async (req, res) => {
-
-
-    let client = req.body.client;
-    client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
-    client.clientId = Date.now();
-    console.log(client);
-    
-    const newClient = new Client(client);
-    req.flash('success', 'A new client has been created' );
-    await newClient.save()
-    .then(client => res.redirect(`clients/${client._id}`));
-
-
-    
-  }));
-
-  //new client page
-  app.get('/clients/new', (req, res) => {
-    res.render('clients/new');
-  });
-
-
-  //Single client
-  app.route('/clients/:id')
-  .get( catchAsync(async (req, res) => {
-   
-
-      const id = req.params.id;
-      const c = await Client.findById(id);
-      if(!c){
-        console.log('nothing found')
-        req.flash('error', 'Cannot find that client');
-        return res.redirect('/clients')
-      }
-      res.render("clients/show", {c});
-  }))
-  .put(validateClient, catchAsync (async (req, res) => {
-
-      const id = req.params.id;
-      const updatedClient = req.body.client;
-      await Client.findByIdAndUpdate(id, {...updatedClient});
-      req.flash('success', 'Details updated.' );
-   
-    //   const c = await Client.findByIdAndUpdate(id);
-    res.redirect(`${id}`);
-  }))
-  .delete( catchAsync(async (req, res) => {
-    const id = req.params.id;
-    await Client.findByIdAndDelete(id);
-    res.redirect('/clients')
-  }));
-
-
-  app.get('/clients/:id/update', catchAsync( async (req, res) => {
-    const id = req.params.id;
-    const c = await Client.findById(id);
-    if(!c){
-      console.log('nothing found')
-      req.flash('error', 'Cannot find that client');
-      return res.redirect('/clients')
-    }
-    res.render("clients/update", {c});
-  }));
-
-  app.all('*', (req, res, next) => {
-    next(new AppError("Page Not Found", 404))
-  });
 
 
   //custom error handler
