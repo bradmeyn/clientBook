@@ -8,15 +8,15 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 //routes
-const client_routes = require('./routes/clients');
-const user_routes = require('./routes/users');
+const client_routes = require('./routes/client_routes');
+const account_routes = require('./routes/account_routes');
 
 const mongoose = require('mongoose');
 
-const User = require('./models/user');
+const User = require('./models/user_model');
 const dbUrl = 'mongodb://localhost:27017/client-book';
 
-
+//passport
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 
@@ -60,15 +60,14 @@ app.use((req, res, next) => {
   next();
 });
 
+//passport persistent sessions
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
-
 passport.serializeUser(User.serializeUser());
-passport.serializeUser(User.deserializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-app.use('/', user_routes);
+app.use('/', account_routes);
 app.use('/clients', client_routes);
 
 //landing page

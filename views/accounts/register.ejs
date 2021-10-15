@@ -1,0 +1,71 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column" style="min-height: 100vh;">
+  <nav class="navbar navbar-light bg-white">
+    <div class="container d-flex justify-content-between">
+      <a class="navbar-brand fw-bold" href="#">
+        
+        ClientBook
+      </a>
+      <div class="d-flex">
+        
+          
+      </div>
+    </div>
+  </nav>
+
+
+
+    <!-- Navbar -->
+
+
+    <main class="d-flex flex-column h-100 w-100" style="background-color: #F5F5F5; min-height: 100vh;">
+      
+     <div class="container">
+      <div class="mx-auto bg-white shadow-sm px-4 py-5 position-relative" style="top: 100px; max-width: 600px;">
+        <h3 class="mb-4 fs-2">Register now</h3>
+        <p class="mb-4 fs-4">Discover why ClientBook is the fastest growing client management software in the world today</p>
+
+        <form action'/register' method="POST"  novalidate class="needs-validation">
+          <div class="row">
+            <div class="form-group col-md-6 pb-3">
+              <label for="firstName">First Name</label>
+              <input type="text" class="form-control" id="firstName" name="user[firstName]" placeholder="First name">
+            </div>
+            <div class="form-group col-md-6 pb-3">
+              <label for="lastName">Last Name</label>
+              <input type="text" class="form-control" id="lastName" placeholder="Last name" name="user[lastName]">
+            </div>
+          </div>
+          
+          <div class="form-group pb-3">
+            <label for="businessName">Business Name</label>
+            <input type="text" class="form-control" id="businessName" name="account[name]" placeholder="Business name">
+          </div>
+          <div class="form-group pb-3">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="user[email]" placeholder="Email">
+          </div>
+          <div class="form-group pb-3">
+            <label for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="user[username]" placeholder="Username">
+          </div>
+          <div class="form-group pb-4">
+            <label for="password">Password</label>
+            <input type="Password" class="form-control" id="password" name="user[password]" placeholder="Password">
+          </div>
+        
+          <button type="submit" class="btn btn-primary btn-lg">Sign up</button>
+        </form>
+      </div>
+     </div>
+
+
+
+    </main>
+
+
+
+</body>
+
+<%- include('../partials/footer') -%>

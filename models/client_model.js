@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-
+const Schema = mongoose.Schema;
 //client schema
-const clientSchema = new mongoose.Schema({
-    clientId: Number,
+const clientSchema = new Schema({
+    clientId: String,
     salutation: String,
     firstName: {
         type: String,

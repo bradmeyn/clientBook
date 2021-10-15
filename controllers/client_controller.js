@@ -1,5 +1,5 @@
 
-const Client = require('../models/client');
+const Client = require('../models/client_model');
 
 //Display all clients
 module.exports.client_index = async (req, res) => {
@@ -9,7 +9,7 @@ module.exports.client_index = async (req, res) => {
 
 //Handle client create on POST
 module.exports.client_create_post = async (req, res) => {
-    let client = req.body.client;
+    const client = req.body.client;
     client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
     client.clientId = Date.now();  
     const newClient = new Client(client);

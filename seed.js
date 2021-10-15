@@ -2,6 +2,7 @@
 const mongoose = require('mongoose');
 const Client = require('./models/client');
 const dbUrl = 'mongodb://localhost:27017/client-book';
+const { v4: uuidv4 } = require('uuid');
 
 mongoose.connect(dbUrl, {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -15,11 +16,22 @@ db.once('open', () => {
 
 const seedDb = async() => {
 
+
+
+    const accountOne = new Account({
+        accountId: uuidv4();
+        name: 'Test Account',
+
+    })
+
+
+
+
     //clear database
     await Client.deleteMany({});
 
     const cOne = new Client({
-        clientId: 1,
+        clientId: 'test1',
         salutation: 'Mr',
         firstName: "Bradley",
         lastName: "Meyn",
@@ -37,7 +49,7 @@ const seedDb = async() => {
     await cOne.save();
 
     const cTwo = new Client({
-        clientId: 2,
+        clientId: 'test2',
         salutation: 'Miss',
         firstName: "Emily",
         lastName: "Byram",
