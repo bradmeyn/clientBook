@@ -1,13 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const userSchema = require('./user_model').schema;
-const clientSchema = require('./client_model').schema;
+const User = require('./user_model');
+const Client = require('./client_model');
 
 const accountSchema = new Schema({
-    accountId: String,
-    name: String,
-    users: [userSchema],
-    // clients: [clientSchema]
+    name: {
+        type: String,
+        required: true
+    },
+    users: [{
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    }],
+    clients: [{
+        type: Schema.Types.ObjectId,
+        ref: "Client"
+    }]
 });
 
 

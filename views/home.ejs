@@ -9,12 +9,18 @@
             ClientBook
           </a>
           <div class="d-flex">
+            <% if(!currentUser){ %>
             <span class="nav-item">
                 <a class="nav-link link-secondary" href="/login">Log in</a>
               </span>
               <span class="nav-item">
                 <a class="btn btn-primary ms-4" href="/register">Try for free</a>
               </span>
+            <% } else { %>
+              <span class="nav-item">
+                <a class="btn btn-primary ms-4" href="/logout">Logout</a>
+              </span>
+            <% } %>
           </div>
         </div>
       </nav>
@@ -41,61 +47,51 @@
         <div class="container p-5 border border-primary">
 
           
-            <div class="row">
-                
-                <div class="col-lg-6">
-                    <h1 class="mb-4 fw-bold" style="font-size: 2.5rem">The CRM that wants you to use it less</h1>
-                    <p class="fs-5">Easily manage all your client information so you can spend less time on administraiton and more time delivering quality advice. </p>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="card">
+                  <i class="fad fa-address-card" style="font-size: 5rem; text-align: center;"></i>
+                <div class="card-body">
+                  <h5 class="card-title">Special title treatment</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                 
                 </div>
-                <div class="col-lg-6">
-                    <img class="d-block" style="max-width: 28rem;" src="/images/dashboard placeholder.png" alt="">
-                </div>
-                
+              </div>
             </div>
+            <div class="col-sm-4">
+              <div class="card">
+                <i class="fad fa-user-chart" style="font-size: 5rem; text-align: center;"></i>
+                <div class="card-body">
+                  <h5 class="card-title">Special title treatment</h5>
+                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                 
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card">
+                  <i class="fad fa-chart-pie" style="font-size: 5rem; text-align: center;"></i>
+                  <div class="card-body">
+                    <h5 class="card-title">Special title treatment</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                   
+                  </div>
+                </div>
+              </div>
+          </div>
         </div>
 
         <div class="container border border-primary p-5" style="">
 
             <h1 class="text-center pb-4">Demo Video</h1>
-            <img class="d-block m-auto" style="max-width: 28rem;" src="/images/dashboard placeholder.png" alt="">
+            <img class="d-block m-auto" style="max-width: 50rem;" src="/images/dashboard placeholder.png" alt="">
             
         </div>
 
         <div class="container border border-primary p-5" style="">
 
             
-            <div class="row">
-                <div class="col-sm-4">
-                  <div class="card">
-                      <img class="w-50 card-img-top" src="https://quickbooks.intuit.com/oidam/intuit/sa/en_us/quickbooks/illustration/utility/mobile-app-illo-utility-sbseg.svg" alt="">
-                    <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                     
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <img class="w-50 card-img-top" src="https://quickbooks.intuit.com/oidam/intuit/sa/en_us/quickbooks/illustration/utility/reports-illo-utility-sbseg.svg" alt="">
-                    <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
-                      <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                     
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="card">
-                        <img class="w-50 card-img-top" src="https://quickbooks.intuit.com/oidam/intuit/sa/en_us/quickbooks/illustration/utility/custom-invoice-illo-utility-sbseg.svg" alt="">
-                      <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                       
-                      </div>
-                    </div>
-                  </div>
-              </div>
+   
             
         </div>
         <div class="container p-5">

@@ -11,12 +11,17 @@
           </li>
           <li class="nav-item ps-3 w-75">
             <form class="d-flex m-0">
-              <input class="form-control me-2" type="search" placeholder="Search client name" aria-label="Search">
-              <button class="btn btn-outline-light" type="submit">Search</button>
+              <input class="form-control me-3" type="search" placeholder="Search client name" aria-label="Search">
+
             </form>
           </li>
-
+          <li class="nav-item text-nowrap">
+            <% if(currentUser){ %>
+              <a href="/logout" class="nav-link ps-3">Logout <i class="ps-1 bi bi-box-arrow-right"></i></a>
+        <% } %>
+          </li>
         </ul>
+        
       </div>
       
     </div>

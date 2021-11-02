@@ -1,9 +1,13 @@
 
 const Client = require('../models/client_model');
+const Account = require('../models/account_model');
+
 
 //Display all clients
 module.exports.client_index = async (req, res) => {
-    const clients = await Client.find({});
+  //show all clients associated with logged in users account
+    const account = req.user.account;
+    const clients = await Client.find({account});
     res.render('clients/index', {clients});
 }
 
@@ -11,7 +15,8 @@ module.exports.client_index = async (req, res) => {
 module.exports.client_create_post = async (req, res) => {
     const client = req.body.client;
     client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
-    client.clientId = Date.now();  
+    client.account = req.user.account;
+    client.clientId = Date.now();
     const newClient = new Client(client);
     req.flash('success', 'A new client has been created' );
     await newClient.save()
@@ -19,7 +24,7 @@ module.exports.client_create_post = async (req, res) => {
 
 }
 
-//Display Client create form on Get
+//Display new client form
 module.exports.client_create_get = (req, res) => {
     res.render('clients/new');
 }
@@ -28,7 +33,8 @@ module.exports.client_create_get = (req, res) => {
 module.exports.client_show = async (req, res) => {
    
     const id = req.params.id;
-    const c = await Client.findById(id);
+    const account = req.user.account;
+    const c = await Client.findOne({_id:id, account});
     if(!c){
       console.log('nothing found')
       req.flash('error', 'Cannot find that client');
@@ -40,7 +46,7 @@ module.exports.client_show = async (req, res) => {
 //Handle client deletion
 module.exports.client_delete = async (req, res) => {
     const id = req.params.id;
-    await Client.findByIdAndDelete(id);
+    await Client.findOneAndDelete({_id, account});
     res.redirect('/clients')
   }
 
@@ -60,11 +66,10 @@ module.exports.client_update_get = async (req, res) => {
 module.exports.client_update_put = async (req, res) => {
     const id = req.params.id;
     const updatedClient = req.body.client;
-    await Client.findByIdAndUpdate(id, {...updatedClient});
+    const account = req.user.account;
+    await Client.findOneAndUpdate({_id, account}, {...updatedClient});
     req.flash('success', 'Details updated.' );
- 
-  //   const c = await Client.findByIdAndUpdate(id);
-  res.redirect(`${id}`);
+    res.redirect(`${id}`);
 }
 
 

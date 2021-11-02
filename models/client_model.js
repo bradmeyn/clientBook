@@ -1,9 +1,14 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Account = require('./account_model');
 //client schema
 const clientSchema = new Schema({
     clientId: String,
     salutation: String,
+    account: {
+        type: Schema.Types.ObjectId,
+        ref: "Account"
+    },
     firstName: {
         type: String,
         trim: true,

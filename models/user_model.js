@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Account = require('./account_model');
 const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new Schema({
-    userId: String,
+    account: {
+        type: Schema.Types.ObjectId,
+        ref: "Account"
+    },
     username: String,
     firstName: String,
     lastName: String,
