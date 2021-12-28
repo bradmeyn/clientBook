@@ -46,7 +46,7 @@ module.exports.client_show = async (req, res) => {
 //Handle client deletion
 module.exports.client_delete = async (req, res) => {
     const id = req.params.id;
-    await Client.findOneAndDelete({_id, account});
+    await Client.findOneAndDelete({_id:id, account});
     res.redirect('/clients')
   }
 
@@ -72,6 +72,33 @@ module.exports.client_update_put = async (req, res) => {
     res.redirect(`${id}`);
 }
 
+//Handle search
+module.exports.client_search = async (req, res) => {
+  const query = req.body.query;
+
+  console.log(query);
+
+  let clients = await Client.aggregate([
+    {
+      $project: {
+         "fullName": { $concat : [ "$firstName", " ", "$lastName" ]},
+         "clientId": 1
+        }
+    },
+    {
+      $match: {
+        $or: [
+          {"fullName": { $regex: query, $options:'i'}},
+          {"clientId": { $regex: query, $options:'i'}}
+        ]
+      
+    }
+  }
+  ]).limit(10).exec();
+  console.log(clients)
+  res.send(clients);
+
+}
 
 
 

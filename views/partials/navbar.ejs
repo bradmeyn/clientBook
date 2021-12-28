@@ -1,6 +1,12 @@
 <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #434D4E;">
     <div class="container-fluid mx-5">
-      <a class="navbar-brand" href="/clients">ClientBook</a>
+      <a class="navbar-brand" href="/clients">
+        <% if(currentAccount){ %>
+          <%= currentAccount.name %>
+    <% } else { %>
+      ClientBook
+    <% } %>
+      </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,12 +15,48 @@
           <li class="nav-item">
             <a class="nav-link" href="/clients/new"><i class="pe-2 bi bi-plus-circle"></i>New Client</a>
           </li>
-          <li class="nav-item ps-3 w-75">
-            <form class="d-flex m-0">
-              <input class="form-control me-3" type="search" placeholder="Search client name" aria-label="Search">
 
+          <li class="nav-item ms-3 w-75" id="input-container" style="position: relative;">
+            <form class="d-flex m-0">
+              <input class="form-control" id="input-box" type="search" placeholder="Search client name" aria-label="Search" name="search">
             </form>
+
+            <ul class="dropdown dropdown--active" id="dropdown">
+              <!-- <li class="dropdown__item">
+                <a class="dropdown__link" href="#">
+                  <span class="client-name">
+                    Brad Meyn
+                  </span>
+                  <span class="client-number">
+                    (123654789656)
+                  </span>
+                </a>
+              </li>
+
+              <li class="dropdown__item">
+                <a class="dropdown__link" href="#">
+                <span class="client-name">
+                  Brad Meyn
+                </span>
+                <span class="client-number">
+                  (123654789656)
+                </span>
+                </a>
+              </li>
+ 
+              <li class="dropdown__item">
+                <a class="dropdown__link" href="#">
+                <span class="client-name">
+                  Brad Meyn
+                </span>
+                <span class="client-number">
+                  (123654789656)
+                </span>
+                </a>
+              </li> -->
+            </ul>
           </li>
+
           <li class="nav-item text-nowrap">
             <% if(currentUser){ %>
               <a href="/logout" class="nav-link ps-3">Logout <i class="ps-1 bi bi-box-arrow-right"></i></a>

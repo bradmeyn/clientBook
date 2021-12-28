@@ -40,6 +40,12 @@ router.get('/logout', (req, res) => {
     isLoggedIn,
     catchAsync(client_controller.client_delete));
 
+  //Search route for navbar
+  router.route('/search')
+  .post(
+    isLoggedIn,
+    catchAsync(client_controller.client_search));
+
 
   router.get('/:id/update', catchAsync( client_controller.client_update_get));
 

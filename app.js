@@ -14,6 +14,8 @@ const account_routes = require('./routes/account_routes');
 const mongoose = require('mongoose');
 
 const User = require('./models/user_model');
+
+const Account = require('./models/account_model');
 const dbUrl = 'mongodb://localhost:27017/client-book';
 
 //passport
@@ -39,6 +41,8 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
+app.use(express.json());
+
 
 const sessionConfig = {
   secret: 'secret',
@@ -63,9 +67,14 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use((req, res, next) => {
+app.use( async (req, res, next) => {
   //make current user details available across all templates
   res.locals.currentUser = req.user;
+
+  if(req.user){
+    const account = req.user.account
+    res.locals.currentAccount = await Account.findById(account);
+  }
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
   next();
@@ -88,7 +97,12 @@ app.get('/', (req, res) => {
     if(err.name === 'CastError') {err.message = `Error: Client ID of ${err.value} is not valid`, err.statusCode = 400};
     if(err.code === 11000) {err.message = `Error: Client with ID of ${err.value} already exists`, err.statusCode = 400};
     res.status(statusCode).render('error', {err});
-  })
+  });
+
+
+  // app.post('/search', (req, res) => {
+  // console.log(req.body);
+  // })
 
 
 app.listen(port,() => {
