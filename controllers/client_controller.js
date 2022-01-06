@@ -66,9 +66,10 @@ module.exports.client_update_get = async (req, res) => {
 //Handle client update on PUT
 module.exports.client_update_put = async (req, res) => {
     const id = req.params.id;
-    const updatedClient = req.body.client;
+    const client = req.body.client;
+    client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
     const account = req.user.account;
-    await Client.findOneAndUpdate({_id, account}, {...updatedClient});
+    await Client.findOneAndUpdate({_id:id, account}, {...client});
     req.flash('success', 'Details updated.' );
     res.redirect(`${id}`);
 }

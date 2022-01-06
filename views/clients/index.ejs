@@ -1,40 +1,33 @@
 <%- include('../partials/head') -%>
 
-<body class="d-flex flex-column vh-100 ">
-    <%- include('../partials/navbar') -%>
-    
-<main class="container">
-  <%- include('../partials/flash') -%> 
-    <table class="table table-striped mt-5">
-        <thead>
-          <tr>
-            <th scope="col">Client Number</th>
-            <th scope="col">Full Name</th>
-            
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-          </tr>
-        </thead>
-        <tbody>
+<body class="d-flex flex-column" style="min-height: 100vh">
+  <%- include('../partials/navbar') -%>
 
-            <% clients.forEach(client => { %>
+  <main class="container">
+    <%- include('../partials/flash') -%>
+    <table class="table table-striped" style="margin: 5rem 0">
+      <thead>
+        <tr>
+          <th scope="col">Client Number</th>
+          <th scope="col">Full Name</th>
 
-                <tr>
-                    <td><a href="/clients/<%-client._id%>"><%=client.clientId %></a></td>
-                    <td> <%= client.firstName %> <%= client.lastName %> </td>
-                   
-                    <td> <%= client.email %> </td>
-                    <td> <%= client.phone %> </td>
-                  </tr>
+          <th class="d-none d-md-table-cell" scope="col">Email</th>
+          <th class="d-none d-md-table-cell" scope="col">Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% clients.forEach(client => { %>
 
-
-            <% }) %>
-
-        </tbody>
-      </table>
-
-</main>
-    
+        <tr>
+          <td><a href="/clients/<%-client._id%>"><%=client.clientId %></a></td>
+          <td><%= client.firstName %> <%= client.lastName %></td>
+          <td class="d-none d-md-table-cell"><%= client.email %></td>
+          <td class="d-none d-md-table-cell"><%= client.phone %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </main>
 </body>
 
 <%- include('../partials/footer') -%>

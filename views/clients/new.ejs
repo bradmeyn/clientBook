@@ -7,8 +7,8 @@
     <!-- Navbar -->
 
 
-    <main class="container px-5 py-4 mx-auto w-100" style="max-width: 900px">
-      <h1 class="mt-3">New Client Details</h1>
+    <main class="container px-5 py-4 mx-auto w-100" style="max-width: 900px; margin: 3rem;">
+      <h3 class="mt-3">New Client Details</h3>
         <form action="/clients" method="POST" novalidate class="needs-validation">
 
         <div class="row mx-auto shadow-sm w-100 bg-white mt-4">
@@ -91,7 +91,7 @@
               <div class="col-4">
                   <select name="client[dob][birthMonth]" class="form-select" aria-label="Default select example" required>
                       <label for="birthMonth"></label>
-                      <option hidden class="text-muted" selected value="">Month:</option>
+                      <option hidden class="text-muted" selected value="">Month</option>
                       <option value="01">Jan</option>
                       <option value="02">Feb</option>
                       <option value="03">Mar</option>
@@ -110,7 +110,7 @@
               <div class="col-4">
                   <select name="client[dob][birthYear]" class="form-select" aria-label="Default select example" required>
                     <label for="birthYear"></label>
-                    <option hidden selected value="">Year:</option>
+                    <option hidden selected value="">Year</option>
                     <option value="1920">1920</option>
                     <option value="1921">1921</option>
                     <option value="1922">1922</option>
@@ -223,7 +223,7 @@
 
 
 
-      <h4 class="mt-5 mb-3">Contact Details</h4>
+      <h5 class="mt-5 mb-3">Contact Details</h5>
       <div class="row mx-auto shadow-sm w-100 bg-white mb-4">
 
 
@@ -240,7 +240,7 @@
       </div>
 
 
-      <h4 class="mt-5 mb-3">Address</h4>
+      <h5 class="mt-5 mb-3">Address</h5>
         <div class="row mx-auto shadow-sm w-100 bg-white mb-4 p-2 ">
         
             <div class="form-group col-12 mb-2">
@@ -282,7 +282,7 @@
     </main>
 </div>
 
-
+<%- include('../partials/footer') -%>
 </body>
 
-<%- include('../partials/footer') -%>
+

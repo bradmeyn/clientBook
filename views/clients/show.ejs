@@ -1,97 +1,81 @@
 <%- include('../partials/head') -%>
 
-<body class="d-flex flex-column vh-100" style="min-height: 100vh;">
-    <%- include('../partials/navbar') -%>
-    
-    <div class="d-flex h-100">
-      
-<div class="d-flex w-100" style="background-color: #F5F5F5;">
-<%- include('../partials/sidenav') -%>
- 
-<main class="container border px-5  mx-auto w-100 position-relative h-100" style="max-width: 900px">
-  <%- include('../partials/flash') -%>
-  <div class="d-flex justify-content-between align-items-center mt-3">
-     
-    <h1 class="mt-3">Client Details</h1>
-    <a href="<%-c._id%>/update" class="btn btn-primary"><i class="bi bi-pencil-square pe-2"></i>Edit Details</a>
-  </div>
-  
-  <div class="row mx-auto shadow-sm w-100 bg-white mt-4">
+<body class="d-flex flex-column" style="min-height: 100vh">
+  <%- include('../partials/navbar') -%>
 
-    <div class="row p-2 border-bottom border-muted m-auto">
-      <div class="col-6 fw-bold">Client Number</div>
-      <div class="col-6 "> <%-c.clientId %></div>
-    </div>
+  <div class="d-flex h-100">
+    <div class="d-flex w-100" style="background-color: #f5f5f5; height: 100%">
+      <%- include('../partials/flash') -%> <%- include('../partials/sidenav')
+      -%>
 
-    <div class="row p-2 border-bottom border-muted m-auto">
-      <div class="col-6 fw-bold">Salutation:</div>
-      <div class="col-6 "><%-c.salutation %></div>
-    </div>
+      <main
+        class="container px-5 mx-auto w-100 position-relative h-100"
+        style="max-width: 900px; margin-top: 3rem; margin-bottom: 3rem"
+      >
+        <div class="d-flex justify-content-between align-items-center mt-3">
+          <h3 class="mt-3">Client Details</h3>
+          <a href="<%-c._id%>/update" class="btn btn-primary"
+            ><i class="bi bi-pencil-square pe-2"></i>Edit Details</a
+          >
+        </div>
 
-   <div class="row p-2 border-bottom border-muted m-auto">
-     <div class="col-6 fw-bold">First Name:</div>
-     <div class="col-6 "><%-c.firstName%></div>
-   </div>
-  
-   <div class="row p-2 border-bottom border-muted m-auto">
-    <div class="col-6 fw-bold">Last Name:</div>
-    <div class="col-6"><%-c.lastName%></div>
-  </div>
-  
-  <div class="row p-2 border-bottom border-muted m-auto">
-    <div class="col-6 fw-bold">Date of Birth:</div>
-    <div class="col-6"><%-c.dob.fullDate %> (31 years old)</div>
-  </div>
+        <div class="row mx-auto shadow-sm w-100 bg-white mt-4">
+          <div class="row p-2 border-bottom border-muted m-auto">
+            <div class="col-6 fw-bold">Client Number</div>
+            <div class="col-6"><%-c.clientId %></div>
+          </div>
 
-  <!-- <div class="row p-2 border-bottom border-muted m-auto">
+          <div class="row p-2 border-bottom border-muted m-auto">
+            <div class="col-6 fw-bold">Salutation:</div>
+            <div class="col-6"><%-c.salutation %></div>
+          </div>
+
+          <div class="row p-2 border-bottom border-muted m-auto">
+            <div class="col-6 fw-bold">First Name:</div>
+            <div class="col-6"><%-c.firstName%></div>
+          </div>
+
+          <div class="row p-2 border-bottom border-muted m-auto">
+            <div class="col-6 fw-bold">Last Name:</div>
+            <div class="col-6"><%-c.lastName%></div>
+          </div>
+
+          <div class="row p-2 border-bottom border-muted m-auto">
+            <div class="col-6 fw-bold">Date of Birth:</div>
+            <div class="col-6"><%-c.dob.fullDate%> (31 years old)</div>
+          </div>
+
+          <!-- <div class="row p-2 border-bottom border-muted m-auto">
     <div class="col-6 fw-bold">Marital Status</div>
     <div class="col-6">Married <a class="link link-primary">(Emily Byram)</a></div>
   </div> -->
-</div>
+        </div>
 
+        <h5 class="mt-5 mb-3">Contact Details</h5>
+        <div class="row mb-4 mx-auto shadow-sm w-100 bg-white">
+          <div class="row p-2 border-bottom border-muted m-auto">
+            <div class="col-6 fw-bold">Home Address:</div>
+            <div class="col-6">
+              <div class="col-12"><%-c.address.street%>,</div>
+              <div class="col-12 mt-1">
+                <%-c.address.suburb%> <%-c.address.state%>
+                <%-c.address.postcode%>
+              </div>
+            </div>
+          </div>
 
-  <h4 class="mt-5 mb-3">Contact Details</h4>
-  <div class="row mb-4 mx-auto shadow-sm w-100 bg-white">
+          <div class="row p-2 border-bottom border-muted m-auto">
+            <div class="col-6 fw-bold">Phone Number:</div>
+            <div class="col-6"><%-c.phone %></div>
+          </div>
 
-    <div class="row p-2 border-bottom border-muted m-auto">
-      <div class="col-6 fw-bold">Home Address:</div>
-      <div class="col-6">
-        <div class="col-12"><%-c.address.street%>,</div>
-        <div class="col-12 mt-1"><%-c.address.suburb%> <%-c.address.state%> <%-c.address.postcode%></div>
-      </div>
+          <div class="row p-2 border-bottom border-muted m-auto">
+            <div class="col-6 fw-bold">Email:</div>
+            <div class="col-6"><%-c.email %></div>
+          </div>
+        </div>
+      </main>
     </div>
-  
-    <div class="row p-2 border-bottom border-muted m-auto">
-      <div class="col-6 fw-bold">Phone Number:</div>
-      <div class="col-6"><%-c.phone %></div>
-    </div>
-  
-    <div class="row p-2 border-bottom border-muted m-auto">
-      <div class="col-6 fw-bold">Email:</div>
-      <div class="col-6"><%-c.email %></div>
-    </div>
-
-
-</div>
-
-  
-  </main>
   </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
+  <%- include('../partials/footer') -%>
 </body>
-
-<%- include('../partials/footer') -%>

@@ -1,28 +1,50 @@
-<nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #434D4E;">
-    <div class="container-fluid mx-5">
-      <a class="navbar-brand" href="/clients">
-        <% if(currentAccount){ %>
-          <%= currentAccount.name %>
-    <% } else { %>
-      ClientBook
-    <% } %>
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse ms-3" id="navbarNav">
-        <ul class="navbar-nav w-100">
-          <li class="nav-item">
-            <a class="nav-link" href="/clients/new"><i class="pe-2 bi bi-plus-circle"></i>New Client</a>
-          </li>
+<nav
+  class="navbar navbar-expand-lg navbar-dark shadow-sm px-2"
+  style="background-color: #434d4e"
+>
+  <div class="container-fluid mx-2" style="border: solid 1px blue">
+    <a class="navbar-brand" href="/clients" style="border: solid 1px red">
+      <% if(currentAccount){ %> <%= currentAccount.name %> <% } else { %>
+      ClientBook <% } %>
+    </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-          <li class="nav-item ms-3 w-75" id="input-container" style="position: relative;">
-            <form autocomplete="off" class="d-flex m-0">
-              <input class="form-control" id="input-box" type="search" placeholder="Search client name" aria-label="Search" name="search">
-            </form>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav w-100 d-flex justify-content-between">
+        <li class="nav-item text-nowrap px-3">
+          <a class="nav-link" href="/clients/new">
+            <i class="me-2 bi bi-plus-circle"></i>New Client
+          </a>
+        </li>
 
-            <ul class="dropdown dropdown--active" id="dropdown">
-              <!-- <li class="dropdown__item">
+        <li
+          class="nav-item w-100 px-3"
+          id="input-container"
+          style="max-width: 80rem"
+        >
+          <form autocomplete="off" class="d-flex m-0">
+            <input
+              class="form-control"
+              id="input-box"
+              type="search"
+              placeholder="Search client"
+              aria-label="Search"
+              name="search"
+            />
+          </form>
+
+          <ul class="dropdown dropdown--active" id="dropdown">
+            <!-- <li class="dropdown__item">
                 <a class="dropdown__link" href="#">
                   <span class="client-name">
                     Brad Meyn
@@ -54,17 +76,17 @@
                 </span>
                 </a>
               </li> -->
-            </ul>
-          </li>
+          </ul>
+        </li>
 
-          <li class="nav-item text-nowrap">
-            <% if(currentUser){ %>
-              <a href="/logout" class="nav-link ps-3">Logout <i class="ps-1 bi bi-box-arrow-right"></i></a>
-        <% } %>
-          </li>
-        </ul>
-        
-      </div>
-      
+        <li class="nav-item text-nowrap px-3">
+          <% if(currentUser){ %>
+          <a href="/logout" class="nav-link"
+            ><i class="pe-2 bi bi-box-arrow-right"></i>Logout</a
+          >
+          <% } %>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>

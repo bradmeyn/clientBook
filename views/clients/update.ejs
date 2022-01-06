@@ -7,7 +7,7 @@
   <%- include('../partials/sidenav') -%>
 
   <main class="container px-5 py-4 mx-auto h-100 w-100" style="max-width: 900px">
-      <h1 class="mt-3">Update Client Details</h1>
+      <h3 class="mt-3">Update Client Details</h3>
         <form action="/clients/<%-c._id%>?_method=PUT" method="POST" novalidate class="needs-validation">
 
         <div class="row mx-auto shadow-sm w-100 bg-white mt-4">
@@ -50,7 +50,7 @@
 
           <div class="col-6 d-flex">
               <div class="col-4">
-                  <select name="client[birthDay]" class="form-select" aria-label="Default select example" required>
+                  <select name="client[dob][birthDay]" class="form-select" aria-label="Default select example" required>
                       <label for="birthDay"></label>
                       <option class="birthDay" selected hidden value="">Day</option>
                       <option class="birthDay" value="1">1</option>
@@ -88,9 +88,9 @@
               </div>
 
               <div class="col-4">
-                  <select name="client[birthMonth]" class="form-select" aria-label="Default select example" required>
+                  <select name="client[dob][birthMonth]" class="form-select" aria-label="Default select example" required>
                       <label for="birthMonth"></label>
-                      <option class="birthMonth" selected hidden value="">Month:</option>
+                      <option class="birthMonth" selected hidden value="">Month</option>
                       <option class="birthMonth" value="01">Jan</option>
                       <option class="birthMonth" value="02">Feb</option>
                       <option class="birthMonth" value="03">Mar</option>
@@ -107,9 +107,9 @@
               </div>
 
               <div class="col-4">
-                  <select name="client[birthYear]" class="form-select" aria-label="Default select example" required>
+                  <select name="client[dob][birthYear]" class="form-select" aria-label="Default select example" required>
                     <label for="birthYear"></label>
-                    <option class="birthYear" selected hidden value="">Year:</option>
+                    <option class="birthYear" selected hidden value="">Year</option>
                     <option class="birthYear" value="1920">1920</option>
                     <option class="birthYear" value="1921">1921</option>
                     <option class="birthYear" value="1922">1922</option>
@@ -222,7 +222,7 @@
 
 
 
-      <h4 class="mt-5 mb-3">Update Contact Details</h4>
+      <h5 class="mt-5 mb-3">Update Contact Details</h5>
       <div class="row mx-auto shadow-sm w-100 bg-white mb-4">
 
 
@@ -239,7 +239,7 @@
       </div>
 
 
-      <h4 class="mt-5 mb-3">Update Address</h4>
+      <h5 class="mt-5 mb-3">Update Address</h5>
         <div class="row mx-auto shadow-sm w-100 bg-white mb-4 p-2 ">
         
             <div class="form-group col-12 mb-2">
@@ -322,7 +322,7 @@ const addressState = '<%-c.address.state%>';
 prefilSelect(addressState, stateOptions);
 
 
-const dayOptions = document.querySelectorAll('.birthday');
+const dayOptions = document.querySelectorAll('.birthDay');
 const day = '<%-c.dob.birthDay%>';
 prefilSelect(day, dayOptions);
 
