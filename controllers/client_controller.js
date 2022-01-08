@@ -5,10 +5,33 @@ const Account = require('../models/account_model');
 
 //Display all clients
 module.exports.client_index = async (req, res) => {
+
   //show all clients associated with logged in users account
     const account = req.user.account;
-    const clients = await Client.find({account});
-    res.render('clients/index', {clients});
+    const resultCount = await Client.find({account}).count();
+    
+    const resultsPerPage = 5;
+ 
+    const pageCount = Math.ceil(resultCount/resultsPerPage);
+
+    //current page
+    let page = req.query.page ? Number(req.query.page) : 1;
+
+    if(page > pageCount){
+      //redirect to last
+      res.redirect('/?page='+encodeURIComponent(pageCount));
+    } else if (page < 1){
+      //redirect to first
+      res.redirect('/?page='+encodeURIComponent('1'));
+    }
+    //Limit starting number
+    const startLimit = (page - 1) * resultsPerPage;
+
+    //ge the relevant number of posts
+    const clients = await Client.find({account}).skip(startLimit).limit(resultsPerPage);
+
+    res.render('clients/index', {clients, pageCount, page});
+    
 }
 
 //Handle client create on POST
@@ -35,11 +58,23 @@ module.exports.client_show = async (req, res) => {
     const id = req.params.id;
     const account = req.user.account;
     const c = await Client.findOne({_id:id, account});
+  
+    
     if(!c){
       console.log('nothing found')
       req.flash('error', 'Cannot find that client');
       return res.redirect('/clients')
     }
+    //calculate age
+    let today = new Date();
+    let birthDate = new Date(c.dob.fullDate);
+    let age = today.getFullYear() - birthDate.getFullYear();
+    let m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    console.log(age);
+    c.age = age;
     res.render("clients/show", {c});
 }
 
@@ -73,6 +108,20 @@ module.exports.client_update_put = async (req, res) => {
     req.flash('success', 'Details updated.' );
     res.redirect(`${id}`);
 }
+
+
+//Display new assets/liabilities form
+module.exports.asset_show_get = (req, res) => {
+  res.render('clients/new/wealth');
+}
+
+
+
+
+
+
+
+
 
 //Handle search
 module.exports.client_search = async (req, res) => {

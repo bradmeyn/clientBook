@@ -5,29 +5,61 @@
 
   <main class="container">
     <%- include('../partials/flash') -%>
-    <table class="table table-striped" style="margin: 5rem 0">
-      <thead>
-        <tr>
-          <th scope="col">Client Number</th>
-          <th scope="col">Full Name</th>
 
-          <th class="d-none d-md-table-cell" scope="col">Email</th>
-          <th class="d-none d-md-table-cell" scope="col">Phone</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% clients.forEach(client => { %>
+    <div class="col-md-10 offset-md-1" style="min-height: 20rem;">
+      <h3 class="mt-5 mb-4">All Clients</h3>
+      <table class="table table-striped" >
+        <thead>
+          <tr>
+            <th scope="col">Client Number</th>
+            <th scope="col">Full Name</th>
 
-        <tr>
-          <td><a href="/clients/<%-client._id%>"><%=client.clientId %></a></td>
-          <td><%= client.firstName %> <%= client.lastName %></td>
-          <td class="d-none d-md-table-cell"><%= client.email %></td>
-          <td class="d-none d-md-table-cell"><%= client.phone %></td>
-        </tr>
-        <% }) %>
-      </tbody>
-    </table>
+            <th class="d-none d-md-table-cell" scope="col">Email</th>
+            <th class="d-none d-md-table-cell" scope="col">Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% clients.forEach(client => { %>
+
+          <tr>
+            <td>
+              <a href="/clients/<%-client._id%>"><%=client.clientId %></a>
+            </td>
+            <td><%= client.firstName %> <%= client.lastName %></td>
+            <td class="d-none d-md-table-cell"><%= client.email %></td>
+            <td class="d-none d-md-table-cell"><%= client.phone %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+
+      
+    </div>
+
+    <nav aria-label="..." class="mt-5">
+      <ul class="pagination justify-content-center">
+
+        <% let pageNum, next, previous; %>
+        <% for(let i = 0; i < pageCount; i++){ pageNum = i + 1; next = page + 1; previous = page - 1; %>
+        <li
+        <% if(page == pageNum){  %>
+        class="page-item active">
+        <% } else { %>
+        class="page-item"
+        >
+        <% } %>
+          <a class="page-link" href="/clients?page=<%=pageNum%>"
+            ><%=pageNum%></a>
+        </li>
+        <% } %>
+        <% if(page + 1 <= pageCount){ %>
+        <li class="page-item">
+          <a class="page-link" href="/clients?page=<%=next%>">Next</a>
+        </li>
+      <% } %>
+      </ul>
+    </nav>
   </main>
-</body>
 
-<%- include('../partials/footer') -%>
+  <%- include('../partials/footer') -%>
+</body>

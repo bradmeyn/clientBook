@@ -1,31 +1,39 @@
-<div class="d-flex flex-column  flex-shrink-0 p-3 bg-light border-end border-muted" style="width: 200px;">
+<div
+  class="d-flex flex-column flex-shrink-0 p-3 bg-light border-end border-muted"
+  style="width: 200px"
+>
+  <a
+    href="/clients/<%-c._id%>"
+    class="link-dark px-2"
+    style="text-decoration: none"
+    ><i class="me-2 bi bi-person"></i><%-c.firstName%> <%-c.lastName%></a
+  >
 
-    <a href="/clients/<%-c._id%>" class="link-dark px-2" style="text-decoration: none;"><i class="me-2 bi bi-person"></i><%-c.firstName%> <%-c.lastName%></a>
-
-    <hr>
-    <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item">
-        <a href="#" class="nav-link active" aria-current="page">
-            <i class="me-2 bi bi-person-lines-fill"></i>
-          Details
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark ">
-            <i class="me-2 bi bi-house-door"></i>
-          Assets
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link link-dark">
-            <i class="me-2 bi bi-cash-coin"></i>
-          Cashflow
-        </a>
-      </li>
-     
-    </ul>
-    <hr>
-    <form action="/clients/<%-c._id%>?_method=DELETE" method="POST" class="w-100">
-      <button class="d-block btn btn-danger mx-auto"><i class="me-2 bi bi-trash"></i>Delete Client</button>
-    </form>
-  </div>
+  <hr />
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li class="nav-item">
+      <a href="#" class="nav-link active" aria-current="page">
+        <i class="me-2 bi bi-person-lines-fill"></i>
+        Details
+      </a>
+    </li>
+    <li>
+      <a href="#" class="nav-link link-dark">
+        <i class="me-2 bi bi-house-door"></i>
+        Assets
+      </a>
+    </li>
+    <li>
+      <a href="#" class="nav-link link-dark">
+        <i class="me-2 bi bi-cash-coin"></i>
+        Cashflow
+      </a>
+    </li>
+  </ul>
+  <hr />
+  <form action="/clients/<%-c._id%>?_method=DELETE" method="POST" class="w-100">
+    <button class="d-block btn btn-danger mx-auto">
+      <i class="me-2 bi bi-trash"></i>Delete Client
+    </button>
+  </form>
+</div>

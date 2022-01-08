@@ -1,3 +1,4 @@
+const { number } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Account = require('./account_model');
@@ -43,7 +44,19 @@ const clientSchema = new Schema({
         },
         state: String,
         postcode: String,
-    }
+    },
+    assets: [{
+        name: String,
+        type: String,
+        amount: Number
+    }],
+    liabilities: [{
+        name: String,
+        type: String,
+        provider: String,
+        outstanding: Number,
+        rate: Number,
+    }],
 
 });
 
