@@ -29,8 +29,8 @@ inputContainer.addEventListener('click', e => {
   const displayClients = clients => {
     dropdown.innerHTML = '';
     dropdown.classList.add('dropdown--active');
+   if(clients.length){
     clients.forEach(client => {
-  
       const li = document.createElement('li');
       dropdown.appendChild(li);
       li.classList.add('dropdown__item');
@@ -46,6 +46,19 @@ inputContainer.addEventListener('click', e => {
         </a>
       `
     });
+   } else {
+    const li = document.createElement('li');
+    dropdown.appendChild(li);
+    li.classList.add('dropdown__item');
+
+    li.innerHTML = `
+      <span class="dropdown__link">
+          <span class="client-name">
+            No client found
+          </span>
+      </span>
+    `
+   }
   }
 
 const searchClients = async e => {
@@ -55,3 +68,13 @@ const searchClients = async e => {
 }
 
 inputBox.addEventListener('input', searchClients);
+
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
+
+
+
+var myModal = new bootstrap.Modal(document.getElementById('myModal'), options);
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})

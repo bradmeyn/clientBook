@@ -1,17 +1,41 @@
-
-
 <% if(success && success.length){ %>
-<div class="alert alert-success alert-dismissible fade show w-100 my-3" style="max-width: 500px; left: 50%; transform: translateX(-50%); position: absolute;" role="alert">
-    <strong class="d-block text-center"><%- success %></strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<div
+  class="alert alert-primary alert-dismissible fade show w-100 my-3"
+  style="
+    max-width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+  "
+  role="alert"
+>
+  <strong class="d-block text-center"><%- success %></strong>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
 </div>
 
-<% } %>
-
-<% if(error && error.length){ %>
-<div class="alert alert-danger alert-dismissible fade show w-100 my-4" style="max-width: 500px; left: 50%; transform: translateX(-50%); position: absolute;" role="alert">
-    <strong class="d-block text-center"><%- error %></strong>
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+<% } %> <% if(error && error.length){ %>
+<div
+  class="alert alert-danger alert-dismissible fade show w-100 my-4"
+  style="
+    max-width: 500px;
+    left: 50%;
+    transform: translateX(-50%);
+    position: absolute;
+  "
+  role="alert"
+>
+  <strong class="d-block text-center"><%- error %></strong>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
 </div>
 
 <% } %>

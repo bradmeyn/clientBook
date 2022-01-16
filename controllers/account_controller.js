@@ -71,7 +71,7 @@ module.exports.account_login_get = (req, res) => {
 
 //Handle user login on POST
 module.exports.account_login_post = async (req, res) => {
-req.flash('success', 'Welcome back');
+req.flash('success', 'Welcome back ' + req.user.firstName);
 res.redirect('/clients')
 }
 

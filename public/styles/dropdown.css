@@ -20,6 +20,7 @@
   background-color: #ffffff;
   border-top: 2px solid #eeeeee;
   width: 100%;
+  padding: 0;
   display: block;
   list-style: none;
 }
@@ -34,9 +35,6 @@
   width: 100%;
   color: #333333;
   text-decoration: none;
-}
-
-.client-name {
 }
 
 .client-number {

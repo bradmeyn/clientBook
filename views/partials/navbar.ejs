@@ -2,7 +2,7 @@
   class="navbar navbar-expand-lg navbar-dark shadow-sm px-2"
   style="background-color: #434d4e"
 >
-  <div class="container-fluid mx-2">
+  <div class="container mx-auto">
     <a class="navbar-brand" href="/clients">
       <% if(currentAccount){ %> <%= currentAccount.name %> <% } else { %>
       ClientBook <% } %>
@@ -27,12 +27,8 @@
           </a>
         </li>
 
-        <li
-          class="nav-item w-100 px-3"
-          id="input-container"
-          style="max-width: 80rem"
-        >
-          <form autocomplete="off" class="d-flex m-0">
+        <li class="nav-item w-100 position-relative" id="input-container">
+          <form autocomplete="off" class="d-flex">
             <input
               class="form-control"
               id="input-box"
@@ -43,40 +39,7 @@
             />
           </form>
 
-          <ul class="dropdown dropdown--active" id="dropdown">
-            <!-- <li class="dropdown__item">
-                <a class="dropdown__link" href="#">
-                  <span class="client-name">
-                    Brad Meyn
-                  </span>
-                  <span class="client-number">
-                    (123654789656)
-                  </span>
-                </a>
-              </li>
-
-              <li class="dropdown__item">
-                <a class="dropdown__link" href="#">
-                <span class="client-name">
-                  Brad Meyn
-                </span>
-                <span class="client-number">
-                  (123654789656)
-                </span>
-                </a>
-              </li>
- 
-              <li class="dropdown__item">
-                <a class="dropdown__link" href="#">
-                <span class="client-name">
-                  Brad Meyn
-                </span>
-                <span class="client-number">
-                  (123654789656)
-                </span>
-                </a>
-              </li> -->
-          </ul>
+          <ul class="dropdown dropdown--active" id="dropdown"></ul>
         </li>
 
         <li class="nav-item text-nowrap px-3">

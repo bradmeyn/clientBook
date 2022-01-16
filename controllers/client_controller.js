@@ -8,7 +8,7 @@ module.exports.client_index = async (req, res) => {
 
   //show all clients associated with logged in users account
     const account = req.user.account;
-    const resultCount = await Client.find({account}).count();
+    const resultCount = await Client.find({account}).countDocuments();
     
     const resultsPerPage = 5;
  
@@ -82,7 +82,8 @@ module.exports.client_show = async (req, res) => {
 module.exports.client_delete = async (req, res) => {
     const id = req.params.id;
     const account = req.user.account;
-    await Client.findOneAndDelete({_id:id, account});
+    const c = await Client.findOneAndDelete({_id:id, account});
+    req.flash('success', `${c.firstName} ${c.lastName} deleted`);
     res.redirect('/clients')
   }
 
