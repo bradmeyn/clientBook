@@ -45,3 +45,9 @@
 .dropdown__link:hover {
   background-color: #eeeeee;
 }
+
+.footer {
+  position: relative;
+  background-color: #f6f9fc;
+  z-index: 100;
+}
