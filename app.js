@@ -10,11 +10,11 @@ const flash = require('connect-flash');
 //routes
 const client_routes = require('./routes/client_routes');
 const account_routes = require('./routes/account_routes');
+const note_routes = require('./routes/note_routes');
 
 const mongoose = require('mongoose');
 
 const User = require('./models/user_model');
-
 const Account = require('./models/account_model');
 const dbUrl = 'mongodb://localhost:27017/client-book';
 
@@ -35,7 +35,7 @@ db.once('open', () => {
 });
 
 //set view engine to ejs
-app.set('views', path.join(__dirname, 'views'));
+app.set('views',[path.join(__dirname, 'views'), path.join(__dirname, 'views/clients')]);
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
@@ -82,6 +82,7 @@ app.use( async (req, res, next) => {
 
 app.use('/', account_routes);
 app.use('/clients', client_routes);
+app.use('/clients/:id/notes', note_routes);
 
 //landing page
 app.get('/', (req, res) => {

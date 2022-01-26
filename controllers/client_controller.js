@@ -30,7 +30,7 @@ module.exports.client_index = async (req, res) => {
     //ge the relevant number of posts
     const clients = await Client.find({account}).skip(startLimit).limit(resultsPerPage);
 
-    res.render('clients/index', {clients, pageCount, page});
+    res.render('clients/client_index', {clients, pageCount, page});
     
 }
 
@@ -49,7 +49,7 @@ module.exports.client_create_post = async (req, res) => {
 
 //Display new client form
 module.exports.client_create_get = (req, res) => {
-    res.render('clients/new');
+    res.render('clients/client_new');
 }
 
 //Display single client
@@ -73,30 +73,29 @@ module.exports.client_show = async (req, res) => {
     if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
         age--;
     }
-    console.log(age);
     c.age = age;
-    res.render("clients/show", {c});
+    res.render("clients/client_show", {c, page: 'notes'});
 }
 
 //Handle client deletion
 module.exports.client_delete = async (req, res) => {
     const id = req.params.id;
     const account = req.user.account;
-    const c = await Client.findOneAndDelete({_id:id, account});
-    req.flash('success', `${c.firstName} ${c.lastName} deleted`);
+    const client = await Client.findOneAndDelete({_id:id, account});
+    req.flash('success', `${client.firstName} ${client.lastName} deleted`);
     res.redirect('/clients')
   }
 
 //Display client update form on GET
 module.exports.client_update_get = async (req, res) => {
     const id = req.params.id;
-    const c = await Client.findById(id);
-    if(!c){
+    const client = await Client.findById(id);
+    if(!client){
       console.log('nothing found')
       req.flash('error', 'Cannot find that client');
       return res.redirect('/clients')
     }
-    res.render("clients/update", {c});
+    res.render("clients/client_update", {client});
 }
 
 //Handle client update on PUT
@@ -111,10 +110,7 @@ module.exports.client_update_put = async (req, res) => {
 }
 
 
-//Display new assets/liabilities form
-module.exports.asset_show_get = (req, res) => {
-  res.render('clients/new/wealth');
-}
+
 
 
 

@@ -49,10 +49,6 @@ router.get('/logout', (req, res) => {
 
   router.get('/:id/update', catchAsync( client_controller.client_update_get));
 
-  router.route('/:id/assets')
-  .get(
-    isLoggedIn,
-    catchAsync(client_controller.client_show));
 
 
 
