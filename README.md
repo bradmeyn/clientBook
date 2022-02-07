@@ -1,19 +1,38 @@
 # Welcome to ClientBook
 ## Fullstack client relationship manager
 
-This is my largest project so far. A full CRUD application with user authorisation and authentication. Node and Express are used on the backend with MongoDB for the database.
+### Desicription
+
+A full CRUD application with user authorisation and authentication. Node and Express are used on the backend with MongoDB for the database.
 I used Bootstrap on the front-end to save time, however have also created and styled some elements myself.
 
-Features include:
-- Ability to create a new business account that establishes a new administrator user account. Clients created will be tied to this account.
-- Create, update and delete clients. 
+### Features: 
+- Ability to create a new business account that establishes a new administrator user.
+- Create,view, update and delete clients. 
+- Quickly find clients with navbar search using client names or numbers.
 - Create timestamped client notes.
-- Each client will have a dynamically created route based on RESTful concepts.
-- HTML rendered using EJS templates to embed client data.
-- Navbar features client search using fetch request to specific search route. Only returns clients associated with account.
-- Index page shows all clients and features pagination.
 
-## Still to Come
+### Software Used
+- HTML
+- CSS
+- Boostrap
+- Javscript
+- Node.js
+- Express
+- MongoDb
+- Passport.js
+- EJS
+
+### Skills Demonstrated
+- Build full stack application using a range of modern technologies.
+- Demonstate RESTful routing concepts
+- Facilitate user login, authentication and authorisations using Passport.js
+- Implement pagination
+- Emded dynamic data and render it using EJS templates
+- Build dropdown search functionality
+
+
+## Future Plans
 
 This project is still a work in progress. 
 
