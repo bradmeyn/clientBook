@@ -27,24 +27,25 @@ module.exports.note_index_get = async (req, res, next) => {
     }
 }
 
-// //Handle user creation on POST
-// module.exports.note_create_post = async (req, res, next) => {
+//Handle user creation on POST
+module.exports.note_create_post = async (req, res, next) => {
 
-//     try {
-//         const note = new Note(req.body.note)
-//         note.date = Date.now();
-//         note.author = req.user._id;
-//         await note.save();
-//         await client.save();
+    try {
+        console.log(req.body);
+        // const note = new Note(req.body.note)
+        // note.date = Date.now();
+        // note.author = req.user._id;
+        // await note.save();
+        // await client.save();
 
-//         res.redirect(`/clients/${client._id}`);
+        // res.redirect(`/clients/${client._id}`);
 
        
-//     } catch(e) {
-//         req.flash('error', e.message);
-//         res.redirect('/');
-//     }
-// }
+    } catch(e) {
+        req.flash('error', e.message);
+        res.redirect('/');
+    }
+}
 
 
 

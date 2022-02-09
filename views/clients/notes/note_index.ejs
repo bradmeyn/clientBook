@@ -13,8 +13,88 @@
       class="container px-5 mx-auto w-100 position-relative h-100"
       style="max-width: 900px; margin-top: 3rem; margin-bottom: 3rem"
     >
+      <!-- Button trigger modal -->
+  <button
+  type="button"
+  class="d-block btn btn-primary ms-auto"
+  data-bs-toggle="modal"
+  data-bs-target="#newNoteModal"
+>
+  <i class="me-2 bi bi-plus"></i>New Note
+</button>
+       <!-- Modal -->
+  <div
+  class="modal fade bd-example-modal-lg"
+  id="newNoteModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">
+          Add New Note
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form action="/clients/<%-c._id%>/notes" method="POST">
+          <div class="form-group mb-2">
+            <label for="noteTitle" name="note[title]">Title</label>
+            <input type="text" class="form-control" id="noteTitle">
+          </div>
+          <div class="form-group mb-2">
+            
+            <label for="noteCategory">Category</label>
+            <select
+              name="note[category]"
+              id="noteCategory"
+              class="form-select"
+              required
+            >
+              <option value="" hidden class="text-muted" selected>Select Category</option>
+              <option value="NSW">NSW</option>
+
+            </select>
+          </div>
+
+          <div class="form-group mb-2">
+            <label for="noteDetail" name="note[detail]">Details</label>
+            <textarea class="form-control" id="noteDetail" rows="5"></textarea>
+          </div>
+        
+      </div>
+     
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Save">Save</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+            aria-label="Cancel"
+          >
+            Cancel
+          </button>
+          
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+
+
 
         <div class="shadow-sm p-2 mb-3 bg-white rounded">
+          
             <div class="card-body">
                 <small class="text-muted">10th February 2021</small>
               <h5 class="card-title">Card title</h5>
