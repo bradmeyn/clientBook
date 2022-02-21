@@ -2,7 +2,6 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
-
   <div
     class="d-flex w-100"
     style="background-color: #f5f5f5; min-height: 100vh"
@@ -14,104 +13,107 @@
       style="max-width: 900px; margin-top: 3rem; margin-bottom: 3rem"
     >
       <!-- Button trigger modal -->
-  <button
-  type="button"
-  class="d-block btn btn-primary ms-auto"
-  data-bs-toggle="modal"
-  data-bs-target="#newNoteModal"
->
-  <i class="me-2 bi bi-plus"></i>New Note
-</button>
-       <!-- Modal -->
-  <div
-  class="modal fade bd-example-modal-lg"
-  id="newNoteModal"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">
-          Add New Note
-        </h5>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
-      </div>
-      <div class="modal-body">
-        <form action="/clients/<%-c._id%>/notes" method="POST">
-          <div class="form-group mb-2">
-            <label for="noteTitle" name="note[title]">Title</label>
-            <input type="text" class="form-control" id="noteTitle">
-          </div>
-          <div class="form-group mb-2">
-            
-            <label for="noteCategory">Category</label>
-            <select
-              name="note[category]"
-              id="noteCategory"
-              class="form-select"
-              required
-            >
-              <option value="" hidden class="text-muted" selected>Select Category</option>
-              <option value="NSW">NSW</option>
-
-            </select>
-          </div>
-
-          <div class="form-group mb-2">
-            <label for="noteDetail" name="note[detail]">Details</label>
-            <textarea class="form-control" id="noteDetail" rows="5"></textarea>
-          </div>
-        
-      </div>
-     
-        <div class="modal-footer">
-          <button type="submit" class="btn btn-primary" data-bs-dismiss="modal" aria-label="Save">Save</button>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            data-bs-dismiss="modal"
-            aria-label="Cancel"
-          >
-            Cancel
-          </button>
-          
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-        <div class="shadow-sm p-2 mb-3 bg-white rounded">
-          
-            <div class="card-body">
-                <small class="text-muted">10th February 2021</small>
-              <h5 class="card-title">Card title</h5>
-              
-              <p class="card-text">
-                With supporting text below as a natural lead-in to additional
-                content.
-              </p>
-              <p class="card-text">
-    Brad Meyn</small>
-                
-              </p>
+      <button
+        type="button"
+        class="d-block btn btn-primary ms-auto mb-3"
+        data-bs-toggle="modal"
+        data-bs-target="#newNoteModal"
+      >
+        <i class="me-2 bi bi-plus"></i>New Note
+      </button>
+      <!-- Modal -->
+      <div
+        class="modal fade bd-example-modal-lg"
+        id="newNoteModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Add New Note</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
             </div>
+            <form action="/clients/<%-c._id%>/notes" method="POST">
+              <div class="modal-body border border-primary">
+                <div class="form-group mb-2">
+                  <label for="noteTitle">Title</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="noteTitle"
+                    name="note[title]"
+                  />
+                </div>
+                <div class="form-group mb-2">
+                  <label for="noteCategory">Category</label>
+                  <select
+                    name="note[category]"
+                    id="noteCategory"
+                    class="form-select"
+                    required
+                  >
+                    <option value="" hidden class="text-muted" selected>
+                      Select Category
+                    </option>
+                    <option value="NSW">NSW</option>
+                  </select>
+                </div>
+                <div class="form-group mb-2">
+                  <label for="noteDetail">Details</label>
+                  <textarea
+                    class="form-control"
+                    id="noteDetail"
+                    name="note[detail]"
+                    rows="5"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  data-bs-dismiss="modal"
+                  aria-label="Save"
+                >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                  aria-label="Cancel"
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
           </div>
+        </div>
+      </div>
 
+      <% if(c.notes) {c.notes.forEach(note => { %>
 
-      
+      <div class="shadow-sm p-2 mb-3 bg-white rounded">
+        <div class="card-body">
+          <small class="text-muted">10th February 2021</small>
+          <h5 class="card-title"><%= note.title %></h5>
+          <p class="card-text"><%= note.detail %></p>
+          <p class="card-text">
+            <small><%= note.author.fullName %></small>
+          </p>
+        </div>
+      </div>
+
+      <% })} else { %>
+      <p class="text-center card p-5">No Notes</p>
+      <% } %>
     </main>
   </div>
 
