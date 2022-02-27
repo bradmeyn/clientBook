@@ -4,8 +4,7 @@
 >
   <div class="container">
     <a class="navbar-brand" href="/clients">
-      <% if(currentAccount){ %> <%= currentAccount.name %> <% } else { %>
-      ClientBook <% } %>
+      <%= currentAccount ? currentAccount.name : 'ClientBook' %>
     </a>
     <button
       class="navbar-toggler"

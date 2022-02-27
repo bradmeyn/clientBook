@@ -4,9 +4,14 @@ const Schema = mongoose.Schema;
 
 const noteSchema = new Schema({
     
+    account: {
+        type: Schema.Types.ObjectId,
+        ref: "Account"
+    },
     title: String,
-    date: String,
-    details: String,
+    category: String,
+    date: Date,
+    detail: String,
     author: {
         type: Schema.Types.ObjectId,
         ref: "User"

@@ -1,0 +1,90 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column" style="min-height: 100vh; height: 100%">
+  <%- include('../partials/navbar') -%>
+  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+    <%- include('../partials/sidenav') -%>
+    <main
+      class="container px-5 mx-auto w-100 h-100 my-5"
+      style="max-width: 900px"
+    >
+      <%- include('../partials/flash') -%>
+      <div class="shadow-sm p-5" style="background-color: #ffffff">
+        <h3 class="mb-2">Edit Note</h3>
+        <form
+          action="/clients/<%-c._id%>/notes/<%-note._id%>?_method=PUT"
+          method="POST"
+        >
+          <div class="form-group mb-3" style="font-weight: 700">
+            <label for="noteTitle">Title</label>
+            <input
+              type="text"
+              class="form-control"
+              id="noteTitle"
+              name="note[title]"
+              value="<%- note.title %>"
+            />
+          </div>
+          <div class="form-group mb-3">
+            <label for="noteCategory" style="font-weight: 700">Category</label>
+            <select
+              name="note[category]"
+              id="noteCategory"
+              class="form-select"
+              required
+            >
+              <option value="" hidden class="text-muted" selected>
+                Select Category
+              </option>
+              <option class="category" value="General">General</option>
+              <option class="category" value="Meeting">Meeting</option>
+              <option class="category" value="Phone call">Phone call</option>
+              <option class="category" value="Email">Email</option>
+            </select>
+          </div>
+          <div class="form-group mb-4">
+            <label for="noteDetail" style="font-weight: 700">Details</label>
+            <textarea
+              class="form-control"
+              id="noteDetail"
+              name="note[detail]"
+              rows="10"
+            >
+<%- note.detail %></textarea
+            >
+          </div>
+
+          <div>
+            <button type="submit" class="btn btn-primary" aria-label="Save">
+              Save
+            </button>
+            <a
+              href="/clients/<%-c._id%>/notes"
+              type="button"
+              class="btn btn-secondary"
+              aria-label="Cancel"
+            >
+              Cancel
+            </a>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <%- include('../partials/footer') -%>
+</body>
+
+<script>
+  let prefilSelect = (currentVal, options) => {
+    options.forEach((option) => {
+      if (currentVal == option.value) {
+        option.setAttribute("selected", "selected");
+      }
+    });
+  };
+
+  const categories = document.querySelectorAll(".category");
+  const category = "<%-note.category%>";
+  prefilSelect(category, categories);
+</script>

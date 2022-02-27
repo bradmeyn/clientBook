@@ -15,11 +15,20 @@ router.route('/')
         catchAsync(note_controller.note_create_post));
 
 router.route('/:noteId')
-        .delete(
-            isLoggedIn,
-            catchAsync(note_controller.note_delete));
+    .get(
+        isLoggedIn, 
+        catchAsync(note_controller.note_show))
+    .put(
+        isLoggedIn,
+        catchAsync(note_controller.note_update_put))
+    .delete(
+        isLoggedIn,
+        catchAsync(note_controller.note_delete));
 
-
+router.route('/:noteId/update')
+    .get(
+        isLoggedIn,
+        catchAsync(note_controller.note_update_get));
 
 
 

@@ -1,0 +1,28 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column" style="min-height: 100vh; height: 100%">
+  <%- include('../partials/navbar') -%>
+  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+    <%- include('../partials/sidenav') -%>
+    <main
+      class="container px-5 mx-auto w-100 h-100 my-5"
+      style="max-width: 900px"
+    >
+      <%- include('../partials/flash') -%>
+      <div class="shadow-sm p-5 bg-white">
+        <small class="text-muted"
+          ><%=note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+          'long', day: 'numeric' }) %></small
+        >
+        <h3 class="mb-1"><%-note.title %></h3>
+        <span class="badge badge-pill bg-primary mb-4"
+          ><%= note.category %></span
+        >
+        <p><%-note.detail%></p>
+        <small><%-note.author.fullName%></small>
+      </div>
+    </main>
+  </div>
+
+  <%- include('../partials/footer') -%>
+</body>

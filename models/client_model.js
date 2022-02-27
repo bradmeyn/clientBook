@@ -18,12 +18,7 @@ const clientSchema = new Schema({
         type: String,
         trim: true,
     },
-    dob: {
-        birthDay: String,
-        birthMonth: String,
-        birthYear: String,
-        fullDate: String
-    },
+    dob: Date,
     phone: {
         type: String,
         trim: true

@@ -37,7 +37,8 @@ module.exports.client_index = async (req, res) => {
 //Handle client create on POST
 module.exports.client_create_post = async (req, res) => {
     const client = req.body.client;
-    client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
+    const {birthDay, birthMonth, birthYear} = client.dob;
+    client.dob = new Date(birthYear,birthMonth,birthDay);
     client.account = req.user.account;
     client.clientId = Date.now();
     const newClient = new Client(client);
@@ -54,11 +55,9 @@ module.exports.client_create_get = (req, res) => {
 
 //Display single client
 module.exports.client_show = async (req, res) => {
-   
     const id = req.params.id;
     const account = req.user.account;
     const c = await Client.findOne({_id:id, account});
-  
     
     if(!c){
       console.log('nothing found')
@@ -67,10 +66,10 @@ module.exports.client_show = async (req, res) => {
     }
     //calculate age
     let today = new Date();
-    let birthDate = new Date(c.dob.fullDate);
-    let age = today.getFullYear() - birthDate.getFullYear();
-    let m = today.getMonth() - birthDate.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+  
+    let age = today.getFullYear() - c.dob.getFullYear();
+    let m = today.getMonth() - c.dob.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < c.dob.getDate())) {
         age--;
     }
     c.age = age;
@@ -89,20 +88,21 @@ module.exports.client_delete = async (req, res) => {
 //Display client update form on GET
 module.exports.client_update_get = async (req, res) => {
     const id = req.params.id;
-    const client = await Client.findById(id);
-    if(!client){
+    const c = await Client.findById(id);
+    if(!c){
       console.log('nothing found')
       req.flash('error', 'Cannot find that client');
       return res.redirect('/clients')
     }
-    res.render("clients/client_update", {client});
+    res.render("clients/client_update", {c});
 }
 
 //Handle client update on PUT
 module.exports.client_update_put = async (req, res) => {
     const id = req.params.id;
     const client = req.body.client;
-    client.dob.fullDate = `${client.dob.birthDay}/${client.dob.birthMonth}/${client.dob.birthYear}`;
+    const {birthDay, birthMonth, birthYear} = client.dob;
+    client.dob = new Date(birthYear,birthMonth,birthDay);
     const account = req.user.account;
     await Client.findOneAndUpdate({_id:id, account}, {...client});
     req.flash('success', 'Details updated.' );

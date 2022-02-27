@@ -3,15 +3,12 @@
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
 
-  <div
-    class="d-flex w-100"
-    style="background-color: #f5f5f5; min-height: 100vh"
-  >
+  <div class="d-flex flex-grow-1 w-100" style="background-color: #f5f5f5">
     <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
 
     <main
-      class="container px-5 mx-auto w-100 position-relative h-100"
-      style="max-width: 900px; margin-top: 3rem; margin-bottom: 3rem"
+      class="container px-5 mx-auto w-100 h-100 my-5"
+      style="max-width: 900px"
     >
       <a href="/clients">< All Clients</a>
       <div class="d-flex justify-content-between align-items-center mt-3">
@@ -44,7 +41,9 @@
 
         <div class="row p-2 border-bottom border-muted m-auto">
           <div class="col-6 fw-bold">Date of Birth:</div>
-          <div class="col-6"><%-c.dob.fullDate%> (<%-c.age%> years old)</div>
+          <div class="col-6">
+            <%-c.dob.toLocaleDateString()%> (<%-c.age%> years old)
+          </div>
         </div>
 
         <!-- <div class="row p-2 border-bottom border-muted m-auto">

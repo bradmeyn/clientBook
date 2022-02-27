@@ -54,7 +54,7 @@ module.exports.account_register_post = async (req, res, next) => {
        
         
         req.flash('success', `Hello ${user.firstName}`);
-        res.redirect('/clients');
+        res.redirect('/');
     })
 
     } catch(e) {
@@ -72,7 +72,7 @@ module.exports.account_login_get = (req, res) => {
 //Handle user login on POST
 module.exports.account_login_post = async (req, res) => {
 req.flash('success', 'Welcome back ' + req.user.firstName);
-res.redirect('/clients')
+res.redirect('/')
 }
 
 module.exports.account_logout = (req, res) => {

@@ -3,10 +3,11 @@
 <body class="d-flex flex-column vh-100" style="min-height: 100vh;">
   
   <%- include('../partials/navbar') -%>
-  <div class="d-flex w-100 h-100" style="background-color: #F5F5F5;">
+  <div class="d-flex flex-grow-1" style="background-color: #F5F5F5;">
   <%- include('../partials/sidenav') -%>
 
-  <main class="container px-5 py-4 mx-auto h-100 w-100" style="max-width: 900px">
+  <main class="container px-5 mx-auto w-100 h-100 my-5"
+  style="max-width: 900px">
       <h3 class="mt-3">Update Client Details</h3>
         <form action="/clients/<%-c._id%>?_method=PUT" method="POST" novalidate class="needs-validation">
 
@@ -91,18 +92,18 @@
                   <select name="client[dob][birthMonth]" class="form-select" aria-label="Default select example" required>
                       <label for="birthMonth"></label>
                       <option class="birthMonth" selected hidden value="">Month</option>
-                      <option class="birthMonth" value="01">Jan</option>
-                      <option class="birthMonth" value="02">Feb</option>
-                      <option class="birthMonth" value="03">Mar</option>
-                      <option class="birthMonth" value="04">Apr</option>
-                      <option class="birthMonth" value="05">May</option>
-                      <option class="birthMonth" value="06">Jun</option>
-                      <option class="birthMonth" value="07">Jul</option>
-                      <option class="birthMonth" value="08">Aug</option>
-                      <option class="birthMonth" value="09">Sep</option>
-                      <option class="birthMonth" value="10">Oct</option>
-                      <option class="birthMonth" value="11">Nov</option>
-                      <option class="birthMonth" value="12">Dec</option>
+                      <option class="birthMonth" value="0">Jan</option>
+                      <option class="birthMonth" value="1">Feb</option>
+                      <option class="birthMonth" value="2">Mar</option>
+                      <option class="birthMonth" value="3">Apr</option>
+                      <option class="birthMonth" value="4">May</option>
+                      <option class="birthMonth" value="5">Jun</option>
+                      <option class="birthMonth" value="6">Jul</option>
+                      <option class="birthMonth" value="7">Aug</option>
+                      <option class="birthMonth" value="8">Sep</option>
+                      <option class="birthMonth" value="9">Oct</option>
+                      <option class="birthMonth" value="10">Nov</option>
+                      <option class="birthMonth" value="11">Dec</option>
                   </select>       
               </div>
 
