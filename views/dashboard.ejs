@@ -3,63 +3,48 @@
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
 
-  <main class="container flex-grow-1">
+  <main class="container flex-grow-1 p-5">
     <%- include('../partials/flash') -%>
+    
+    <h2>Hi, Brad</h2>
+    <hr />
+    <div class="row g-4 mb-5">
+      <h5 class="text-secondary">Quicklinks</h4>
+        
+        <div class="col-sm-6 col-xl-3">
+          <a href="/clients" class="text-dark rounded d-flex justify-content-center align-items-center p-4 quicklink quicklink--blue">
+            <span class="display-6 text-primary"><i class="fa-solid fa-users"></i></span>
+            <h5 class="ms-4 mb-0 fw-bold">Clients</h5>
+          </a>
+        </div>
+        
+        <div class="col-sm-6 col-xl-3">
+          <a href="/jobs" class="text-dark rounded d-flex justify-content-center align-items-center p-4 quicklink quicklink--yellow">
+              <span class="display-6 text-warning"><i class="fa-regular fa-briefcase"></i></span>
+              <h5 class="ms-4 mb-0 fw-bold">Jobs</h5>
+          </a>
+        </div>
 
-    <div class="col-md-10 offset-md-1" style="min-height: 20rem;">
-      
-      <h3 class="mt-5 mb-4">All Clients</h3>
-      <table class="table table-striped" >
-        <thead>
-          <tr>
-            <th scope="col">Client Number</th>
-            <th scope="col">Full Name</th>
+        <div class="col-sm-6 col-xl-3">
+          <a href="/notes" class="text-dark rounded d-flex justify-content-center align-items-center p-4 quicklink quicklink--green">
+              <span class="display-6 text-success"><i class="fa-regular fa-note-sticky"></i></span>
+              <h5 class="ms-4 mb-0 fw-bold">Notes</h5>
+          </a>
+        </div>
 
-            <th class="d-none d-md-table-cell" scope="col">Email</th>
-            <th class="d-none d-md-table-cell" scope="col">Phone</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% clients.forEach(client => { %>
-
-          <tr>
-            <td>
-              <a href="/clients/<%-client._id%>"><%=client.clientId %></a>
-            </td>
-            <td><%= client.firstName %> <%= client.lastName %></td>
-            <td class="d-none d-md-table-cell"><%= client.email %></td>
-            <td class="d-none d-md-table-cell"><%= client.phone %></td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
-
-      
+        <div class="col-sm-6 col-xl-3">
+        <a href="/clients" class="text-dark rounded d-flex justify-content-center align-items-center p-4 quicklink quicklink--red">
+            <span class="display-6 text-danger"><i class="fas fa-tv"></i></span>
+            <h5 class="ms-4 mb-0 fw-bold">Clients</h5>
+        </a>
+      </div>
+        
     </div>
 
-    <nav aria-label="..." class="mt-5">
-      <ul class="pagination justify-content-center">
-
-        <% let pageNum, next, previous; %>
-        <% for(let i = 0; i < pageCount; i++){ pageNum = i + 1; next = page + 1; previous = page - 1; %>
-        <li
-        <% if(page == pageNum){  %>
-        class="page-item active">
-        <% } else { %>
-        class="page-item"
-        >
-        <% } %>
-          <a class="page-link" href="/clients?page=<%=pageNum%>"
-            ><%=pageNum%></a>
-        </li>
-        <% } %>
-        <% if(page + 1 <= pageCount){ %>
-        <li class="page-item">
-          <a class="page-link" href="/clients?page=<%=next%>">Next</a>
-        </li>
-      <% } %>
-      </ul>
-    </nav>
+    <div class="row">
+      <h5 class="text-secondary">Quicklinks</h4>
+    </div>
+    
   </main>
 
   <%- include('../partials/footer') -%>

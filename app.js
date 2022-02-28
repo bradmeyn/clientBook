@@ -86,7 +86,7 @@ app.use('/clients/:id/notes', note_routes);
 
 //landing page
 app.get('/', (req, res) => {
-  res.render('home')
+  res.render('landing')
 });
 
 

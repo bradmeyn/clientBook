@@ -5,6 +5,9 @@ const passport = require('passport');
 const catchAsync = require('../utils/catchAsync');
 
 
+const {isLoggedIn} = require('../middleware.js');
+
+
 router.route('/register')
     .get(account_controller.account_register_get)
     .post(catchAsync(account_controller.account_register_post));
@@ -16,3 +19,9 @@ router.route('/login')
 router.route('/logout')
     .get(account_controller.account_logout)
 module.exports = router;
+
+
+router.route('/dashboard')
+.get(
+  isLoggedIn,
+  catchAsync(account_controller.dashboard_get));

@@ -4,6 +4,38 @@ const User = require('../models/user_model');
 const Client = require('../models/client_model');
 
 
+
+module.exports.dashboard_get = async (req, res) => {
+
+    // //show all clients associated with logged in users account
+    //   const account = req.user.account;
+    //   const resultCount = await Client.find({account}).countDocuments();
+      
+    //   const resultsPerPage = 5;
+   
+    //   const pageCount = Math.ceil(resultCount/resultsPerPage);
+  
+    //   //current page
+    //   let page = req.query.page ? Number(req.query.page) : 1;
+  
+    //   if(page > pageCount){
+    //     //redirect to last
+    //     res.redirect('/?page='+encodeURIComponent(pageCount));
+    //   } else if (page < 1){
+    //     //redirect to first
+    //     res.redirect('/?page='+encodeURIComponent('1'));
+    //   }
+    //   //Limit starting number
+    //   const startLimit = (page - 1) * resultsPerPage;
+  
+    //   //ge the relevant number of posts
+    //   const clients = await Client.find({account}).skip(startLimit).limit(resultsPerPage);
+  
+      res.render('dashboard');
+      
+  }
+
+
 //Display account registor form on GET
 module.exports.account_register_get = (req, res) => {
     res.render('accounts/register')
@@ -54,7 +86,7 @@ module.exports.account_register_post = async (req, res, next) => {
        
         
         req.flash('success', `Hello ${user.firstName}`);
-        res.redirect('/');
+        res.redirect('/dashboard');
     })
 
     } catch(e) {
@@ -72,7 +104,7 @@ module.exports.account_login_get = (req, res) => {
 //Handle user login on POST
 module.exports.account_login_post = async (req, res) => {
 req.flash('success', 'Welcome back ' + req.user.firstName);
-res.redirect('/')
+res.redirect('/dashboard')
 }
 
 module.exports.account_logout = (req, res) => {

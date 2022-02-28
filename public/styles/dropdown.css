@@ -51,3 +51,43 @@
   background-color: #f6f9fc;
   z-index: 100;
 }
+
+/* quick links */
+
+.quicklink {
+  text-decoration: none;
+  cursor: pointer;
+  border: solid 3px transparent;
+}
+
+.quicklink--blue {
+  background-color: #e6f0f9;
+}
+
+.quicklink--yellow {
+  background-color: #fef6e0;
+}
+
+.quicklink--green {
+  background-color: #e7f6f8;
+}
+
+.quicklink--red {
+  background-color: #ffeff3;
+}
+
+.quicklink--blue:hover {
+  border: solid 3px #007bff;
+}
+
+.quicklink--yellow:hover {
+  border: solid 3px #ffc107;
+}
+
+.quicklink--green:hover {
+  border: solid 3px #28a745;
+}
+
+.quicklink--red:hover {
+  border: solid 3px #dc3545;
+}
