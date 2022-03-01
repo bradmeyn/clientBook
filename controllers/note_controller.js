@@ -1,4 +1,3 @@
-
 const Client = require('../models/client_model');
 const Note = require('../models/note_model');
 
@@ -9,17 +8,17 @@ module.exports.note_index_get = async (req, res, next) => {
 
     try {
 
-        const id = req.params.id;
+        const clientId = req.params.clientId;
         const account = req.user.account;
         
-        const c = await Client.findOne({ _id:id, account}).populate({
+        const c = await Client.findOne({ _id:clientId, account}).populate({
             path: 'notes', 
             populate: {
             path: 'author'
             }
     }).populate('author');
 
-        res.render('../clients/notes/note_index',{c, page: 'notes'});
+        res.render('notes/note_index',{c, page: 'notes'});
        
     } catch(e) {
         console.log(e);
@@ -31,12 +30,12 @@ module.exports.note_index_get = async (req, res, next) => {
 module.exports.note_show = async (req, res, next) => {
 
     try {
-        const {id, noteId} = req.params;
+        const {clientId, noteId} = req.params;
         const account = req.user.account;
-        const c = await Client.findOne({ _id:id, account});
+        const c = await Client.findOne({ _id:clientId, account});
         const note = await Note.findOne({ _id:noteId, account}).populate({path: 'author'});
         console.log(note);
-        res.render('../clients/notes/note_show',{c,note,  page: 'notes'});
+        res.render('notes/note_show',{c,note,  page: 'notes'});
     } catch(e) {
         console.log(e);
         req.flash('error', e.message);
@@ -48,12 +47,12 @@ module.exports.note_show = async (req, res, next) => {
 module.exports.note_update_get = async (req, res, next) => {
 
     try {
-        const {id, noteId} = req.params;
+        const {clientId, noteId} = req.params;
         const account = req.user.account;
-        const c = await Client.findOne({ _id:id, account});
+        const c = await Client.findOne({ _id:clientId, account});
         const note = await Note.findOne({ _id:noteId, account});
         console.log(note);
-        res.render('../clients/notes/note_update',{c,note,  page: 'notes'});
+        res.render('notes/note_update',{c,note,  page: 'notes'});
     } catch(e) {
         console.log(e);
         req.flash('error', e.message);
@@ -63,7 +62,7 @@ module.exports.note_update_get = async (req, res, next) => {
 
 module.exports.note_update_put = async (req, res) => {
     try {
-        const {id, noteId} = req.params;
+        const {clientId, noteId} = req.params;
         const account = req.user.account;
         const note = req.body.note;
         console.log(note);
@@ -107,6 +106,4 @@ module.exports.note_create_post = async (req, res, next) => {
         // res.redirect('/');
     }
 }
-
-
 

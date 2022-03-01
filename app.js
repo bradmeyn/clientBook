@@ -10,7 +10,9 @@ const flash = require('connect-flash');
 //routes
 const client_routes = require('./routes/client_routes');
 const account_routes = require('./routes/account_routes');
+const user_routes = require('./routes/user_routes');
 const note_routes = require('./routes/note_routes');
+// const job_routes = require('./routes/job_routes');
 
 const mongoose = require('mongoose');
 
@@ -39,8 +41,8 @@ app.set('views',[path.join(__dirname, 'views'), path.join(__dirname, 'views/clie
 app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({extended: true})); //Parse URL-encoded bodies
-app.use(methodOverride('_method'));
-app.use(express.static('public'));
+app.use(methodOverride('_method')); // for put/delete requests
+app.use(express.static('public')); //make public 
 app.use(express.json());
 
 
@@ -81,8 +83,9 @@ app.use( async (req, res, next) => {
 });
 
 app.use('/', account_routes);
+app.use('/', user_routes);
 app.use('/clients', client_routes);
-app.use('/clients/:id/notes', note_routes);
+app.use('/clients/:clientId/notes', note_routes);
 
 //landing page
 app.get('/', (req, res) => {
@@ -92,7 +95,7 @@ app.get('/', (req, res) => {
 
   //custom error handler
   app.use((err, req, res, next) => {
-    
+    console.log(err);
     const {statusCode = 500} = err;
     if(!err.message) { err.message = 'Something went wrong'};
     if(err.name === 'CastError') {err.message = `Error: Client ID of ${err.value} is not valid`, err.statusCode = 400};

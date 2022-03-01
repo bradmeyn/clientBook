@@ -1,6 +1,7 @@
 
 const Client = require('../models/client_model');
 const Account = require('../models/account_model');
+const Note = require('../models/note_model');
 
 
 //Display all clients
@@ -55,9 +56,9 @@ module.exports.client_create_get = (req, res) => {
 
 //Display single client
 module.exports.client_show = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.clientId;
     const account = req.user.account;
-    const c = await Client.findOne({_id:id, account});
+    const c = await Client.findOne({_id: id, account});
     
     if(!c){
       console.log('nothing found')
@@ -78,16 +79,16 @@ module.exports.client_show = async (req, res) => {
 
 //Handle client deletion
 module.exports.client_delete = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.clientId;
     const account = req.user.account;
-    const client = await Client.findOneAndDelete({_id:id, account});
+    const client = await Client.findOneAndDelete({_id: id, account});
     req.flash('success', `${client.firstName} ${client.lastName} deleted`);
     res.redirect('/clients')
   }
 
 //Display client update form on GET
 module.exports.client_update_get = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.clientId;
     const c = await Client.findById(id);
     if(!c){
       console.log('nothing found')
@@ -99,7 +100,7 @@ module.exports.client_update_get = async (req, res) => {
 
 //Handle client update on PUT
 module.exports.client_update_put = async (req, res) => {
-    const id = req.params.id;
+    const id = req.params.clientId;
     const client = req.body.client;
     const {birthDay, birthMonth, birthYear} = client.dob;
     client.dob = new Date(birthYear,birthMonth,birthDay);
@@ -107,6 +108,64 @@ module.exports.client_update_put = async (req, res) => {
     await Client.findOneAndUpdate({_id:id, account}, {...client});
     req.flash('success', 'Details updated.' );
     res.redirect(`${id}`);
+}
+
+
+//Display all notes associated with client
+module.exports.client_notes_get = async (req, res, next) => {
+
+  try {
+
+      const id = req.params.clientId;
+      const account = req.user.account;
+      
+      const c = await Client.findOne({ _id:id, account}).populate({
+          path: 'notes', 
+          populate: {
+          path: 'author'
+          }
+      }).populate('author');
+
+      res.render('clients/notes/client_note_index',{c, page: 'notes'});
+     
+  } catch(e) {
+      console.log(e);
+      req.flash('error', e.message);
+      res.redirect('/');
+  }
+}
+
+//Create new note associated with client
+module.exports.client_notes_post = async (req, res, next) => {
+
+
+  try {
+
+
+
+      const client = await Client.findById(req.params.clientId);
+
+      const note = new Note(req.body.note);
+
+      console.log(req.user);
+
+      note.date = new Date();
+      note.author = req.user;
+      note.account = req.user.account;
+      client.notes.push(note);
+      await note.save();
+      await client.save();
+
+      console.log(client, note);
+      res.redirect(`/clients/${client._id}/notes`);
+
+
+     
+  } catch(e) {
+    console.log(e);
+      req.flash('error', e.message);
+      res.redirect(`/clients/${client._id}/notes`);
+  }
 }
 
 

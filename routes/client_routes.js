@@ -28,7 +28,7 @@ router.get('/logout', (req, res) => {
 
 
   //Single client
-  router.route('/:id')
+  router.route('/:clientId')
   .get(
     isLoggedIn,
     catchAsync(client_controller.client_show))
@@ -40,17 +40,21 @@ router.get('/logout', (req, res) => {
     isLoggedIn,
     catchAsync(client_controller.client_delete));
 
+  // //Client Notes
+  // router.route('/:clientId/notes')
+  //   .get(
+  //     isLoggedIn,
+  //     catchAsync(client_controller.client_notes_get))
+  //   .post(
+  //     isLoggedIn,
+  //     catchAsync(client_controller.client_notes_post));
+
   //Search route for navbar
   router.route('/search')
   .post(
     isLoggedIn,
     catchAsync(client_controller.client_search));
 
-
-  router.get('/:id/update', catchAsync( client_controller.client_update_get));
-
-
-
-
+  router.get('/:clientId/update', catchAsync( client_controller.client_update_get));
 
   module.exports = router;
