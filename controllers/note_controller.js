@@ -2,6 +2,30 @@ const Client = require('../models/client_model');
 const Note = require('../models/note_model');
 
 
+//Handle user creation on POST
+module.exports.note_create_post = async (req, res, next) => {
+
+    try {
+        const client = await Client.findById(req.params.clientId);
+        const note = new Note(req.body.note);
+        note.date = new Date();
+        note.author = req.user;
+        note.account = req.user.account;
+        client.notes.push(note);
+        await note.save(() => {
+            console.log('note saved: ', note);
+        });
+        await client.save(()=> {
+            console.log('client saved: ', client);
+        });
+        res.redirect('back');
+
+    } catch(e) {
+        req.flash('error', e.message);
+        res.redirect('back');
+    }
+}
+
 //Display all notes associated with client
 
 module.exports.note_index_get = async (req, res, next) => {
@@ -84,26 +108,4 @@ module.exports.note_update_put = async (req, res) => {
 
 
 
-//Handle user creation on POST
-module.exports.note_create_post = async (req, res, next) => {
-
-    try {
-        
-        const client = await Client.findById(req.params.id);
-        const note = new Note(req.body.note);
-        console.log(note);
-        note.date = new Date();
-        note.author = req.user;
-        note.account = req.user.account;
-        client.notes.push(note);
-        await note.save();
-        await client.save();
-        res.redirect(`/clients/${client._id}/notes`);
-
-       
-    } catch(e) {
-        req.flash('error', e.message);
-        // res.redirect('/');
-    }
-}
 

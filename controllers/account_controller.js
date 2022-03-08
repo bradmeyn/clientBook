@@ -1,7 +1,8 @@
 const Account = require('../models/account_model');
 const User = require('../models/user_model');
 const Client = require('../models/client_model');
-
+const Note = require('../models/note_model');
+const Job = require('../models/job_model');
 
 //Display account registor form on GET
 module.exports.account_register_get = (req, res) => {
@@ -20,9 +21,13 @@ module.exports.account_register_post = async (req, res, next) => {
         newAccount.users.push(newUser);
         newUser.account = newAccount;
         await newAccount.save();
-        console.log(newAccount);
+   
         const registeredUser = await User.register(newUser, password);
         
+        await Client.deleteMany({});
+        await Note.deleteMany({});
+        await Job.deleteMany({});
+
         //test client 
         const clientOne = new Client({
             clientId: 'ClientOne',
@@ -45,7 +50,12 @@ module.exports.account_register_post = async (req, res, next) => {
                 postcode: '2305',
             }
         });
-        await clientOne.save(() => console.log('client saved', clientOne));
+        await clientOne.save(() => {
+
+           
+
+        });
+
 
     req.login(registeredUser, err => {
         if(err) return next(err);

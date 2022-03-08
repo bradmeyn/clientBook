@@ -12,7 +12,7 @@ const client_routes = require('./routes/client_routes');
 const account_routes = require('./routes/account_routes');
 const user_routes = require('./routes/user_routes');
 const note_routes = require('./routes/note_routes');
-// const job_routes = require('./routes/job_routes');
+const job_routes = require('./routes/job_routes');
 
 const mongoose = require('mongoose');
 
@@ -86,6 +86,7 @@ app.use('/', account_routes);
 app.use('/', user_routes);
 app.use('/clients', client_routes);
 app.use('/clients/:clientId/notes', note_routes);
+app.use('/clients/:clientId/jobs', job_routes);
 
 //landing page
 app.get('/', (req, res) => {

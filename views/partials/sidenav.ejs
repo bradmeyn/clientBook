@@ -1,4 +1,4 @@
-<div class="p-3 bg-light border-end border-muted" style="width: 200px">
+<div class="p-3 bg-white shadow-sm" style="width: 200px">
   <aside class="h-100 d-flex flex-column flex-grow-1">
     <a
       href="/clients/<%-c._id%>"
@@ -11,7 +11,7 @@
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
         <a
-          href="/clients/<%-c._id%>"
+          href="/clients/<%-c._id%>/details"
           class="nav-link link-dark"
           aria-current="page"
         >
@@ -22,8 +22,15 @@
 
       <li>
         <a href="/clients/<%-c._id%>/notes" class="nav-link link-dark">
-          <i class="me-2 bi bi-sticky"></i>
+          <i class="me-2 fa-regular fa-note-sticky"></i>
           Notes
+        </a>
+      </li>
+
+      <li>
+        <a href="/clients/<%-c._id%>/jobs" class="nav-link link-dark">
+          <i class="me-2 fa-regular fa-briefcase"></i>
+          Jobs
         </a>
       </li>
     </ul>

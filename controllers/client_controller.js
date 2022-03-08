@@ -1,4 +1,3 @@
-
 const Client = require('../models/client_model');
 const Account = require('../models/account_model');
 const Note = require('../models/note_model');
@@ -55,7 +54,50 @@ module.exports.client_create_get = (req, res) => {
 }
 
 //Display single client
-module.exports.client_show = async (req, res) => {
+module.exports.client_dashboard_get = async (req, res) => {
+  const id = req.params.clientId;
+  const account = req.user.account;
+  const c = await Client.findOne({ _id: id, account}).populate({
+    path: 'notes',
+    options: { sort: { _id: -1 }, limit: 3 },
+    populate: {
+    path: 'author'
+    }
+    }).populate({
+      path: 'jobs',
+        sort: { _id: -1 },
+        match: {status: { $ne:  'Completed' }}
+      ,
+      populate: {
+      path: 'owner'
+      }
+    }).populate({
+      path: 'related.client'
+    });
+
+    c.jobs.forEach(job => {
+      let start = job.dates.created;
+      console.log(start);
+    let today = new Date();
+    let diff = start.getTime() - today.getTime();
+    console.log(diff);
+    let days = Math.ceil(diff / (1000 * 3600 * 24));
+    console.log(days);
+    })
+
+
+
+  if(!c){
+    console.log('nothing found')
+    req.flash('error', 'Cannot find that client');
+    return res.redirect('/clients')
+  }
+
+  res.render("clients/client_dashboard", {c, page: 'notes'});
+}
+
+//Display single client
+module.exports.client_details_get = async (req, res) => {
     const id = req.params.clientId;
     const account = req.user.account;
     const c = await Client.findOne({_id: id, account});
@@ -140,11 +182,7 @@ module.exports.client_notes_post = async (req, res, next) => {
 
 
   try {
-
-
-
       const client = await Client.findById(req.params.clientId);
-
       const note = new Note(req.body.note);
 
       console.log(req.user);
@@ -167,17 +205,6 @@ module.exports.client_notes_post = async (req, res, next) => {
       res.redirect(`/clients/${client._id}/notes`);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
 
 //Handle search
 module.exports.client_search = async (req, res) => {

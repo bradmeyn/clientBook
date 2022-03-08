@@ -31,7 +31,7 @@ router.get('/logout', (req, res) => {
   router.route('/:clientId')
   .get(
     isLoggedIn,
-    catchAsync(client_controller.client_show))
+    catchAsync(client_controller.client_dashboard_get))
   .put(
     isLoggedIn,
     validateClient, 
@@ -39,6 +39,12 @@ router.get('/logout', (req, res) => {
   .delete(
     isLoggedIn,
     catchAsync(client_controller.client_delete));
+
+
+    router.route('/:clientId/details')
+    .get(
+      isLoggedIn,
+      catchAsync(client_controller.client_details_get))
 
   // //Client Notes
   // router.route('/:clientId/notes')

@@ -13,9 +13,8 @@ const jobSchema = new Schema({
         upfront: Number,
         ongoing: Number
     },
-    date: {
+    dates: {
         created: Date,
-        inProgress: Date,
         completed: Date
     },
     status: String,
@@ -31,6 +30,16 @@ const jobSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Note"
     }],
+});
+
+jobSchema.virtual('activeDays')
+.get(function() {
+    let start = this.dates.created;
+    let today = new Date();
+    let diff = start.getTime() - today.getTime();
+    let days = Math.ceil(diff / (1000 * 3600 * 24));
+
+    return days;
 });
 
 

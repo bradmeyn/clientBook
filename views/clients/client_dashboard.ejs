@@ -1,0 +1,281 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column" style="min-height: 100vh">
+  <%- include('../partials/navbar') -%>
+
+  <div class="d-flex flex-grow-1 w-100" style="background-color: #f5f5f5">
+    <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
+
+    <main class="container mx-auto px-5 pt-3 pb-5">
+      <div class="row mb-3 gx-2 d-flex justify-content-end">
+        <a
+          href="/clients/<%-c._id%>/update"
+          class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--blue ms-4"
+          style="width: 150px"
+        >
+          <div
+            class="d-flex align-items-center justify-content-start"
+          >
+            <span class="fs-5 text-primary"
+              ><i class="fa-regular fa-pencil"></i></span>
+            <h6 class="ms-4 mb-0 fw-bold">Edit Client</h5>
+          </div>
+        </a>
+
+        <!-- Button trigger modal -->
+      <button
+      type="button"
+      class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--yellow ms-4"
+      style="width: 150px;"
+      data-bs-toggle="modal"
+      data-bs-target="#newNoteModal"
+    >
+    <div
+    class="d-flex align-items-center justify-content-start"
+  >
+    <span class="fs-5 text-warning"
+      ><i class="fa-regular fa-circle-plus"></i></span>
+    <h6 class="ms-4 mb-0 fw-bold">New Note</h5>
+  </div>
+    </button>
+    <!-- Modal -->
+    <div
+      class="modal fade bd-example-modal-lg"
+      id="newNoteModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="exampleModalLabel">New Note</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <form action="/clients/<%-c._id%>/notes" method="POST">
+            <div class="modal-body">
+              <div class="form-group mb-3">
+                <label
+                  class="form-label"
+                  for="noteTitle"
+                  style="font-weight: 700"
+                  >Title</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="noteTitle"
+                  name="note[title]"
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label
+                  class="form-label"
+                  for="noteCategory"
+                  style="font-weight: 700"
+                  >Category</label
+                >
+                <select
+                  name="note[category]"
+                  id="noteCategory"
+                  class="form-select"
+                  required
+                >
+                  <option value="" hidden class="text-muted" selected>
+                    Select Category
+                  </option>
+                  <option value="General">General</option>
+                  <option value="Meeting">Meeting</option>
+                  <option value="Phone call">Phone call</option>
+                  <option value="Email">Email</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label
+                  class="form-label"
+                  for="noteDetail"
+                  style="font-weight: 700"
+                  >Details</label
+                >
+                <textarea
+                  class="form-control"
+                  id="noteDetail"
+                  name="note[detail]"
+                  rows="8"
+                ></textarea>
+              </div>
+            </div>
+            <div class="modal-footer border-0">
+              <button
+                type="submit"
+                class="ms-auto btn btn-primary"
+                data-bs-dismiss="modal"
+                aria-label="Save"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+                aria-label="Cancel"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+
+        <a
+          href="/jobs"
+          class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--green ms-4"
+          style="width: 150px"
+        >
+          <div
+            class="d-flex align-items-center justify-content-start"
+         
+          >
+            <span class="fs-5 text-success"
+              ><i class="fa-regular fa-circle-plus"></i></span>
+            <h6 class="ms-4 mb-0 fw-bold">New Job</h5>
+          </div>
+        </a>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          
+          <div class="bg-white shadow-sm p-4 rounded">
+            <div class="pb-3 mb-3 border-bottom border-muted text-center">
+              <img
+                src="/images/charlie_profile.png"
+                alt="..."
+                class="rounded-circle mb-2 ms-auto border border-primary"
+                style="width: 100px"
+              />
+              <h1 class="fs-4 m-0 me-3"><%-c.fullName%></h1>
+              <small class="text-muted mb-2" style="font-style: italic"
+                >Client No. <%-c.clientId%></small
+              >
+            </div>
+
+   
+
+            <div class="mb-2">
+              <i class="text-primary bi bi-calendar3 me-2"></i>
+              <%=c.dob.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+            'long', day: 'numeric' }); %>
+            <%- `(${c.age} years old)` %>
+            </div>
+
+            <% if(c.occupation) { %>
+            <div class="mb-2 me-4">
+              <i class="text-primary bi bi-briefcase me-2"></i>
+              <%-c.occupation %> <%-c.employer ? `at ${c.employer}`: '' %>
+            </div>
+            <% } %>
+            
+            
+          </div>
+
+          <div class="mt-4 bg-white shadow-sm p-4 rounded">
+            <h2 class="fs-5">Contact Details</h2>
+            <div class="text-muted">Preferred Phone:</div>
+            <div class="mb-2">
+              <i class="text-primary bi bi-telephone me-2"></i><%- c.phone.number%>
+            </div>
+
+            <div class="text-muted">Preferred Email:</div>
+            <div class="mb-2">
+              <i class="text-primary bi bi-envelope me-2"></i
+              ><%-c.email %>
+            </div>
+
+            <div class="text-muted">Mailing Address:</div>
+            <div class="">
+              <i class="text-primary bi bi-geo-alt me-2"></i><%-c.home%>
+            </div>
+          </div>
+
+          <div class="mt-4 bg-white shadow-sm p-4 rounded">
+            <h2 class="fs-5">Related Clients</h2>
+
+            <% c.related.forEach(r => { %>
+            <div class="">
+              
+              <i class="fa-light fa-user me-2 text-primary"></i><%-r.client.salutation%> <%-r.client.preferredName%> <%-r.client.lastName%> <span style="font-style:italic">(<%-r.relationship %>)</span>
+            </div>
+            <div class="text-muted small" style="font-style: italic">Client No. <%-r.client.clientId%></div>
+            <% }); %>
+          </div>
+        </div>
+
+        <div class="col-8">
+          
+          <div class="shadow-sm mb-4 p-4 bg-white rounded">
+            <h2 class="fs-5">Active Jobs</h2>
+
+            <% c.jobs.forEach(job => { %>
+            <div class="p-2 border-top border-muted d-flex align-items-center justify-content-between">
+              <div class="">
+                <small class="text-muted"
+                >Active <%-job.activeDays%> days</small>
+                  <div class="d-flex align-items-center ">
+                    <h6 class="card-title me-3 mb-0"><%- job.title %></h6>
+                    <span class="badge badge-primary quicklink--green text-dark mb-0 me-3"><%- job.type %></span>
+                  </div> 
+                <div><i class="fa-regular fa-dollar-sign text-primary me-2"></i><%- job.revenue.upfront %> upfront | <%- job.revenue.ongoing %> pa ongoing</div>  
+                <small class="text-success"><%- job.status %></small><small class="text-muted"> | Brad Meyn</small>
+              </div>
+
+              <div class="text-primary">
+                <i class="fa-regular fa-chevron-right"></i>
+              </div>
+            </div>
+            <% }); %>
+          </div>
+
+         
+
+          <div class="shadow-sm mb-3 p-4 bg-white rounded">
+            <h2 class="fs-5">Recent Notes</h2>
+
+            <% c.notes.forEach(note => { %>
+              
+            <div class="p-2 border-top border-muted d-flex align-items-center justify-content-between">
+              <div class="pe-2">
+                <small class="text-muted"
+                ><%-note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+                'long', day: 'numeric' }); %></small>
+                  <div class="d-flex align-items-center mb-1 ">
+                    <h6 class="card-title me-3 mb-0 "><%-note.title%></h5>
+                    <span class="badge badge-primary quicklink--yellow text-dark mb-0 me-3"><%-note.category%></span>
+                  </div> 
+                <div class="small mb-1"><%- note.detail %></div>  
+              <small class="text-muted"><%-note.author.fullName %></small>
+              </div>
+
+              <div class="text-primary">
+                <i class="fa-regular fa-chevron-right"></i>
+              </div>
+            </div>
+            <% }); %>
+
+          </div>
+
+         
+
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <%- include('../partials/footer') -%>
+</body>
