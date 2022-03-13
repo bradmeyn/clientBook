@@ -1,0 +1,155 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column" style="min-height: 100vh">
+  <%- include('../partials/navbar') -%>
+  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+    <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
+
+    <main
+      class="container px-5 mx-auto w-100 h-100 my-5"
+      style="max-width: 900px"
+    >
+      <div class="bg-white shadow-sm p-5">
+        <form action="/clients/<%-c._id%>/jobs" method="POST">
+          <h2 class="mb-4">New Job</h2>
+          <div class="form-group mb-3">
+            <div style="font-weight: 700">Client</div>
+            <div><%-c.preferredName%> <%-c.lastName%></div>
+            <div class="form-check my-3">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                value="true"
+                id="jobIncludeRelated"
+                name="job[relatedClients]"
+              />
+              <label class="form-check-label" for="jobIncludeRelated">
+                Add related clients
+              </label>
+            </div>
+          </div>
+          <div class="form-group mb-3">
+            <label class="form-label" for="jobTitle" style="font-weight: 700"
+              >Title</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="jobTitle"
+              name="job[title]"
+            />
+          </div>
+          <div class="form-label" style="font-weight: 700">Job Type</div>
+
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="job[type]"
+              id="typeNewClient"
+              value="New Client"
+            />
+            <label class="form-check-label" for="typeNewClient"
+              >New Client</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="job[type]"
+              id="typeExistingClient"
+              value="Existing Client"
+            />
+            <label class="form-check-label" for="typeExistingClient"
+              >Existing Client</label
+            >
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="job[type]"
+              id="typeNonClient"
+              value="Non-Client"
+            />
+            <label class="form-check-label" for="typeNonClient"
+              >Non-Client</label
+            >
+          </div>
+
+          <div class="form-group my-3">
+            <label class="form-label" for="jobRevenue" style="font-weight: 700"
+              >Revenue</label
+            >
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+              <input
+                name="job[revenue]"
+                id="jobRevenue"
+                type="text"
+                class="form-control"
+                aria-label="Amount (to the nearest dollar)"
+              />
+              <div class="input-group-append">
+                <span class="input-group-text">.00</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group mb-3">
+            <label
+              class="form-label"
+              for="jobDescription"
+              style="font-weight: 700"
+              >Description</label
+            >
+            <textarea
+              class="form-control"
+              id="jobDescription"
+              name="job[description]"
+              rows="3"
+            ></textarea>
+          </div>
+
+          <div class="form-group mb-5">
+            <label class="form-label" for="jobType" style="font-weight: 700"
+              >Job Status</label
+            >
+            <select name="job[type]" id="jobType" class="form-select" required>
+              <option value="" hidden class="text-muted" selected>
+                Select Job Status
+              </option>
+              <option value="New Client">New Client</option>
+              <option value="Existing Client">Existing Client</option>
+              <option value="Ad Hoc">Ad Hoc</option>
+            </select>
+          </div>
+
+          <div class="mt-5">
+            <button
+              type="submit"
+              class="ms-auto btn btn-primary"
+              data-bs-dismiss="modal"
+              aria-label="Save"
+            >
+              Save
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+              aria-label="Cancel"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <%- include('../partials/footer') -%>
+</body>

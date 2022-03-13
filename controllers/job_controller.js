@@ -2,6 +2,35 @@ const Client = require('../models/client_model');
 const Note = require('../models/note_model');
 const Job = require('../models/job_model');
 
+
+//Handle user creation on POST
+module.exports.job_create_post = async (req, res, next) => {
+
+    try {
+     
+        const client = await Client.findById(req.params.clientId);
+        const job = new Job(req.body.job);
+        job.dates.created = new Date();
+        job.client = client;
+        job.creator = req.user;
+        job.account = req.user.account;
+        client.jobs.push(job);
+        console.log(job);
+
+        // await job.save(() => {
+        //     console.log('new job: ', job);
+        // });
+        // await client.save(()=> {
+        //     console.log('client saved: ', client);
+        // });
+        res.redirect(`/clients/${req.params.clientId}`);
+
+    } catch(e) {
+        req.flash('error', e.message);
+        res.redirect('back');
+    }
+}
+
 //Display all jobs associated with client
 module.exports.job_index_get = async (req, res, next) => {
 
@@ -15,87 +44,39 @@ module.exports.job_index_get = async (req, res, next) => {
             }
             }).populate('owner');
 
-        res.render('jobs/job_index',{c, page: 'jobs'});
+            const activeJobs = [];
+            const completedJobs = [];
+
+            c.jobs.forEach(job => {
+                job.status === 'In Progress' ? activeJobs.push(job) : completedJobs.push(job);
+            });
+
+        res.render('jobs/job_index',{c, page: 'jobs',completedJobs,activeJobs});
        
     } catch(e) {
         console.log(e);
         req.flash('error', e.message);
-        res.redirect('/');
+        res.redirect('back');
     }
 }
 
-// module.exports.note_show = async (req, res, next) => {
+module.exports.job_create_get = async (req, res) => {
 
-//     try {
-//         const {clientId, noteId} = req.params;
-//         const account = req.user.account;
-//         const c = await Client.findOne({ _id:clientId, account});
-//         const note = await Note.findOne({ _id:noteId, account}).populate({path: 'author'});
-//         console.log(note);
-//         res.render('notes/note_show',{c,note,  page: 'notes'});
-//     } catch(e) {
-//         console.log(e);
-//         req.flash('error', e.message);
-//         res.redirect('/');
-//     }
-// }
+    try {
+        const clientId = req.params.clientId;
+        const account = req.user.account;
+        const c = await Client.findOne({ _id:clientId, account});
 
-
-// module.exports.note_update_get = async (req, res, next) => {
-
-//     try {
-//         const {clientId, noteId} = req.params;
-//         const account = req.user.account;
-//         const c = await Client.findOne({ _id:clientId, account});
-//         const note = await Note.findOne({ _id:noteId, account});
-//         console.log(note);
-//         res.render('notes/note_update',{c,note,  page: 'notes'});
-//     } catch(e) {
-//         console.log(e);
-//         req.flash('error', e.message);
-//         res.redirect('/');
-//     }
-// }
-
-// module.exports.note_update_put = async (req, res) => {
-//     try {
-//         const {clientId, noteId} = req.params;
-//         const account = req.user.account;
-//         const note = req.body.note;
-//         console.log(note);
-//         await Note.findOneAndUpdate({_id:noteId, account}, {...note});
-//         req.flash('success', 'Details updated.' );
-//         res.redirect(`${noteId}`);
-//     } catch(e) {
-//         console.log(e);
-//         req.flash('error', e.message);
-//         res.redirect('/');
-//     }
-
-    
-    
-// }
-
-// //Handle user creation on POST
-// module.exports.note_create_post = async (req, res, next) => {
-
-//     try {
-        
-//         const client = await Client.findById(req.params.id);
-//         const note = new Note(req.body.note);
-//         console.log(note);
-//         note.date = new Date();
-//         note.author = req.user;
-//         note.account = req.user.account;
-//         client.notes.push(note);
-//         await note.save();
-//         await client.save();
-//         res.redirect(`/clients/${client._id}/notes`);
-
+        res.render('jobs/job_new', {c});
        
-//     } catch(e) {
-//         req.flash('error', e.message);
-//         // res.redirect('/');
-//     }
-// }
+    } catch(e) {
+        console.log(e);
+        req.flash('error', e.message);
+        res.redirect('back');
+    }
+}
+
+
+
+
 

@@ -14,6 +14,9 @@ router.route('/')
         isLoggedIn,
         catchAsync(job_controller.job_create_post));
 
+        //new client page
+router.get('/new',isLoggedIn, job_controller.job_create_get);
+
 router.route('/:jobId')
     .get(
         isLoggedIn, 

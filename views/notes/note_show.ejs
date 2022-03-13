@@ -6,20 +6,38 @@
     <%- include('../partials/sidenav') -%>
     <main
       class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 900px"
+      style="max-width: 1000px"
     >
       <%- include('../partials/flash') -%>
-      <div class="shadow-sm p-5 bg-white">
+      <div class="shadow-sm p-5 bg-white position-relative">
+        <div
+          class="note-links fs-5 position-absolute pe-5 d-flex"
+          style="right: 0; text-decoration: none"
+        >
+          <div class="">
+            <a
+              href="/clients/<%-c._id%>/notes/<%-note._id%>/update"
+              class="pe-4"
+            >
+              <i class="fa-light fa-pencil"></i>
+            </a>
+          </div>
+          <div class="">
+            <a href="" class="text-danger">
+              <i class="fa-light fa-trash-can"></i>
+            </a>
+          </div>
+        </div>
         <small class="text-muted"
           ><%=note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
           'long', day: 'numeric' }) %></small
         >
         <h3 class="mb-1"><%-note.title %></h3>
-        <span class="badge badge-pill bg-primary mb-4"
+        <span class="badge badge--yellow text-dark mb-3"
           ><%= note.category %></span
         >
         <p><%-note.detail%></p>
-        <small><%-note.author.fullName%></small>
+        <span class="text-muted"><%-note.author.fullName%></span>
       </div>
     </main>
   </div>

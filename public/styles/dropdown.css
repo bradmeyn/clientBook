@@ -60,15 +60,18 @@
   border: solid 3px transparent;
 }
 
-.quicklink--blue {
+.quicklink--blue,
+.badge--blue {
   background-color: #e6f0f9;
 }
 
-.quicklink--yellow {
+.quicklink--yellow,
+.badge--yellow {
   background-color: #fef6e0;
 }
 
-.quicklink--green {
+.quicklink--green,
+.badge--green {
   background-color: #e7f6f8;
 }
 
@@ -90,4 +93,27 @@
 
 .quicklink--red:hover {
   border: solid 3px #dc3545;
+}
+
+.note-link {
+  background-color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+}
+
+.note-link:hover {
+  background-color: #f9f9f9;
+}
+
+.accordian-icon {
+  transition: 0.2s ease-in-out;
+}
+
+.accordian-item-active .note-link {
+  background: #f9f9f9;
+}
+
+.accordian-item-active .accordian-icon {
+  transform: rotate(180deg);
 }

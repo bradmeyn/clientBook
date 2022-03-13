@@ -8,23 +8,22 @@ const jobSchema = new Schema({
         ref: "Account"
     },
     title: String,
+    description: String,
     type: String,
-    revenue: {
-        upfront: Number,
-        ongoing: Number
-    },
+    revenue: Number,
     dates: {
         created: Date,
+        due: Date,
         completed: Date
     },
     status: String,
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
     owners: [{
         type: Schema.Types.ObjectId,
         ref: "User"
-    }],
-    clients: [{
-        type: Schema.Types.ObjectId,
-        ref: "Client"
     }],
     notes: [{
         type: Schema.Types.ObjectId,
@@ -36,7 +35,7 @@ jobSchema.virtual('activeDays')
 .get(function() {
     let start = this.dates.created;
     let today = new Date();
-    let diff = start.getTime() - today.getTime();
+    let diff = today.getTime() - start.getTime();
     let days = Math.ceil(diff / (1000 * 3600 * 24));
 
     return days;

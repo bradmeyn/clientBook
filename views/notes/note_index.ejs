@@ -9,14 +9,24 @@
       class="container px-5 mx-auto w-100 h-100 my-5"
       style="max-width: 900px"
     >
-      <!-- Button trigger modal -->
+    <div class="d-flex justify-content-between align-items-center">
+      <h2 class="fs-3 pb-2">All Notes</h2>
+      <div class="">
+              <!-- Button trigger modal -->
       <button
-        type="button"
-        class="d-block btn btn-primary ms-auto mb-3"
-        data-bs-toggle="modal"
-        data-bs-target="#newNoteModal"
-      >
-        <i class="bi bi-plus-circle-fill pe-2"></i>New Note
+      type="button"
+      class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--yellow ms-auto mb-3"
+      style="width: 150px;"
+      data-bs-toggle="modal"
+      data-bs-target="#newNoteModal"
+    >
+    <div
+    class="d-flex align-items-center justify-content-start"
+  >
+    <span class="fs-5 text-warning"
+      ><i class="fa-regular fa-circle-plus"></i></span>
+    <h6 class="ms-4 mb-0 fw-bold">New Note</h5>
+  </div>
       </button>
       <!-- Modal -->
       <div
@@ -113,43 +123,89 @@
         </div>
       </div>
       <!-- Modal -->
-
-      <% if(c.notes.length > 0) {c.notes.forEach(note => { %>
-      <div class="shadow-sm p-2 mb-3 bg-white rounded">
-        <div class="card-body">
-         
-          <div class="d-flex justify-content-between">
-            <h5 class="card-title mb-1"><%= note.title %></h5>
-            <small class="text-muted"
-            ><%=note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
-            'long', day: 'numeric' }) %></small
-          >
-          </div>
-          <span class="badge badge-primary bg-primary mb-2"><%= note.category %></span>
-          
-          
-          <p class="card-text mb-0  "><%= note.detail %></p>
-          <p class="card-text text-muted">
-            <small><%= note.author ? note.author.fullName : 'No author' %></small
-            >
-          </p>
-          <a href="notes/<%-note._id%>">View Note</a>
-          <div class="d-flex justify-content-end ">
-            <a href="notes/<%-note._id%>/update" class="primary">
-              <i
-                class="bi bi-pencil"
-                data-bs-toggle="modal"
-                data-bs-target="#test"
-              ></i>
-            </a>
-          </div>
-        </div>
       </div>
+    </div>
+      
+      <!-- <div class="shadow-sm mb-3 p-4 bg-white rounded"> -->
+        <div class="accordian" id="accordionExample">
+          <% if(c.notes.length > 0) { let count = 1 %>
+            <% c.notes.forEach(note => { %>
+
+          <div class="accordian-item shadow-sm mb-4">
+
+            <div class="px-4 py-2 d-flex justify-content-between note-link w-100 border-bottom border-muted" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%-count%>" aria-expanded="true" aria-controls="collapse<%-count%>">
+              <div>
+                <small class="text-muted" style="text-align: left;" 
+                  ><%-note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+                  'long', day: 'numeric' }); %></small>
+                <div class="d-flex align-items-center mb-1 ">
+                  <h5 class="card-title me-3 mb-0 "><%-note.title%></h5>
+                  <span class="badge badge--yellow text-dark mb-0 me-3"><%-note.category%></span>
+                </div> 
+              </div>
+              <div class="text-primary fs-4 align-self-center">
+                <i class="fa-regular fa-chevron-down accordian-icon"></i>
+              </div>
+            </div>
+        
+            <div id="collapse<%-count%>" class="collapse accordian-body" aria-labelledby="heading<%-count%>" data-bs-parent="#accordionExample">
+              <div class="px-4 py-3 bg-white accordian-body">
+                <div class="mb-1" ><%- note.detail %></div> 
+              <small class="text-muted"><%-note.author.fullName %></small>
+              </div>
+            </div>
+
+          </div>
+
+          <% count++;})} else { %>
+            <p class="text-center bg-white shadow-sm p-5">No Notes</p>
+            <% } %>
+
+        </div>
+
+        
+        
+        
+       
+
+        
+         
+      <!-- <% if(c.notes.length > 0) {c.notes.forEach(note => { %>
+        <a href="/clients/<%-c._id%>/notes/<%-note._id%>" class="border-top border-muted text-dark note-link p-4 position-relative d-flex align-items-center justify-content-between">
+          <div class="pe-2">
+            <small class="text-muted position-absolute pe-4" style="right: 0; "
+            ><%-note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+            'long', day: 'numeric' }); %></small>
+              <div class="d-flex align-items-center mb-1 ">
+                <h5 class="card-title me-3 mb-0 "><%-note.title%></h5>
+                <span class="badge badge-primary badge--yellow text-dark mb-0 me-3"><%-note.category%></span>
+              </div> 
+            <div class=" mb-1" ><%- note.detail %></div>  
+          <small class="text-muted"><%-note.author.fullName %></small>
+          </div>
+
+          <div class="text-primary align-self-end">
+            <i class="fa-regular fa-chevron-right"></i>
+          </div>
+        </a>
       <% })} else { %>
       <p class="text-center bg-white shadow-sm p-5">No Notes</p>
-      <% } %>
+      <% } %> -->
+
+      <!-- </div> -->
     </main>
   </div>
 
   <%- include('../partials/footer') -%>
 </body>
+<script>
+
+  document.querySelectorAll('.accordian-item').forEach(item => {
+    item.addEventListener('click', e => {
+      if(item.contains(e.target) && !e.target.parentElement.classList.contains('accordian-body')){
+        item.classList.toggle('accordian-item-active');
+      }
+    
+  },)
+  });
+</script>

@@ -7,9 +7,135 @@
 
     <main
       class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 900px"
-    ></main>
+      style="max-width: 1000px;"
+     
+    >
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="fs-2 pb-2">Jobs</h1>
+      <div class="">
+        
+      <a
+      href="/clients/<%-c._id%>/jobs/new"
+      class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--green ms-auto mb-3"
+      style="width: 150px;"
+    >
+    <div
+    class="d-flex align-items-center justify-content-start"
+  >
+    <span class="fs-5 text-success"
+      ><i class="fa-regular fa-circle-plus"></i></span>
+    <h6 class="ms-4 mb-0 fw-bold">New Job</h5>
+  </div>
+</a>
+      <!-- Modal -->
+
+      </div>
+    </div>
+   
+            <div class="accordian" >
+              <div class="p-4 mb-4 d-flex justify-content-between accordian-item accordian-item-active align-items-center note-link w-100 shadow-sm " type="button" data-bs-toggle="collapse" data-bs-target="#collapseActive" aria-expanded="true" aria-controls="collapseActive">
+                <div>
+                  <div class="d-flex align-items-center mb-1 ">
+                    <h5 class="card-title me-3 mb-0">Active Jobs</h5>
+                    <span class="badge badge--green text-success mb-0 me-3"> <%-activeJobs.length %></span>
+                  </div> 
+                </div>
+                <div class="text-primary fs-4 align-self-center">
+                  <i class="fa-regular fa-chevron-down accordian-icon"></i>
+                </div>
+              </div>
+              <div id="collapseActive" class="collapse show accordian-item accordian-body accordian-item m-3" aria-labelledby="headingActive" data-bs-parent="#accordionExample">
+              
+                <% if(activeJobs.length > 0) {activeJobs.forEach(job => { %>
+                
+                  <div class="p-3 bg-white accordian-body ">
+                  <a href="/clients/<%-c._id%>/notes/<%-job._id%>" class=" text-dark note-link p-2 border-bottom border-muted d-flex align-items-center justify-content-between">
+                    <div>
+                      <span class="text-muted"
+                      ><span class="text-success">Completed:</span> <span class="text-muted"><%-job.dates.completed%></span></span>
+                        <div class="d-flex align-items-center my-2 ">
+                          <h5 class="card-title me-3 mb-0"><%- job.title %></h5>
+                          <span class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.type %></span>
+                        </div> 
+                      <div><i class="fa-regular fa-dollar-sign text-primary me-2"></i>10,000</div>  
+                    </div>
+      
+                    <div class="text-primary">
+                      <i class="fa-regular fa-chevron-right"></i>
+                    </div>
+                  </a>
+                </div>
+                
+            
+                <% })} else { %>
+                <div class="px-4 py-3 bg-white accordian-body">
+                  <div class="mb-1 fs-3" >No active jobs</div> 
+                </div>
+                <% } %>
+              </div>
+
+
+
+
+
+
+              <div class="p-4 d-flex justify-content-between accordian-item  align-items-center note-link w-100 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompleted" aria-expanded="true" aria-controls="collapseCompleted">
+                <div>
+                  <div class="d-flex align-items-center mb-1 ">
+                    <h5 class="card-title me-3 mb-0">Completed Jobs</h5>
+                    <span class="badge badge--green text-success mb-0 me-3"> <%-completedJobs.length %></span>
+                  </div> 
+                </div>
+                <div class="text-primary fs-4 align-self-center">
+                  <i class="fa-regular fa-chevron-down accordian-icon"></i>
+                </div>
+              </div>
+              <div id="collapseCompleted" class="collapse accordian-item accordian-item m-3" aria-labelledby="headingCompleted" data-bs-parent="#accordionExample">
+              
+                <% if(completedJobs.length > 0) {completedJobs.forEach(job => { %>
+                
+                  <div class="p-3 bg-white accordian-body ">
+                  <a href="/clients/<%-c._id%>/notes/<%-job._id%>" class=" text-dark note-link p-2 border-bottom border-muted d-flex align-items-center justify-content-between">
+                    <div>
+                      <span class="text-muted"
+                      ><span class="text-success">Completed:</span> <span class="text-muted"><%-job.dates.completed%></span></span>
+                        <div class="d-flex align-items-center my-2 ">
+                          <h5 class="card-title me-3 mb-0"><%- job.title %></h5>
+                          <span class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.type %></span>
+                        </div> 
+                      <div><i class="fa-regular fa-dollar-sign text-primary me-2"></i>10,000</div>  
+                    </div>
+      
+                    <div class="text-primary">
+                      <i class="fa-regular fa-chevron-right"></i>
+                    </div>
+                  </a>
+                </div>
+                
+            
+                <% })} else { %>
+                <div class="px-4 py-3 bg-white accordian-body">
+                  <div class="mb-1 fs-3" >No completed jobs</div> 
+                </div>
+                <% } %>
+              </div>
+          </div>
+
+       
+
+    </main>
   </div>
 
   <%- include('../partials/footer') -%>
 </body>
+<script>
+
+  document.querySelectorAll('.accordian-item').forEach(item => {
+    item.addEventListener('click', e => {
+      if(item.contains(e.target) && !e.target.parentElement.classList.contains('accordian-body')){
+        item.classList.toggle('accordian-item-active');
+      }
+    
+  },)
+  });
+</script>

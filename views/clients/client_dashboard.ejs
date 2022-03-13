@@ -135,13 +135,12 @@
     <!-- Modal -->
 
         <a
-          href="/jobs"
+          href="/clients/<%-c._id%>/jobs/new"
           class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--green ms-4"
           style="width: 150px"
         >
           <div
             class="d-flex align-items-center justify-content-start"
-         
           >
             <span class="fs-5 text-success"
               ><i class="fa-regular fa-circle-plus"></i></span>
@@ -223,22 +222,22 @@
             <h2 class="fs-5">Active Jobs</h2>
 
             <% c.jobs.forEach(job => { %>
-            <div class="p-2 border-top border-muted d-flex align-items-center justify-content-between">
+            <a href="/clients/<%-c._id%>/notes/<%-job._id%>" class="text-dark note-link p-2 border-top border-muted d-flex align-items-center justify-content-between">
               <div class="">
                 <small class="text-muted"
                 >Active <%-job.activeDays%> days</small>
                   <div class="d-flex align-items-center ">
                     <h6 class="card-title me-3 mb-0"><%- job.title %></h6>
-                    <span class="badge badge-primary quicklink--green text-dark mb-0 me-3"><%- job.type %></span>
+                    <span class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.type %></span>
                   </div> 
-                <div><i class="fa-regular fa-dollar-sign text-primary me-2"></i><%- job.revenue.upfront %> upfront | <%- job.revenue.ongoing %> pa ongoing</div>  
+                <div><i class="fa-regular fa-dollar-sign text-primary me-2"></i> 10,000</div>  
                 <small class="text-success"><%- job.status %></small><small class="text-muted"> | Brad Meyn</small>
               </div>
 
               <div class="text-primary">
                 <i class="fa-regular fa-chevron-right"></i>
               </div>
-            </div>
+            </a>
             <% }); %>
           </div>
 
@@ -249,14 +248,14 @@
 
             <% c.notes.forEach(note => { %>
               
-            <div class="p-2 border-top border-muted d-flex align-items-center justify-content-between">
+            <a href="/clients/<%-c._id%>/notes/<%-note._id%>" class="text-dark note-link p-2 border-top border-muted d-flex align-items-center justify-content-between">
               <div class="pe-2">
                 <small class="text-muted"
                 ><%-note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
                 'long', day: 'numeric' }); %></small>
                   <div class="d-flex align-items-center mb-1 ">
-                    <h6 class="card-title me-3 mb-0 "><%-note.title%></h5>
-                    <span class="badge badge-primary quicklink--yellow text-dark mb-0 me-3"><%-note.category%></span>
+                    <h6 class="card-title me-3 mb-0 "><%-note.title%></h6>
+                    <span class="badge badge-primary badge--yellow text-dark mb-0 me-3"><%-note.category%></span>
                   </div> 
                 <div class="small mb-1"><%- note.detail %></div>  
               <small class="text-muted"><%-note.author.fullName %></small>
@@ -265,7 +264,7 @@
               <div class="text-primary">
                 <i class="fa-regular fa-chevron-right"></i>
               </div>
-            </div>
+            </a>
             <% }); %>
 
           </div>

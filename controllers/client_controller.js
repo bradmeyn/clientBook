@@ -75,18 +75,6 @@ module.exports.client_dashboard_get = async (req, res) => {
       path: 'related.client'
     });
 
-    c.jobs.forEach(job => {
-      let start = job.dates.created;
-      console.log(start);
-    let today = new Date();
-    let diff = start.getTime() - today.getTime();
-    console.log(diff);
-    let days = Math.ceil(diff / (1000 * 3600 * 24));
-    console.log(days);
-    })
-
-
-
   if(!c){
     console.log('nothing found')
     req.flash('error', 'Cannot find that client');
