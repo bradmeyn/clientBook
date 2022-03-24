@@ -206,13 +206,13 @@
           <div class="mt-4 bg-white shadow-sm p-4 rounded">
             <h2 class="fs-5">Related Clients</h2>
 
-            <% c.related.forEach(r => { %>
+            <% if(c.relationship){ console.log(c)  %>
             <div class="">
               
-              <i class="fa-light fa-user me-2 text-primary"></i><%-r.client.salutation%> <%-r.client.preferredName%> <%-r.client.lastName%> <span style="font-style:italic">(<%-r.relationship %>)</span>
+              <i class="fa-light fa-user me-2 text-primary"></i><%-c.relationship.partner.salutation%> <%-c.relationship.partner.preferredName%> <%-c.relationship.partner.lastName%> <span style="font-style:italic">(<%-c.relationship.status %>)</span>
             </div>
-            <div class="text-muted small" style="font-style: italic">Client No. <%-r.client.clientId%></div>
-            <% }); %>
+            <div class="text-muted small" style="font-style: italic">Client No. <%-c.relationship.partner.clientId%></div>
+            <% }; %>
           </div>
         </div>
 
@@ -222,7 +222,7 @@
             <h2 class="fs-5">Active Jobs</h2>
 
             <% c.jobs.forEach(job => { %>
-            <a href="/clients/<%-c._id%>/notes/<%-job._id%>" class="text-dark note-link p-2 border-top border-muted d-flex align-items-center justify-content-between">
+            <a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="text-dark note-link p-2 border-top border-muted d-flex align-items-center justify-content-between">
               <div class="">
                 <small class="text-muted"
                 >Active <%-job.activeDays%> days</small>

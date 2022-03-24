@@ -31,9 +31,7 @@ const clientSchema = new Schema({
         type: String,
         trim: true,
     },
-    relationshipStatus: {
-        type: String,
-    },
+  
     email: {
         type: String,
         trim: true
@@ -77,13 +75,14 @@ const clientSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "Job"
     }],
-    related: [{
-        client: {
+    relationship: {
+        status: String,
+        partner: {
             type: Schema.Types.ObjectId,
             ref: "Client"
         },
-        relationship: String
-    }]
+        
+    },
 });
 
 clientSchema.virtual('fullName')

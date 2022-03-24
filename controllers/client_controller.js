@@ -72,8 +72,9 @@ module.exports.client_dashboard_get = async (req, res) => {
       path: 'owner'
       }
     }).populate({
-      path: 'related.client'
+      path: 'relationship.partner'
     });
+
 
   if(!c){
     console.log('nothing found')
@@ -173,8 +174,6 @@ module.exports.client_notes_post = async (req, res, next) => {
       const client = await Client.findById(req.params.clientId);
       const note = new Note(req.body.note);
 
-      console.log(req.user);
-
       note.date = new Date();
       note.author = req.user;
       note.account = req.user.account;
@@ -182,7 +181,6 @@ module.exports.client_notes_post = async (req, res, next) => {
       await note.save();
       await client.save();
 
-      console.log(client, note);
       res.redirect(`/clients/${client._id}/notes`);
 
 
@@ -226,7 +224,7 @@ module.exports.client_search = async (req, res) => {
   }
   ]).limit(10).exec();
   console.log(account);
-  console.log(clients)
+  console.log(clients);
   res.send(clients);
 
 }

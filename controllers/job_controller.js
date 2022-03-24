@@ -7,7 +7,7 @@ const Job = require('../models/job_model');
 module.exports.job_create_post = async (req, res, next) => {
 
     try {
-     
+        console.log(req.body.job);
         const client = await Client.findById(req.params.clientId);
         const job = new Job(req.body.job);
         job.dates.created = new Date();
@@ -17,12 +17,12 @@ module.exports.job_create_post = async (req, res, next) => {
         client.jobs.push(job);
         console.log(job);
 
-        // await job.save(() => {
-        //     console.log('new job: ', job);
-        // });
-        // await client.save(()=> {
-        //     console.log('client saved: ', client);
-        // });
+        await job.save(() => {
+            console.log('new job: ', job);
+        });
+        await client.save(()=> {
+            console.log('client saved: ', client);
+        });
         res.redirect(`/clients/${req.params.clientId}`);
 
     } catch(e) {
@@ -76,7 +76,21 @@ module.exports.job_create_get = async (req, res) => {
     }
 }
 
+module.exports.job_show = async (req, res, next) => {
 
+    try {
+        const {clientId, jobId} = req.params;
+        const account = req.user.account;
+        const c = await Client.findOne({ _id: clientId, account});
+        const job = await Job.findOne({ _id: jobId, account});
+        console.log(job);
+        res.render('jobs/job_show',{c, job, page: 'jobs'});
+    } catch(e) {
+        console.log(e);
+        req.flash('error', e.message);
+        res.redirect('/');
+    }
+}
 
 
 

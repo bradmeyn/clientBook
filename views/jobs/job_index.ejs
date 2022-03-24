@@ -51,13 +51,14 @@
                   <div class="p-3 bg-white accordian-body ">
                   <a href="/clients/<%-c._id%>/notes/<%-job._id%>" class=" text-dark note-link p-2 border-bottom border-muted d-flex align-items-center justify-content-between">
                     <div>
-                      <span class="text-muted"
-                      ><span class="text-success">Completed:</span> <span class="text-muted"><%-job.dates.completed%></span></span>
-                        <div class="d-flex align-items-center my-2 ">
+                      <!-- <span class="text-muted"
+                      ><span class="text-success">Completed:</span> <span class="text-muted"><%-job.dates.completed%></span></span> -->
+                        <div class="align-items-center my-2 ">
                           <h5 class="card-title me-3 mb-0"><%- job.title %></h5>
-                          <span class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.type %></span>
+                          <div class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.status %></div>
+                          <div><%- job.description%></div>
                         </div> 
-                      <div><i class="fa-regular fa-dollar-sign text-primary me-2"></i>10,000</div>  
+                      <div><i class="fa-regular fa-dollar-sign text-success me-2"></i><%- job.revenue %></div>  
                     </div>
       
                     <div class="text-primary">
@@ -101,9 +102,9 @@
                       ><span class="text-success">Completed:</span> <span class="text-muted"><%-job.dates.completed%></span></span>
                         <div class="d-flex align-items-center my-2 ">
                           <h5 class="card-title me-3 mb-0"><%- job.title %></h5>
-                          <span class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.type %></span>
+                          <div class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.type %></div>
                         </div> 
-                      <div><i class="fa-regular fa-dollar-sign text-primary me-2"></i>10,000</div>  
+                      <div><i class="fa-regular fa-dollar-sign text-success me-2"></i><%- job.revenue %></div>  
                     </div>
       
                     <div class="text-primary">

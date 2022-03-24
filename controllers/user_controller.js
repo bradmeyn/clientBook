@@ -20,62 +20,78 @@ module.exports.user_login_post = async (req, res) => {
 
 //Display user dashboard
 module.exports.user_dashboard_get = async (req, res) => {
-    // await Client.deleteMany({});
-    // await Note.deleteMany({});
-    // await Job.deleteMany({});
-    // const acc = req.user.account;
-    // const clientOne = new Client({
-    //     account: acc,
-    //     clientId: Date.now(),
-    //     salutation: 'Mr',
-    //     firstName: 'tester',
-    //     lastName: 'client',
-    //     preferredName: 'test',
-    //     dob: new Date(1990,6,10),
-    //     occupation: 'Junior Developer',
-    //     employer: 'Google',
-    //     relationshipStatus: 'Married',
-    //     email: 'bradjmeyn@gmail.com',
-    //     address: {
-    //         street: '205 Kings Road',
-    //         suburb: 'New Lambton',
-    //         state: 'NSW',
-    //         postcode: '2305',
-    //     },
-    //     phone: {
-    //         number: '0413235647',
-    //         phoneType: 'mobile'
-    //     }
+    await Client.deleteMany({});
+    await Note.deleteMany({});
+    await Job.deleteMany({});
+    const acc = req.user.account;
+    
+    const clientOne = new Client({
+        account: acc,
+        clientId: Date.now(),
+        salutation: 'Mr',
+        firstName: 'Bradley',
+        lastName: 'Meyn',
+        preferredName: 'Brad',
+        dob: new Date(1990,6,10),
+        occupation: 'Junior Developer',
+        employer: 'Google',
+        email: 'bradjmeyn@gmail.com',
+        address: {
+            street: '205 Kings Road',
+            suburb: 'New Lambton',
+            state: 'NSW',
+            postcode: '2305',
+        },
+        phone: {
+            number: '0413235647',
+            phoneType: 'mobile'
+        }
+    });
+
+    await clientOne.save();
+
+    const clientTwo = new Client({
+        account: acc,
+        clientId: '123456789101112',
+        salutation: 'Miss',
+        firstName: 'Emily',
+        lastName: 'Byram',
+        preferredName: 'Emily',
+        dob: new Date(1990,6,10),
+        occupation: 'Science Teacher',
+        employer: 'Maitland High School',
+        email: 'eebyram@gmail.com',
+        address: {
+            street: '205 Kings Road',
+            suburb: 'New Lambton',
+            state: 'NSW',
+            postcode: '2305',
+        },
+        phone: {
+            number: '0431558814',
+            phoneType: 'mobile'
+        }
+    });
+
+    clientOne.relationship = {partner: clientTwo, status: "Partner" };
+    clientTwo.relationship = {partner: clientOne._id, status: "Partner" };
+
+    await clientOne.save();
+    await clientTwo.save();
+
+
+
+    await clientOne.save();
+    // await clientTwo.save();
+
+    
+    
+
+    // clientOne.save(()=>{
+    //     console.log('Brad: ', clientOne);
     // });
-
-    // const clientTwo = new Client({
-    //     account: acc,
-    //     clientId: '234',
-    //     salutation: 'Mrs',
-    //     firstName: 'test',
-    //     lastName: 'Two',
-    //     preferredName: 'test',
-    //     dob: new Date(1990,6,10),
-    //     occupation: 'Junior Developer',
-    //     employer: 'Google',
-    //     relationshipStatus: 'Married',
-    //     email: 'bradjmeyn@gmail.com',
-    //     address: {
-    //         street: '205 Kings Road',
-    //         suburb: 'New Lambton',
-    //         state: 'NSW',
-    //         postcode: '2305',
-    //     },
-    //     phone: {
-    //         number: '0413235647',
-    //         phoneType: 'mobile'
-    //     }
-    // });
-
-    // await clientOne.save(() => {
-    //     let partner = {client: clientTwo, relationship: "Wife" };
-    //     clientOne.related.push(partner);
-
+    // clientTwo.save(()=>{
+    //     console.log('Emily: ', clientTwo);
     // });
 
     // await clientTwo.save();

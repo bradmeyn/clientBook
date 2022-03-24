@@ -1,0 +1,39 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column" style="min-height: 100vh; height: 100%">
+  <%- include('../partials/navbar') -%>
+  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+    <%- include('../partials/sidenav') -%>
+    <main
+      class="container px-5 mx-auto w-100 h-100 my-5"
+      style="max-width: 1000px"
+    >
+      <%- include('../partials/flash') -%>
+      <div class="shadow-sm p-5 bg-white position-relative">
+        <div
+          class="note-links fs-5 position-absolute pe-5 d-flex"
+          style="right: 0; text-decoration: none"
+        >
+          <div class="">
+            <a href="/clients/<%-c._id%>/jobs/<%-job._id%>/update" class="pe-4">
+              <i class="fa-light fa-pencil"></i>
+            </a>
+          </div>
+          <div class="">
+            <a href="" class="text-danger">
+              <i class="fa-light fa-trash-can"></i>
+            </a>
+          </div>
+        </div>
+
+        <h3 class="mb-1"><%-job.title %></h3>
+        <span class="badge badge-primary badge--green text-dark mb-0 me-3"
+          ><%= job.status %></span
+        >
+        <p><%-job.description%></p>
+      </div>
+    </main>
+  </div>
+
+  <%- include('../partials/footer') -%>
+</body>

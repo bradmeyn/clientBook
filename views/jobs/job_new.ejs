@@ -11,26 +11,27 @@
     >
       <div class="bg-white shadow-sm p-5">
         <form action="/clients/<%-c._id%>/jobs" method="POST">
-          <h2 class="mb-4">New Job</h2>
+          <h1 class="mb-4 fs-3">
+            New Job for <%-c.preferredName%> <%-c.lastName%>
+          </h1>
           <div class="form-group mb-3">
-            <div style="font-weight: 700">Client</div>
-            <div><%-c.preferredName%> <%-c.lastName%></div>
-            <div class="form-check my-3">
+            <!-- <div class="form-check my-3">
               <input
                 class="form-check-input"
                 type="checkbox"
                 value="true"
                 id="jobIncludeRelated"
                 name="job[relatedClients]"
+                checked
               />
               <label class="form-check-label" for="jobIncludeRelated">
                 Add related clients
               </label>
-            </div>
+            </div> -->
           </div>
           <div class="form-group mb-3">
             <label class="form-label" for="jobTitle" style="font-weight: 700"
-              >Title</label
+              >Job Title</label
             >
             <input
               type="text"
@@ -39,43 +40,20 @@
               name="job[title]"
             />
           </div>
-          <div class="form-label" style="font-weight: 700">Job Type</div>
 
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="job[type]"
-              id="typeNewClient"
-              value="New Client"
-            />
-            <label class="form-check-label" for="typeNewClient"
-              >New Client</label
+          <div class="form-group mb-3">
+            <label
+              class="form-label"
+              for="jobDescription"
+              style="font-weight: 700"
+              >Description</label
             >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="job[type]"
-              id="typeExistingClient"
-              value="Existing Client"
-            />
-            <label class="form-check-label" for="typeExistingClient"
-              >Existing Client</label
-            >
-          </div>
-          <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="job[type]"
-              id="typeNonClient"
-              value="Non-Client"
-            />
-            <label class="form-check-label" for="typeNonClient"
-              >Non-Client</label
-            >
+            <textarea
+              class="form-control"
+              id="jobDescription"
+              name="job[description]"
+              rows="3"
+            ></textarea>
           </div>
 
           <div class="form-group my-3">
@@ -99,32 +77,23 @@
             </div>
           </div>
 
-          <div class="form-group mb-3">
-            <label
-              class="form-label"
-              for="jobDescription"
-              style="font-weight: 700"
-              >Description</label
-            >
-            <textarea
-              class="form-control"
-              id="jobDescription"
-              name="job[description]"
-              rows="3"
-            ></textarea>
-          </div>
-
           <div class="form-group mb-5">
-            <label class="form-label" for="jobType" style="font-weight: 700"
+            <label class="form-label" for="jobStatus" style="font-weight: 700"
               >Job Status</label
             >
-            <select name="job[type]" id="jobType" class="form-select" required>
+            <select
+              name="job[status]"
+              id="jobStatus"
+              class="form-select"
+              required
+            >
               <option value="" hidden class="text-muted" selected>
                 Select Job Status
               </option>
-              <option value="New Client">New Client</option>
-              <option value="Existing Client">Existing Client</option>
-              <option value="Ad Hoc">Ad Hoc</option>
+              <option value="Not Started">Not Started</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Finalising">Finalising</option>
+              <option value="On Hold">On Hold</option>
             </select>
           </div>
 
