@@ -16,8 +16,28 @@ const noteSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
+    client: {
+        type: Schema.Types.ObjectId,
+        ref: "Client"
+    },
+    job: String,
+});
+
+
+noteSchema.virtual('shortDate')
+.get(function() {
+
+    return this.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+    'long', day: 'numeric' });
+
 });
 
 
 module.exports = mongoose.model('Note', noteSchema );
+
+
+
+
+
+
 

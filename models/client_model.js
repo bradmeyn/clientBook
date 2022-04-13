@@ -9,7 +9,7 @@ const clientSchema = new Schema({
         ref: "Account"
     },
     clientId: String,
-    salutation: String,
+    title: String,
     firstName: {
         type: String,
         trim: true,
@@ -23,11 +23,11 @@ const clientSchema = new Schema({
         trim: true,
     },
     dob: Date,
-    occupation: {
+    jobTitle: {
         type: String,
         trim: true,
     },
-    employer: {
+    company: {
         type: String,
         trim: true,
     },
@@ -48,25 +48,7 @@ const clientSchema = new Schema({
         state: String,
         postcode: String,
     },
-    mailAddress: {
-        street: {
-            type: String,
-            trim: true
-        },
-        suburb: {
-            type: String,
-            trim: true,
-            uppercase: true
-        },
-        state: String,
-        postcode: String,
-    },
-    phone: {
-        number: {
-            type: String
-        },
-        phoneType: String
-    },
+    phone: String,
     notes: [{
         type: Schema.Types.ObjectId,
         ref: "Note"
@@ -85,23 +67,24 @@ const clientSchema = new Schema({
     },
 });
 
-clientSchema.virtual('fullName')
+    clientSchema.virtual('fullName')
     .get(function() {
         this.preferredName == false;
         let preferred = this.preferredName ? `(${this.preferredName}) ` : '';
-        return `${this.salutation} ${this.firstName} ${preferred}${this.lastName}`;
+        return `${this.title} ${this.firstName} ${preferred}${this.lastName}`;
+    });
+
+    clientSchema.virtual('name')
+    .get(function() {
+        this.preferredName == false;
+        let preferred = this.preferredName ? `(${this.preferredName}) ` : '';
+        return `${preferred} ${this.lastName}`;
     });
 
     clientSchema.virtual('home')
     .get(function() {
         return `${this.address.street}, ${this.address.suburb} ${this.address.state} ${this.address.postcode}`;
     });
-
-    clientSchema.virtual('mail')
-    .get(function() {
-        return `${this.mailAddress.street}, ${this.mailAddress.suburb} ${this.mailAddress.state} ${this.mailAddress.postcode}`;
-    });
-
 
     clientSchema.virtual('age')
     .get(function() {
@@ -113,6 +96,19 @@ clientSchema.virtual('fullName')
             age--;
         }
         return age;
+    });
+
+    clientSchema.virtual('shortDob')
+    .get(function() {
+        return this.dob.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+        'long', day: 'numeric' });
+    });
+
+    clientSchema.virtual('dateValue')
+    .get(function() {
+        let dateValue = this.dob.toLocaleDateString('en-GB').split('/').reverse().join('-');;
+  
+        return dateValue;
     });
 
 

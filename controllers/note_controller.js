@@ -10,6 +10,7 @@ module.exports.note_create_post = async (req, res, next) => {
         const note = new Note(req.body.note);
         note.date = new Date();
         note.author = req.user;
+        note.client = client;
         note.account = req.user.account;
         client.notes.push(note);
         await note.save(() => {
@@ -85,6 +86,7 @@ module.exports.note_update_get = async (req, res, next) => {
 }
 
 module.exports.note_update_put = async (req, res) => {
+    
     try {
         const {clientId, noteId} = req.params;
         const account = req.user.account;
@@ -98,9 +100,6 @@ module.exports.note_update_put = async (req, res) => {
         req.flash('error', e.message);
         res.redirect('/');
     }
-
-    
-    
 }
 
 

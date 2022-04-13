@@ -2,14 +2,13 @@ const Joi = require('joi');
 
 module.exports.clientSchema = Joi.object({
 client: Joi.object({
-  salutation: Joi.string().required(),
+  title: Joi.string().required(),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  dob: Joi.object({
-      birthDay: Joi.string(),
-      birthMonth: Joi.string(),
-      birthYear: Joi.string(),
-  }),
+  preferredName: Joi.string(),
+  dob: Joi.string(),
+  job: Joi.string(),
+  company: Joi.string(),
   phone: Joi.string().max(10),
   email: Joi.string().email(),
   address: Joi.object({

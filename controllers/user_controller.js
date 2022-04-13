@@ -28,13 +28,13 @@ module.exports.user_dashboard_get = async (req, res) => {
     const clientOne = new Client({
         account: acc,
         clientId: Date.now(),
-        salutation: 'Mr',
+        title: 'Mr',
         firstName: 'Bradley',
         lastName: 'Meyn',
         preferredName: 'Brad',
         dob: new Date(1990,6,10),
-        occupation: 'Junior Developer',
-        employer: 'Google',
+        jobTitle: 'Junior Developer',
+        company: 'Google',
         email: 'bradjmeyn@gmail.com',
         address: {
             street: '205 Kings Road',
@@ -42,10 +42,7 @@ module.exports.user_dashboard_get = async (req, res) => {
             state: 'NSW',
             postcode: '2305',
         },
-        phone: {
-            number: '0413235647',
-            phoneType: 'mobile'
-        }
+        phone: '0413235647'
     });
 
     await clientOne.save();
@@ -53,13 +50,13 @@ module.exports.user_dashboard_get = async (req, res) => {
     const clientTwo = new Client({
         account: acc,
         clientId: '123456789101112',
-        salutation: 'Miss',
+        title: 'Miss',
         firstName: 'Emily',
         lastName: 'Byram',
         preferredName: 'Emily',
         dob: new Date(1990,6,10),
-        occupation: 'Science Teacher',
-        employer: 'Maitland High School',
+        jobTitle: 'Science Teacher',
+        company: 'Maitland High School',
         email: 'eebyram@gmail.com',
         address: {
             street: '205 Kings Road',
@@ -67,10 +64,7 @@ module.exports.user_dashboard_get = async (req, res) => {
             state: 'NSW',
             postcode: '2305',
         },
-        phone: {
-            number: '0431558814',
-            phoneType: 'mobile'
-        }
+        phone: '0431558814',
     });
 
     clientOne.relationship = {partner: clientTwo, status: "Partner" };
@@ -96,18 +90,19 @@ module.exports.user_dashboard_get = async (req, res) => {
 
     // await clientTwo.save();
 
-    // const nOne = {
-    //     account: acc,
-    //     title: 'Test Note',
-    //     category: 'Phone call',
-    //     date: new Date(),
-    //     detail: "Called Brad to catch up and see how he's going",
-    //     author: req.user
-    // };
+    const nOne = {
+        account: acc,
+        title: 'Test Note',
+        category: 'Phone call',
+        date: new Date(),
+        detail: "Called Brad to catch up and see how he's going",
+        author: req.user,
+        client: clientOne
+    };
 
-    // const noteOne = new Note(nOne);
-    // noteOne.save();
-    // clientOne.notes.push(noteOne);
+    const noteOne = new Note(nOne);
+    noteOne.save();
+    clientOne.notes.push(noteOne);
 
     // const nTwo = {
     //     account: acc,
@@ -148,25 +143,22 @@ module.exports.user_dashboard_get = async (req, res) => {
     // noteFour.save();
     // clientOne.notes.push(noteFour);
 
-    // const jOne = {
-    //     account: acc,
-    //     title: 'Test Job 1',
-    //     type: 'New Client',
-    //     revenue: {
-    //         upfront: 5000,
-    //         ongoing: 3000
-    //     },
-    //     dates: {
-    //         created: new Date()
-    //     },
-    //     status: 'In Progress',
+    const jOne = {
+        account: acc,
+        title: 'Test Job 1',
+        type: 'New Client',
+        revenue: 3000,
+        created: new Date(2022,2,10),
+        due: new Date(2022,5,14),
+        status: 'In Progress',
+        creator: req.user,
+        owners: [req.user],
+    };
 
-    //     owners: [req.user],
-    // };
-
-    // const jobOne = new Job(jOne);
-    // jobOne.save();
-    // clientOne.jobs.push(jobOne);
+    const jobOne = new Job(jOne);
+    jobOne.notes.push(noteOne);
+    jobOne.save();
+    clientOne.jobs.push(jobOne);
 
     // const jTwo = {
     //     account: acc,
@@ -188,12 +180,9 @@ module.exports.user_dashboard_get = async (req, res) => {
     // jobTwo.save();
     // clientOne.jobs.push(jobTwo);
 
-    // await clientOne.save(() => {
-    //     console.log("New Client with related ", clientOne);
-
-    // });
+    await clientOne.save();
     
-    res.render('users/dashboard'); 
+    res.render('users/user_dashboard'); 
   }
 
 //Display user dashboard
@@ -202,7 +191,10 @@ module.exports.user_notes_get = async (req, res) => {
     
         const account = req.user.account;
         const notes  = await Note.find({account});
-        res.render('users/notes',{notes, page: 'notes'});
+        notes.forEach(note => {
+            console.log(note);
+        })
+        res.render('users/user_notes',{notes, page: 'notes'});
        
     } catch(e) {
         console.log(e);
@@ -211,6 +203,8 @@ module.exports.user_notes_get = async (req, res) => {
     }
    
 }
+
+
 
 
 

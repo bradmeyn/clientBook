@@ -9,28 +9,79 @@
       style="max-width: 1000px"
     >
       <%- include('../partials/flash') -%>
-      <div class="shadow-sm p-5 bg-white position-relative">
-        <div
-          class="note-links fs-5 position-absolute pe-5 d-flex"
-          style="right: 0; text-decoration: none"
-        >
-          <div class="">
-            <a href="/clients/<%-c._id%>/jobs/<%-job._id%>/update" class="pe-4">
-              <i class="fa-light fa-pencil"></i>
-            </a>
+      <div class="shadow-sm bg-white position-relative">
+        <div class="p-5 pb-4">
+          <div
+            class="note-links fs-5 position-absolute pe-5 d-flex"
+            style="right: 0; text-decoration: none"
+          >
+            <div class="">
+              <a
+                href="/clients/<%-c._id%>/jobs/<%-job._id%>/update"
+                class="pe-4"
+              >
+                <i class="fa-light fa-pencil"></i>
+              </a>
+            </div>
+            <div class="">
+              <a href="" class="text-danger">
+                <i class="fa-light fa-trash-can"></i>
+              </a>
+            </div>
           </div>
-          <div class="">
-            <a href="" class="text-danger">
-              <i class="fa-light fa-trash-can"></i>
-            </a>
+          <small class="text-muted">
+            Due: <%-job.dueDate%> (active <%-job.activeDays %> days)</small
+          >
+          <h3 class="mb-1"><%-job.title %></h3>
+          <span
+            class="badge badge-primary badge--green text-dark mb-0 me-3 mb-2"
+            ><%= job.type %></span
+          >
+
+          <p class="fs-5"><%-job.description%></p>
+          <div class="fw-bold mb-1">
+            Expected Revenue:
+            <i class="fa-regular fw-bold fa-dollar-sign text-success"></i> <%-
+            job.revenue %>
+          </div>
+
+          <span class="text-success fw-bold">Status: <%- job.status %></span>
+          <div class="text-muted">
+            Assigned to <% job.owners.forEach(owner => { %>
+            <span> - <%-owner.firstName %> <%-owner.lastName %></span>
+            <% }) %>
           </div>
         </div>
 
-        <h3 class="mb-1"><%-job.title %></h3>
-        <span class="badge badge-primary badge--green text-dark mb-0 me-3"
-          ><%= job.status %></span
+        <% job.notes.forEach(note => { %>
+
+        <div class="border-muted border-top shadow-sm px-5 p-3 bg-white">
+          <div class="text-muted small">
+            <span><%- note.shortDate %></span> -
+            <span><%- note.author.fullName %></span>
+          </div>
+          <div class="small"><%- note.detail %></div>
+        </div>
+
+        <% }); %>
+      </div>
+
+      <div class="shadow-sm px-5 p-3 bg-white mt-3">
+        <form
+          action="/clients/<%- c._id %>/jobs/<%- job._id %>?_method=PUT"
+          method="POST"
         >
-        <p><%-job.description%></p>
+          <div class="form-group">
+            <input
+              type="text"
+              class="form-control bg-light border border-light fs-6"
+              style="border-radius: 1000px"
+              name="job[update]"
+              id="jobUpdate"
+              placeholder="Add update note..."
+            />
+          </div>
+        </form>
       </div>
     </main>
   </div>

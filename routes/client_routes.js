@@ -14,7 +14,7 @@ router.route('/')
         catchAsync(client_controller.client_index))
     .post(
         isLoggedIn,
-        validateClient, 
+        // validateClient, 
         catchAsync (client_controller.client_create_post));
 
 //new client page
@@ -34,7 +34,7 @@ router.get('/logout', (req, res) => {
     catchAsync(client_controller.client_dashboard_get))
   .put(
     isLoggedIn,
-    validateClient, 
+    // validateClient, 
     catchAsync (client_controller.client_update_put))
   .delete(
     isLoggedIn,

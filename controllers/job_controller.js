@@ -7,22 +7,21 @@ const Job = require('../models/job_model');
 module.exports.job_create_post = async (req, res, next) => {
 
     try {
-        console.log(req.body.job);
+       
         const client = await Client.findById(req.params.clientId);
         const job = new Job(req.body.job);
-        job.dates.created = new Date();
+        job.created = new Date();
+        let {year, month, day} = req.body.job.due;
+        job.due = new Date(year, month, day );
+        console.log(job.dates);
         job.client = client;
         job.creator = req.user;
         job.account = req.user.account;
         client.jobs.push(job);
-        console.log(job);
+   
 
-        await job.save(() => {
-            console.log('new job: ', job);
-        });
-        await client.save(()=> {
-            console.log('client saved: ', client);
-        });
+        await job.save();
+        await client.save();
         res.redirect(`/clients/${req.params.clientId}`);
 
     } catch(e) {
@@ -82,8 +81,17 @@ module.exports.job_show = async (req, res, next) => {
         const {clientId, jobId} = req.params;
         const account = req.user.account;
         const c = await Client.findOne({ _id: clientId, account});
-        const job = await Job.findOne({ _id: jobId, account});
-        console.log(job);
+
+        const job = await Job.findOne({ _id: jobId, account}).populate({
+            
+            path: 'notes',
+            populate: {
+            path: 'author'
+            }
+            }).populate('owners');
+
+      
+
         res.render('jobs/job_show',{c, job, page: 'jobs'});
     } catch(e) {
         console.log(e);
@@ -92,5 +100,77 @@ module.exports.job_show = async (req, res, next) => {
     }
 }
 
+module.exports.job_update_get = async (req, res, next) => {
 
+    try {
+        const {clientId, jobId} = req.params;
+        const account = req.user.account;
+        const c = await Client.findOne({ _id:clientId, account});
+        const job = await Job.findOne({ _id:jobId, account});
+        console.log(job);
+    
+     
+        res.render('jobs/job_update',{c, job,  page: 'jobs'});
+    } catch(e) {
+        console.log(e);
+        req.flash('error', e.message);
+        res.redirect('/');
+    }
+}
+
+module.exports.job_update_put = async (req, res) => {
+
+
+    try {
+        const {clientId, jobId} = req.params;
+        const account = req.user.account;
+
+        if(req.body.job.update){
+            const job = await Job.findOne({ _id: jobId, account});
+            const c = await Client.findOne({ _id: clientId, account});
+            const note = new Note({
+                account: account,
+                title: `Job Update: ${job.title}`,
+                category: 'Job Update',
+                date: new Date(),
+                detail: req.body.job.update,
+                author: req.user,
+                job: jobId
+            });
+            
+            c.notes.push(note);
+            job.notes.push(note);
+            await note.save(()=>{
+                console.log('Note Saved: ', note)
+            });
+            await job.save(()=>{
+                console.log('Job Saved: ', job)
+            });
+            await c.save();
+
+            res.redirect('back');
+
+        } else {
+        
+          
+            const job = req.body.job;
+            console.log(job);
+
+            let {year, month, day} = job.due;
+
+            job.due= new Date(year, month, day )
+         
+            await Job.findOneAndUpdate({_id:jobId, account}, {...job});
+
+            res.redirect(`/clients/${clientId}/jobs/${jobId}`);
+        }
+
+        
+
+    } catch(e) {
+        console.log(e);
+        req.flash('error', e.message);
+        res.redirect('/');
+    }
+}
 

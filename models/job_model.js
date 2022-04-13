@@ -11,11 +11,9 @@ const jobSchema = new Schema({
     description: String,
     type: String,
     revenue: Number,
-    dates: {
-        created: Date,
-        due: Date,
-        completed: Date
-    },
+    created: Date,
+    due: Date,
+    completed: Date,
     status: String,
     creator: {
         type: Schema.Types.ObjectId,
@@ -33,12 +31,26 @@ const jobSchema = new Schema({
 
 jobSchema.virtual('activeDays')
 .get(function() {
-    let start = this.dates.created;
+    let start = this.created;
     let today = new Date();
     let diff = today.getTime() - start.getTime();
     let days = Math.ceil(diff / (1000 * 3600 * 24));
 
     return days;
+});
+
+jobSchema.virtual('dueDate')
+.get(function() {
+
+    return this.due.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+    'long', day: 'numeric' });
+});
+
+jobSchema.virtual('completedDate')
+.get(function() {
+
+    return this.completed.toLocaleDateString( 'en-gb', { year: 'numeric', month:
+    'long', day: 'numeric' });
 });
 
 

@@ -10,9 +10,12 @@
       style="max-width: 900px"
     >
       <div class="bg-white shadow-sm p-5">
-        <form action="/clients/<%-c._id%>/jobs" method="POST">
+        <form
+          action="/clients/<%- c._id %>/jobs/<%- job._id %>?_method=PUT"
+          method="POST"
+        >
           <h1 class="mb-4 fs-3">
-            New Job for <%-c.preferredName%> <%-c.lastName%>
+            Update Job for <%-c.preferredName%> <%-c.lastName%>
           </h1>
           <div class="form-group mb-3">
             <!-- <div class="form-check my-3">
@@ -38,6 +41,7 @@
               class="form-control"
               id="jobTitle"
               name="job[title]"
+              value="<%-job.title%>"
             />
           </div>
 
@@ -53,13 +57,15 @@
               id="jobDescription"
               name="job[description]"
               rows="3"
-            ></textarea>
+            >
+<%-job.description%></textarea
+            >
           </div>
 
           <div class="form-label" style="font-weight: 700">Job Type</div>
           <div class="form-check form-check-inline">
             <input
-              class="form-check-input"
+              class="form-check-input job-type"
               type="radio"
               name="job[type]"
               id="jobTypeNew"
@@ -107,6 +113,7 @@
                 type="text"
                 class="form-control"
                 aria-label="Amount (to the nearest dollar)"
+                value="<%-job.revenue%>"
               />
               <div class="input-group-append">
                 <span class="input-group-text">.00</span>
@@ -127,10 +134,14 @@
               <option value="" hidden class="text-muted" selected>
                 Select Job Status
               </option>
-              <option value="Not Started">Not Started</option>
-              <option value="In Progress">In Progress</option>
-              <option value="Finalising">Finalising</option>
-              <option value="On Hold">On Hold</option>
+              <option class="job-status" value="Not Started">
+                Not Started
+              </option>
+              <option class="job-status" value="In Progress">
+                In Progress
+              </option>
+              <option class="job-status" value="Finalising">Finalising</option>
+              <option class="job-status" value="On Hold">On Hold</option>
             </select>
           </div>
 
@@ -151,37 +162,37 @@
                   <option hidden class="text-muted" selected value="">
                     Day
                   </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                  <option value="13">13</option>
-                  <option value="14">14</option>
-                  <option value="15">15</option>
-                  <option value="16">16</option>
-                  <option value="17">17</option>
-                  <option value="18">18</option>
-                  <option value="19">19</option>
-                  <option value="20">20</option>
-                  <option value="21">21</option>
-                  <option value="22">22</option>
-                  <option value="23">23</option>
-                  <option value="24">24</option>
-                  <option value="25">25</option>
-                  <option value="26">26</option>
-                  <option value="27">27</option>
-                  <option value="28">28</option>
-                  <option value="29">29</option>
-                  <option value="30">30</option>
-                  <option value="31">31</option>
+                  <option class="due-day" value="1">1</option>
+                  <option class="due-day" value="2">2</option>
+                  <option class="due-day" value="3">3</option>
+                  <option class="due-day" value="4">4</option>
+                  <option class="due-day" value="5">5</option>
+                  <option class="due-day" value="6">6</option>
+                  <option class="due-day" value="7">7</option>
+                  <option class="due-day" value="8">8</option>
+                  <option class="due-day" value="9">9</option>
+                  <option class="due-day" value="10">10</option>
+                  <option class="due-day" value="11">11</option>
+                  <option class="due-day" value="12">12</option>
+                  <option class="due-day" value="13">13</option>
+                  <option class="due-day" value="14">14</option>
+                  <option class="due-day" value="15">15</option>
+                  <option class="due-day" value="16">16</option>
+                  <option class="due-day" value="17">17</option>
+                  <option class="due-day" value="18">18</option>
+                  <option class="due-day" value="19">19</option>
+                  <option class="due-day" value="20">20</option>
+                  <option class="due-day" value="21">21</option>
+                  <option class="due-day" value="22">22</option>
+                  <option class="due-day" value="23">23</option>
+                  <option class="due-day" value="24">24</option>
+                  <option class="due-day" value="25">25</option>
+                  <option class="due-day" value="26">26</option>
+                  <option class="due-day" value="27">27</option>
+                  <option class="due-day" value="28">28</option>
+                  <option class="due-day" value="29">29</option>
+                  <option class="due-day" value="30">30</option>
+                  <option class="due-day" value="31">31</option>
                 </select>
               </div>
 
@@ -196,18 +207,18 @@
                   <option hidden class="text-muted" selected value="">
                     Month
                   </option>
-                  <option value="0">Jan</option>
-                  <option value="1">Feb</option>
-                  <option value="2">Mar</option>
-                  <option value="3">Apr</option>
-                  <option value="4">May</option>
-                  <option value="5">Jun</option>
-                  <option value="6">Jul</option>
-                  <option value="7">Aug</option>
-                  <option value="8">Sep</option>
-                  <option value="9">Oct</option>
-                  <option value="10">Nov</option>
-                  <option value="11">Dec</option>
+                  <option class="due-month" value="0">Jan</option>
+                  <option class="due-month" value="1">Feb</option>
+                  <option class="due-month" value="2">Mar</option>
+                  <option class="due-month" value="3">Apr</option>
+                  <option class="due-month" value="4">May</option>
+                  <option class="due-month" value="5">Jun</option>
+                  <option class="due-month" value="6">Jul</option>
+                  <option class="due-month" value="7">Aug</option>
+                  <option class="due-month" value="8">Sep</option>
+                  <option class="due-month" value="9">Oct</option>
+                  <option class="due-month" value="10">Nov</option>
+                  <option class="due-month" value="11">Dec</option>
                 </select>
               </div>
 
@@ -221,10 +232,10 @@
                   <label for="dueYear"></label>
                   <option hidden selected value="">Year</option>
 
-                  <option value="2022">2022</option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
+                  <option class="due-year" value="2022">2022</option>
+                  <option class="due-year" value="2023">2023</option>
+                  <option class="due-year" value="2024">2024</option>
+                  <option class="due-year" value="2025">2025</option>
                 </select>
               </div>
             </div>
@@ -255,3 +266,45 @@
 
   <%- include('../partials/footer') -%>
 </body>
+
+<script>
+  // stateOptions.forEach(state => {
+  //   if(addressState == state.value){
+  //     state.setAttribute('selected', 'selected');
+  //   }
+
+  // });
+
+  const typeOptions = document.querySelectorAll(".job-type");
+  const jobType = "<%-job.type%>";
+
+  typeOptions.forEach((option) => {
+    if (jobType === option.value) {
+      option.checked = true;
+    }
+  });
+
+  let prefilSelect = (currentVal, options) => {
+    options.forEach((option) => {
+      if (currentVal == option.value) {
+        option.setAttribute("selected", "selected");
+      }
+    });
+  };
+
+  const statusOptions = document.querySelectorAll(".job-status");
+  const currentStatus = "<%- job.status %>";
+  prefilSelect(currentStatus, statusOptions);
+
+  const dayOptions = document.querySelectorAll(".due-day");
+  const day = "<%- job.due.getDay() %>";
+  prefilSelect(day, dayOptions);
+
+  const monthOptions = document.querySelectorAll(".due-month");
+  const month = "<%- job.due.getMonth() %>";
+  prefilSelect(month, monthOptions);
+
+  const yearOptions = document.querySelectorAll(".due-year");
+  const year = "<%- job.due.getFullYear() %>";
+  prefilSelect(year, yearOptions);
+</script>

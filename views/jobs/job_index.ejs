@@ -11,7 +11,7 @@
      
     >
     <div class="d-flex justify-content-between align-items-center">
-      <h1 class="fs-2 pb-2">Jobs</h1>
+      <h1 class="fs-2 pb-2">All Jobs: <%- c.preferredName%> <%-c.lastName%></h1>
       <div class="">
         
       <a
@@ -33,7 +33,7 @@
     </div>
    
             <div class="accordian" >
-              <div class="p-4 mb-4 d-flex justify-content-between accordian-item accordian-item-active align-items-center note-link w-100 shadow-sm " type="button" data-bs-toggle="collapse" data-bs-target="#collapseActive" aria-expanded="true" aria-controls="collapseActive">
+              <div class="p-4 d-flex justify-content-between accordian-item accordian-item-active align-items-center note-link w-100 shadow-sm " type="button" data-bs-toggle="collapse" data-bs-target="#collapseActive" aria-expanded="true" aria-controls="collapseActive">
                 <div>
                   <div class="d-flex align-items-center mb-1 ">
                     <h5 class="card-title me-3 mb-0">Active Jobs</h5>
@@ -44,43 +44,50 @@
                   <i class="fa-regular fa-chevron-down accordian-icon"></i>
                 </div>
               </div>
-              <div id="collapseActive" class="collapse show accordian-item accordian-body accordian-item m-3" aria-labelledby="headingActive" data-bs-parent="#accordionExample">
-              
-                <% if(activeJobs.length > 0) {activeJobs.forEach(job => { %>
-                
-                  <div class="p-3 bg-white accordian-body ">
-                  <a href="/clients/<%-c._id%>/notes/<%-job._id%>" class=" text-dark note-link p-2 border-bottom border-muted d-flex align-items-center justify-content-between">
-                    <div>
-                      <!-- <span class="text-muted"
-                      ><span class="text-success">Completed:</span> <span class="text-muted"><%-job.dates.completed%></span></span> -->
-                        <div class="align-items-center my-2 ">
-                          <h5 class="card-title me-3 mb-0"><%- job.title %></h5>
-                          <div class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.status %></div>
-                          <div><%- job.description%></div>
-                        </div> 
-                      <div><i class="fa-regular fa-dollar-sign text-success me-2"></i><%- job.revenue %></div>  
-                    </div>
-      
-                    <div class="text-primary">
-                      <i class="fa-regular fa-chevron-right"></i>
-                    </div>
-                  </a>
+              <div id="collapseActive" class="collapse show accordian-item accordian-body accordian-item mx-3" aria-labelledby="headingActive" data-bs-parent="#accordionExample">
+
+                <% if(activeJobs.length > 0) { %>
+                <div class="table-responsive p-0">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="fw-normal text-muted small border-0 " scope="col">Job</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Type</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Owner</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Revenue</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Status</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Due</th>
+    
+                      </tr>
+                    </thead>
+                    <tbody>
+         
+                  
+                    <% activeJobs.forEach(job => { %>
+  
+                    <tr class="bg-white">
+                      <td class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link"><%- job.title %></a></td>
+                      <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><span class="badge badge-primary badge--green text-dark mb-0"><%- job.type %></span></td>
+                      <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted">Owner</td>
+                      <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><%- job.revenue %></td>
+                      <td class=" text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><span class=" py-2 text-success rounded badge--green   d-block"><%- job.status %></span></td>
+                      <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"><%- job.dueDate %></td>
+                    </tr>
+  
+                    <% }) %>
+  
+                    </tbody>
+                  </table>
                 </div>
-                
             
-                <% })} else { %>
-                <div class="px-4 py-3 bg-white accordian-body">
-                  <div class="mb-1 fs-3" >No active jobs</div> 
+                <% } else { %>
+                <div class="px-4 py-3 mt-3 bg-white accordian-body">
+                  <div>No active jobs</div> 
                 </div>
                 <% } %>
               </div>
 
-
-
-
-
-
-              <div class="p-4 d-flex justify-content-between accordian-item  align-items-center note-link w-100 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompleted" aria-expanded="true" aria-controls="collapseCompleted">
+              <div class="p-4 mt-3 d-flex justify-content-between accordian-item  align-items-center note-link w-100 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompleted" aria-expanded="true" aria-controls="collapseCompleted">
                 <div>
                   <div class="d-flex align-items-center mb-1 ">
                     <h5 class="card-title me-3 mb-0">Completed Jobs</h5>
@@ -91,34 +98,46 @@
                   <i class="fa-regular fa-chevron-down accordian-icon"></i>
                 </div>
               </div>
-              <div id="collapseCompleted" class="collapse accordian-item accordian-item m-3" aria-labelledby="headingCompleted" data-bs-parent="#accordionExample">
+              <div id="collapseCompleted" class="collapse accordian-item accordian-item mx-3" aria-labelledby="headingCompleted" data-bs-parent="#accordionExample">
               
-                <% if(completedJobs.length > 0) {completedJobs.forEach(job => { %>
-                
-                  <div class="p-3 bg-white accordian-body ">
-                  <a href="/clients/<%-c._id%>/notes/<%-job._id%>" class=" text-dark note-link p-2 border-bottom border-muted d-flex align-items-center justify-content-between">
-                    <div>
-                      <span class="text-muted"
-                      ><span class="text-success">Completed:</span> <span class="text-muted"><%-job.dates.completed%></span></span>
-                        <div class="d-flex align-items-center my-2 ">
-                          <h5 class="card-title me-3 mb-0"><%- job.title %></h5>
-                          <div class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.type %></div>
-                        </div> 
-                      <div><i class="fa-regular fa-dollar-sign text-success me-2"></i><%- job.revenue %></div>  
-                    </div>
-      
-                    <div class="text-primary">
-                      <i class="fa-regular fa-chevron-right"></i>
-                    </div>
-                  </a>
-                </div>
-                
-            
-                <% })} else { %>
-                <div class="px-4 py-3 bg-white accordian-body">
-                  <div class="mb-1 fs-3" >No completed jobs</div> 
-                </div>
-                <% } %>
+                <% if(completedJobs.length > 0) { %>
+                 <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th class="fw-normal text-muted small border-0 " scope="col">Job</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Type</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Owner</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Revenue</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Status</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Due</th>
+    
+                      </tr>
+                    </thead>
+                    <tbody>
+         
+                    <% completedJobs.forEach(job => { %>
+  
+                    <tr class="bg-white">
+                      <td class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link"><%- job.title %></a></td>
+                      <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><span class="badge badge-primary badge--green text-dark mb-0"><%- job.type %></span></td>
+                      <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted">Owner</td>
+                      <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><%- job.revenue %></td>
+                      <td class=" text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><span class=" py-2 text-success rounded badge--green   d-block"><%- job.status %></span></td>
+                      <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"><%- job.dueDate %></td>
+                    </tr>
+  
+                    <% }) %>
+  
+                    </tbody>
+                  </table>
+                 </div>
+              
+                  <% } else { %>
+                  <div class="px-4 py-3 mt-3 bg-white accordian-body">
+                    <div >No completed jobs</div> 
+                  </div>
+                  <% } %>
               </div>
           </div>
 

@@ -36,16 +36,23 @@ module.exports.client_index = async (req, res) => {
 
 //Handle client create on POST
 module.exports.client_create_post = async (req, res) => {
+  try {
     const client = req.body.client;
-    const {birthDay, birthMonth, birthYear} = client.dob;
-    client.dob = new Date(birthYear,birthMonth,birthDay);
+    
+    client.dob = new Date(client.dob);
     client.account = req.user.account;
     client.clientId = Date.now();
-    const newClient = new Client(client);
-    req.flash('success', 'A new client has been created' );
-    await newClient.save()
-    .then(client => res.redirect(`clients/${client._id}`));
 
+    const newClient = new Client(client);
+    
+    req.flash('success', 'A new client has been created' );
+    await newClient.save();
+    res.redirect(`clients`)
+
+  } catch(e) {
+    console.log(e);
+    res.redirect('back');
+  }
 }
 
 //Display new client form
@@ -69,7 +76,7 @@ module.exports.client_dashboard_get = async (req, res) => {
         match: {status: { $ne:  'Completed' }}
       ,
       populate: {
-      path: 'owner'
+      path: 'owners'
       }
     }).populate({
       path: 'relationship.partner'
@@ -131,14 +138,22 @@ module.exports.client_update_get = async (req, res) => {
 
 //Handle client update on PUT
 module.exports.client_update_put = async (req, res) => {
-    const id = req.params.clientId;
-    const client = req.body.client;
-    const {birthDay, birthMonth, birthYear} = client.dob;
-    client.dob = new Date(birthYear,birthMonth,birthDay);
-    const account = req.user.account;
-    await Client.findOneAndUpdate({_id:id, account}, {...client});
-    req.flash('success', 'Details updated.' );
-    res.redirect(`${id}`);
+  
+try {
+  const id = req.params.clientId;
+  const client = req.body.client;
+  client.dob = new Date(client.dob);
+
+  console.log(client);
+  const account = req.user.account;
+  await Client.findOneAndUpdate({_id:id, account}, {...client});
+  req.flash('success', 'Details updated.' );
+  res.redirect(`${id}`);
+
+} catch(error){
+  console.log(error);
+  res.redirect('back');
+}
 }
 
 
@@ -223,11 +238,14 @@ module.exports.client_search = async (req, res) => {
     }
   }
   ]).limit(10).exec();
-  console.log(account);
-  console.log(clients);
+
   res.send(clients);
 
 }
+
+
+
+
 
 
 

@@ -6,8 +6,8 @@
   <div class="d-flex flex-grow-1 w-100" style="background-color: #f5f5f5">
     <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
 
-    <main class="container mx-auto px-5 pt-3 pb-5">
-      <div class="row mb-3 gx-2 d-flex justify-content-end">
+    <main class="container mx-auto px-5 pt-3 pb-5" style="max-width: 1100px;">
+      <div class="row mb-3 pb-2 d-flex justify-content-end ">
         <a
           href="/clients/<%-c._id%>/update"
           class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--blue ms-4"
@@ -148,131 +148,133 @@
           </div>
         </a>
       </div>
-      <div class="row">
-        <div class="col-4">
-          
+      <div class="row  ">
+        <div class="col-md-5 pb-4">
           <div class="bg-white shadow-sm p-4 rounded">
             <div class="pb-3 mb-3 border-bottom border-muted text-center">
-              <img
-                src="/images/charlie_profile.png"
-                alt="..."
-                class="rounded-circle mb-2 ms-auto border border-primary"
-                style="width: 100px"
-              />
+              <i class="fa-light fa-circle-user text-primary mb-2" style="font-size: 4rem"></i>
               <h1 class="fs-4 m-0 me-3"><%-c.fullName%></h1>
               <small class="text-muted mb-2" style="font-style: italic"
                 >Client No. <%-c.clientId%></small
               >
             </div>
 
-   
-
             <div class="mb-2">
               <i class="text-primary bi bi-calendar3 me-2"></i>
-              <%=c.dob.toLocaleDateString( 'en-gb', { year: 'numeric', month:
-            'long', day: 'numeric' }); %>
-            <%- `(${c.age} years old)` %>
+              <%=c.shortDob; %> <%- `(${c.age} years old)` %>
             </div>
 
-            <% if(c.occupation) { %>
+            <% if(c.jobTitle) { %>
             <div class="mb-2 me-4">
               <i class="text-primary bi bi-briefcase me-2"></i>
-              <%-c.occupation %> <%-c.employer ? `at ${c.employer}`: '' %>
+              <%-c.jobTitle %> <%-c.company ? `at ${c.company}`: '' %>
             </div>
             <% } %>
-            
-            
           </div>
 
-          <div class="mt-4 bg-white shadow-sm p-4 rounded">
-            <h2 class="fs-5">Contact Details</h2>
-            <div class="text-muted">Preferred Phone:</div>
+        </div>
+        <div class="col-md-7 pb-4">
+          <div class="bg-white shadow-sm p-4 rounded d-flex flex-column">
+            <h2 class="fs-5 pb-2 mb-3 border-muted border-bottom">Contact Details</h2>
+            <div class="text-muted small mb-1">Preferred Phone:</div>
             <div class="mb-2">
-              <i class="text-primary bi bi-telephone me-2"></i><%- c.phone.number%>
+              <i class="text-primary bi bi-telephone me-2"></i><%- c.phone%>
             </div>
-
-            <div class="text-muted">Preferred Email:</div>
+  
+            <div class="text-muted small mb-1">Preferred Email:</div>
             <div class="mb-2">
-              <i class="text-primary bi bi-envelope me-2"></i
-              ><%-c.email %>
+              <i class="text-primary bi bi-envelope me-2"></i><%-c.email %>
             </div>
-
-            <div class="text-muted">Mailing Address:</div>
-            <div class="">
+  
+            <div class="text-muted small mb-1">Address:</div>
+            <div class="mb-2">
               <i class="text-primary bi bi-geo-alt me-2"></i><%-c.home%>
             </div>
           </div>
-
-          <div class="mt-4 bg-white shadow-sm p-4 rounded">
-            <h2 class="fs-5">Related Clients</h2>
-
-            <% if(c.relationship){ console.log(c)  %>
-            <div class="">
-              
-              <i class="fa-light fa-user me-2 text-primary"></i><%-c.relationship.partner.salutation%> <%-c.relationship.partner.preferredName%> <%-c.relationship.partner.lastName%> <span style="font-style:italic">(<%-c.relationship.status %>)</span>
-            </div>
-            <div class="text-muted small" style="font-style: italic">Client No. <%-c.relationship.partner.clientId%></div>
-            <% }; %>
-          </div>
-        </div>
-
-        <div class="col-8">
-          
-          <div class="shadow-sm mb-4 p-4 bg-white rounded">
-            <h2 class="fs-5">Active Jobs</h2>
-
-            <% c.jobs.forEach(job => { %>
-            <a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="text-dark note-link p-2 border-top border-muted d-flex align-items-center justify-content-between">
-              <div class="">
-                <small class="text-muted"
-                >Active <%-job.activeDays%> days</small>
-                  <div class="d-flex align-items-center ">
-                    <h6 class="card-title me-3 mb-0"><%- job.title %></h6>
-                    <span class="badge badge-primary badge--green text-dark mb-0 me-3"><%- job.type %></span>
-                  </div> 
-                <div><i class="fa-regular fa-dollar-sign text-primary me-2"></i> 10,000</div>  
-                <small class="text-success"><%- job.status %></small><small class="text-muted"> | Brad Meyn</small>
-              </div>
-
-              <div class="text-primary">
-                <i class="fa-regular fa-chevron-right"></i>
-              </div>
-            </a>
-            <% }); %>
-          </div>
-
-         
-
-          <div class="shadow-sm mb-3 p-4 bg-white rounded">
-            <h2 class="fs-5">Recent Notes</h2>
-
-            <% c.notes.forEach(note => { %>
-              
-            <a href="/clients/<%-c._id%>/notes/<%-note._id%>" class="text-dark note-link p-2 border-top border-muted d-flex align-items-center justify-content-between">
-              <div class="pe-2">
-                <small class="text-muted"
-                ><%-note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
-                'long', day: 'numeric' }); %></small>
-                  <div class="d-flex align-items-center mb-1 ">
-                    <h6 class="card-title me-3 mb-0 "><%-note.title%></h6>
-                    <span class="badge badge-primary badge--yellow text-dark mb-0 me-3"><%-note.category%></span>
-                  </div> 
-                <div class="small mb-1"><%- note.detail %></div>  
-              <small class="text-muted"><%-note.author.fullName %></small>
-              </div>
-
-              <div class="text-primary">
-                <i class="fa-regular fa-chevron-right"></i>
-              </div>
-            </a>
-            <% }); %>
-
-          </div>
-
-         
-
         </div>
       </div>
+        <div class="row">
+          <div class="col-12 pb-4">
+            <div class="shadow-sm p-4 bg-white rounded ">
+              
+              <% if(c.jobs.length > 0){ %>
+              <div class="table-responsive-lg">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th class="fw-normal border-0 " scope="col"><h2 class="fs-5 mb-0">Active Jobs</h2></th>
+                    <th class="fw-normal text-center small border-0 text-muted " scope="col">Type</th>
+                    <th class="fw-normal text-center small border-0 text-muted " scope="col">Owner</th>
+                    <th class="fw-normal text-center small border-0 text-muted " scope="col">Revenue</th>
+                    <th class="fw-normal text-center small border-0 text-muted " scope="col">Status</th>
+                    <th class="fw-normal text-center small border-0 text-muted " scope="col">Due</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+
+                <% c.jobs.forEach(job => { %>
+                
+                <tr class="note-link border-muted border-top mb-1">
+                  <td class="border-0 py-3 text-nowrap align-items-center justify-content-center col-sm"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link"><%- job.title %></a></td>
+                  <td class="border-0 py-3 text-center text-nowrap align-items-center justify-content-center col-sm"><span class="badge badge-primary badge--green text-dark mb-0"><%- job.type %></span></td>
+                  <td class="border-0 py-3 text-center text-nowrap align-items-center justify-content-center col-sm">Owner</td>
+                  <td class="border-0 py-3 text-center text-nowrap align-items-center justify-content-center col-sm"><%- job.revenue %></td>
+                  <td class="border-0 text-center text-nowrap align-items-center justify-content-center col-sm"><span class=" p-2 text-success rounded badge--green   d-block"><%- job.status %></span></td>
+                  <td class="border-0 py-3 text-center text-nowrap align-items-center justify-content-center col-smsmall"><%- job.dueDate %></td>
+                </tr>
+           
+                <% }); %>
+                </tbody>
+              </table>
+              </div>
+            <% } else { %>
+              <h2 class="fs-5 border-muted border-bottom pb-2">Active Jobs</h2>
+              <div class="p-2 text-muted">No active jobs</div>
+            </div>
+            <% } %>
+          </div>
+        </div>
+
+          
+            <div class="col-12 pb-4">
+              <div class="shadow-sm mb-3 p-4 bg-white rounded">
+                <h2 class="fs-5 border-muted border-bottom pb-2">Recent Notes</h2>
+                <% if(c.notes.length > 0){ %>
+                <% c.notes.forEach(note => { %>
+                <a
+                  href="/clients/<%-c._id%>/notes/<%-note._id%>"
+                  class="text-dark note-link p-2 d-flex align-items-center justify-content-between"
+                >
+                  <div class="pe-2">
+                    <small class="text-muted"><%-note.shortDate %> - <%-note.author.fullName %></small>
+                    <div class="d-flex align-items-center mb-1">
+                      <h6 class="card-title me-3 mb-0"><%-note.title%></h6>
+                      <span
+                        class="badge badge-primary badge--yellow text-dark mb-0 me-3"
+                        ><%-note.category%></span
+                      >
+                    </div>
+                    <div class="small mb-1"><%- note.detail %></div>
+                    <small class="text-muted"></small>
+                  </div>
+    
+                  <div class="text-primary">
+                    <i class="fa-regular fa-chevron-right"></i>
+                  </div>
+                </a>
+                <% }); %>
+
+                <% } else { %>
+                  <div class="p-2 text-muted">No recent notes</div>
+                </div>
+                <% } %>
+              </div>
+            
+          </div>
+        </div>
+        
+      
     </main>
   </div>
 

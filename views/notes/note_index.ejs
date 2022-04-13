@@ -10,7 +10,7 @@
       style="max-width: 900px"
     >
     <div class="d-flex justify-content-between align-items-center">
-      <h2 class="fs-3 pb-2">All Notes</h2>
+      <h2 class="fs-3 pb-2">All Notes: <%- c.preferredName%> <%-c.lastName%></h2>
       <div class="">
               <!-- Button trigger modal -->
       <button
@@ -133,11 +133,9 @@
 
           <div class="accordian-item shadow-sm mb-4">
 
-            <div class="px-4 py-2 d-flex justify-content-between note-link w-100 border-bottom border-muted" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%-count%>" aria-expanded="true" aria-controls="collapse<%-count%>">
+            <div class="p-4 d-flex justify-content-between note-link w-100 border-bottom border-muted" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%-count%>" aria-expanded="true" aria-controls="collapse<%-count%>">
               <div>
-                <small class="text-muted" style="text-align: left;" 
-                  ><%-note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
-                  'long', day: 'numeric' }); %></small>
+                <small class="text-muted"><%-note.shortDate %> - <%-note.author.fullName %></small>
                 <div class="d-flex align-items-center mb-1 ">
                   <h5 class="card-title me-3 mb-0 "><%-note.title%></h5>
                   <span class="badge badge--yellow text-dark mb-0 me-3"><%-note.category%></span>
@@ -151,7 +149,7 @@
             <div id="collapse<%-count%>" class="collapse accordian-body" aria-labelledby="heading<%-count%>" data-bs-parent="#accordionExample">
               <div class="px-4 py-3 bg-white accordian-body">
                 <div class="mb-1" ><%- note.detail %></div> 
-              <small class="text-muted"><%-note.author.fullName %></small>
+
               </div>
             </div>
 
@@ -162,37 +160,6 @@
             <% } %>
 
         </div>
-
-        
-        
-        
-       
-
-        
-         
-      <!-- <% if(c.notes.length > 0) {c.notes.forEach(note => { %>
-        <a href="/clients/<%-c._id%>/notes/<%-note._id%>" class="border-top border-muted text-dark note-link p-4 position-relative d-flex align-items-center justify-content-between">
-          <div class="pe-2">
-            <small class="text-muted position-absolute pe-4" style="right: 0; "
-            ><%-note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
-            'long', day: 'numeric' }); %></small>
-              <div class="d-flex align-items-center mb-1 ">
-                <h5 class="card-title me-3 mb-0 "><%-note.title%></h5>
-                <span class="badge badge-primary badge--yellow text-dark mb-0 me-3"><%-note.category%></span>
-              </div> 
-            <div class=" mb-1" ><%- note.detail %></div>  
-          <small class="text-muted"><%-note.author.fullName %></small>
-          </div>
-
-          <div class="text-primary align-self-end">
-            <i class="fa-regular fa-chevron-right"></i>
-          </div>
-        </a>
-      <% })} else { %>
-      <p class="text-center bg-white shadow-sm p-5">No Notes</p>
-      <% } %> -->
-
-      <!-- </div> -->
     </main>
   </div>
 

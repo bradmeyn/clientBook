@@ -29,15 +29,19 @@
           </div>
         </div>
         <small class="text-muted"
-          ><%=note.date.toLocaleDateString( 'en-gb', { year: 'numeric', month:
-          'long', day: 'numeric' }) %></small
+          ><%- note.shortDate%> - <%-note.author.fullName%></small
         >
         <h3 class="mb-1"><%-note.title %></h3>
         <span class="badge badge--yellow text-dark mb-3"
           ><%= note.category %></span
         >
         <p><%-note.detail%></p>
-        <span class="text-muted"><%-note.author.fullName%></span>
+        <div class="text-muted mb-2"></div>
+        <% if(note.job){ %>
+        <a href="/clients/<%-c._id%>/jobs/<%-note.job%>" class="link-primary"
+          >View job</a
+        >
+        <% } %>
       </div>
     </main>
   </div>
