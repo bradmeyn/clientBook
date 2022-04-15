@@ -1,95 +1,36 @@
-<div class="p-3 bg-white shadow-sm" style="width: 200px">
-  <aside class="h-100 d-flex flex-column flex-grow-1">
-    <a
-      href="/clients/<%-c._id%>"
-      class="link-dark px-2"
-      style="text-decoration: none"
-      ><i class="me-2 bi bi-person"></i><%-c.firstName%> <%-c.lastName%></a
-    >
-
-    <hr />
-    <ul class="nav nav-pills flex-column mb-auto">
+<div class="bg-white shadow-sm">
+  <nav
+    class="h-100 d-flex align-items-center justify-content-between container px-5"
+    style="max-width: 1100px"
+  >
+    <ul class="nav nav-pills d-flex align-items-center py-1">
       <li class="nav-item">
         <a
           href="/clients/<%-c._id%>"
-          class="nav-link link-dark"
-          aria-current="page"
+          class="link-dark pe-4 border-end border-muted"
+          style="text-decoration: none"
+          ><%-c.firstName%> <%-c.lastName%></a
         >
-          <i class="me-2 bi bi-person-lines-fill"></i>
-          Details
+      </li>
+      <li>
+        <a href="/clients/<%-c._id%>" class="nav-link link-secondary">
+          <i class="fa-regular fa-house mx-2"></i>
+
+          Home
         </a>
       </li>
-
       <li>
-        <a href="/clients/<%-c._id%>/notes" class="nav-link link-dark">
+        <a href="/clients/<%-c._id%>/notes" class="nav-link link-secondary">
           <i class="me-2 fa-regular fa-note-sticky"></i>
           Notes
         </a>
       </li>
-
       <li>
-        <a href="/clients/<%-c._id%>/jobs" class="nav-link link-dark">
+        <a href="/clients/<%-c._id%>/jobs" class="nav-link link-secondary">
           <i class="me-2 fa-regular fa-briefcase"></i>
           Jobs
         </a>
       </li>
     </ul>
-    <hr />
-
-    <!-- Button trigger modal -->
-    <button
-      type="button"
-      class="d-block btn btn-danger mx-auto"
-      data-bs-toggle="modal"
-      data-bs-target="#myModal"
-    >
-      <i class="me-2 bi bi-trash"></i>Delete Client
-    </button>
-
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="myModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">
-              Confirm Client Deletion
-            </h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            Client details will be permanently deleted.
-          </div>
-          <form
-            action="/clients/<%-c._id%>?_method=DELETE"
-            method="POST"
-            class="w-100"
-          >
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Cancel
-              </button>
-              <button type="submit" class="btn btn-danger">
-                Delete Client
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </aside>
+  </nav>
 </div>

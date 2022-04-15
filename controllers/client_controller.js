@@ -38,7 +38,6 @@ module.exports.client_index = async (req, res) => {
 module.exports.client_create_post = async (req, res) => {
   try {
     const client = req.body.client;
-    
     client.dob = new Date(client.dob);
     client.account = req.user.account;
     client.clientId = Date.now();

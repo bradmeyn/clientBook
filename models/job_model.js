@@ -54,4 +54,12 @@ jobSchema.virtual('completedDate')
 });
 
 
+jobSchema.virtual('dateValue')
+.get(function() {
+    let dateValue = this.due.toLocaleDateString('en-GB').split('/').reverse().join('-');;
+
+    return dateValue;
+});
+
+
 module.exports = mongoose.model('Job', jobSchema );

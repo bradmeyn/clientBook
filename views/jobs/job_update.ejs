@@ -2,38 +2,24 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
-  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+  <div class="d-flex flex-column flex-grow-1" style="background-color: #f5f5f5">
     <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
 
     <main
       class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 900px"
+      style="max-width: 700px"
     >
       <div class="bg-white shadow-sm p-5">
         <form
           action="/clients/<%- c._id %>/jobs/<%- job._id %>?_method=PUT"
           method="POST"
         >
-          <h1 class="mb-4 fs-3">
+          <h1 class="mb-4 pb-2 border-bottom border-muted fs-4">
             Update Job for <%-c.preferredName%> <%-c.lastName%>
           </h1>
+
           <div class="form-group mb-3">
-            <!-- <div class="form-check my-3">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value="true"
-                id="jobIncludeRelated"
-                name="job[relatedClients]"
-                checked
-              />
-              <label class="form-check-label" for="jobIncludeRelated">
-                Add related clients
-              </label>
-            </div> -->
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label" for="jobTitle" style="font-weight: 700"
+            <label class="form-label small text-muted" for="jobTitle"
               >Job Title</label
             >
             <input
@@ -41,15 +27,12 @@
               class="form-control"
               id="jobTitle"
               name="job[title]"
-              value="<%-job.title%>"
+              value="<%- job.title %>"
             />
           </div>
 
           <div class="form-group mb-3">
-            <label
-              class="form-label"
-              for="jobDescription"
-              style="font-weight: 700"
+            <label class="form-label small text-muted" for="jobDescription"
               >Description</label
             >
             <textarea
@@ -58,11 +41,11 @@
               name="job[description]"
               rows="3"
             >
-<%-job.description%></textarea
+<%- job.description %></textarea
             >
           </div>
 
-          <div class="form-label" style="font-weight: 700">Job Type</div>
+          <div class="form-label small text-muted">Job Type</div>
           <div class="form-check form-check-inline">
             <input
               class="form-check-input job-type"
@@ -75,7 +58,7 @@
           </div>
           <div class="form-check form-check-inline">
             <input
-              class="form-check-input"
+              class="form-check-input job-type"
               type="radio"
               name="job[type]"
               id="jobTypeUpdate"
@@ -88,7 +71,7 @@
 
           <div class="form-check form-check-inline">
             <input
-              class="form-check-input"
+              class="form-check-input job-type"
               type="radio"
               name="job[type]"
               id="jobTypeOther"
@@ -100,7 +83,7 @@
           </div>
 
           <div class="form-group my-3">
-            <label class="form-label" for="jobRevenue" style="font-weight: 700"
+            <label class="form-label small text-muted" for="jobRevenue"
               >Revenue</label
             >
             <div class="input-group mb-3">
@@ -113,7 +96,7 @@
                 type="text"
                 class="form-control"
                 aria-label="Amount (to the nearest dollar)"
-                value="<%-job.revenue%>"
+                value="<%- job.revenue %>"
               />
               <div class="input-group-append">
                 <span class="input-group-text">.00</span>
@@ -122,7 +105,7 @@
           </div>
 
           <div class="form-group mb-3">
-            <label class="form-label" for="jobStatus" style="font-weight: 700"
+            <label class="form-label small text-muted" for="jobStatus"
               >Job Status</label
             >
             <select
@@ -132,7 +115,7 @@
               required
             >
               <option value="" hidden class="text-muted" selected>
-                Select Job Status
+                Select job status
               </option>
               <option class="job-status" value="Not Started">
                 Not Started
@@ -145,110 +128,29 @@
             </select>
           </div>
 
-          <div class="form-row mb-5">
-            <label class="form-label" for="dueDate" style="font-weight: 700"
+          <div class="form-group mb-4">
+            <label class="form-label small text-muted" for="dueDate"
               >Due date:</label
             >
-
-            <div class="col-6 d-flex">
-              <div class="col-4">
-                <select
-                  name="job[due][day]"
-                  class="form-select"
-                  aria-label="Default select example"
-                  required
-                >
-                  <label for="dueDay"></label>
-                  <option hidden class="text-muted" selected value="">
-                    Day
-                  </option>
-                  <option class="due-day" value="1">1</option>
-                  <option class="due-day" value="2">2</option>
-                  <option class="due-day" value="3">3</option>
-                  <option class="due-day" value="4">4</option>
-                  <option class="due-day" value="5">5</option>
-                  <option class="due-day" value="6">6</option>
-                  <option class="due-day" value="7">7</option>
-                  <option class="due-day" value="8">8</option>
-                  <option class="due-day" value="9">9</option>
-                  <option class="due-day" value="10">10</option>
-                  <option class="due-day" value="11">11</option>
-                  <option class="due-day" value="12">12</option>
-                  <option class="due-day" value="13">13</option>
-                  <option class="due-day" value="14">14</option>
-                  <option class="due-day" value="15">15</option>
-                  <option class="due-day" value="16">16</option>
-                  <option class="due-day" value="17">17</option>
-                  <option class="due-day" value="18">18</option>
-                  <option class="due-day" value="19">19</option>
-                  <option class="due-day" value="20">20</option>
-                  <option class="due-day" value="21">21</option>
-                  <option class="due-day" value="22">22</option>
-                  <option class="due-day" value="23">23</option>
-                  <option class="due-day" value="24">24</option>
-                  <option class="due-day" value="25">25</option>
-                  <option class="due-day" value="26">26</option>
-                  <option class="due-day" value="27">27</option>
-                  <option class="due-day" value="28">28</option>
-                  <option class="due-day" value="29">29</option>
-                  <option class="due-day" value="30">30</option>
-                  <option class="due-day" value="31">31</option>
-                </select>
-              </div>
-
-              <div class="col-4">
-                <select
-                  name="job[due][month]"
-                  class="form-select"
-                  aria-label="Default select example"
-                  required
-                >
-                  <label for="dueMonth"></label>
-                  <option hidden class="text-muted" selected value="">
-                    Month
-                  </option>
-                  <option class="due-month" value="0">Jan</option>
-                  <option class="due-month" value="1">Feb</option>
-                  <option class="due-month" value="2">Mar</option>
-                  <option class="due-month" value="3">Apr</option>
-                  <option class="due-month" value="4">May</option>
-                  <option class="due-month" value="5">Jun</option>
-                  <option class="due-month" value="6">Jul</option>
-                  <option class="due-month" value="7">Aug</option>
-                  <option class="due-month" value="8">Sep</option>
-                  <option class="due-month" value="9">Oct</option>
-                  <option class="due-month" value="10">Nov</option>
-                  <option class="due-month" value="11">Dec</option>
-                </select>
-              </div>
-
-              <div class="col-4">
-                <select
-                  name="job[due][year]"
-                  class="form-select"
-                  aria-label="Default select example"
-                  required
-                >
-                  <label for="dueYear"></label>
-                  <option hidden selected value="">Year</option>
-
-                  <option class="due-year" value="2022">2022</option>
-                  <option class="due-year" value="2023">2023</option>
-                  <option class="due-year" value="2024">2024</option>
-                  <option class="due-year" value="2025">2025</option>
-                </select>
-              </div>
-            </div>
+            <input
+              type="date"
+              class="form-control"
+              id="dueDate"
+              placeholder=""
+              name="job[due]"
+              pattern="^[^0-9]+$"
+              value="<%- job.dateValue %>"
+            />
           </div>
 
-          <div class="mt-5">
+          <div class="mt-3">
             <button
               type="submit"
               class="ms-auto btn btn-primary"
               data-bs-dismiss="modal"
               aria-label="Save"
             >
-              Save
+              Save Job
             </button>
             <button
               type="button"
@@ -295,16 +197,4 @@
   const statusOptions = document.querySelectorAll(".job-status");
   const currentStatus = "<%- job.status %>";
   prefilSelect(currentStatus, statusOptions);
-
-  const dayOptions = document.querySelectorAll(".due-day");
-  const day = "<%- job.due.getDay() %>";
-  prefilSelect(day, dayOptions);
-
-  const monthOptions = document.querySelectorAll(".due-month");
-  const month = "<%- job.due.getMonth() %>";
-  prefilSelect(month, monthOptions);
-
-  const yearOptions = document.querySelectorAll(".due-year");
-  const year = "<%- job.due.getFullYear() %>";
-  prefilSelect(year, yearOptions);
 </script>

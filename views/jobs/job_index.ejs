@@ -2,7 +2,7 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
-  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+  <div class="d-flex flex-column flex-grow-1" style="background-color: #f5f5f5">
     <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
 
     <main
@@ -11,7 +11,7 @@
      
     >
     <div class="d-flex justify-content-between align-items-center">
-      <h1 class="fs-2 pb-2">All Jobs: <%- c.preferredName%> <%-c.lastName%></h1>
+      <h1 class="fs-3 pb-2">All Jobs: <%- c.preferredName%> <%-c.lastName%></h1>
       <div class="">
         
       <a
@@ -36,7 +36,7 @@
               <div class="p-4 d-flex justify-content-between accordian-item accordian-item-active align-items-center note-link w-100 shadow-sm " type="button" data-bs-toggle="collapse" data-bs-target="#collapseActive" aria-expanded="true" aria-controls="collapseActive">
                 <div>
                   <div class="d-flex align-items-center mb-1 ">
-                    <h5 class="card-title me-3 mb-0">Active Jobs</h5>
+                    <h2 class=" fs-5 card-title me-3 mb-0">Active Jobs</h2>
                     <span class="badge badge--green text-success mb-0 me-3"> <%-activeJobs.length %></span>
                   </div> 
                 </div>
@@ -47,11 +47,11 @@
               <div id="collapseActive" class="collapse show accordian-item accordian-body accordian-item mx-3" aria-labelledby="headingActive" data-bs-parent="#accordionExample">
 
                 <% if(activeJobs.length > 0) { %>
-                <div class="table-responsive p-0">
+                <div class="table-responsive p-0 mt-3">
                   <table class="table">
                     <thead>
                       <tr>
-                        <th class="fw-normal text-muted small border-0 " scope="col">Job</th>
+                        <th class="fw-normal text-muted text-center small border-0 " scope="col">Job</th>
                         <th class="fw-normal text-muted text-center small border-0 " scope="col">Type</th>
                         <th class="fw-normal text-muted text-center small border-0 " scope="col">Owner</th>
                         <th class="fw-normal text-muted text-center small border-0 " scope="col">Revenue</th>
@@ -66,7 +66,7 @@
                     <% activeJobs.forEach(job => { %>
   
                     <tr class="bg-white">
-                      <td class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link"><%- job.title %></a></td>
+                      <td class="py-3 text-nowrap text-center align-items-center justify-content-center col-sm border-bottom border-muted"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link"><%- job.title %></a></td>
                       <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><span class="badge badge-primary badge--green text-dark mb-0"><%- job.type %></span></td>
                       <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted">Owner</td>
                       <td class="py-3 text-center text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"><%- job.revenue %></td>
@@ -90,7 +90,7 @@
               <div class="p-4 mt-3 d-flex justify-content-between accordian-item  align-items-center note-link w-100 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCompleted" aria-expanded="true" aria-controls="collapseCompleted">
                 <div>
                   <div class="d-flex align-items-center mb-1 ">
-                    <h5 class="card-title me-3 mb-0">Completed Jobs</h5>
+                    <h2 class="card-title fs-5 me-3 mb-0">Completed Jobs</h2>
                     <span class="badge badge--green text-success mb-0 me-3"> <%-completedJobs.length %></span>
                   </div> 
                 </div>
@@ -101,7 +101,7 @@
               <div id="collapseCompleted" class="collapse accordian-item accordian-item mx-3" aria-labelledby="headingCompleted" data-bs-parent="#accordionExample">
               
                 <% if(completedJobs.length > 0) { %>
-                 <div class="table-responsive">
+                 <div class="table-responsive mt-3 p-0">
                   <table class="table">
                     <thead>
                       <tr>

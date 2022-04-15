@@ -7,20 +7,19 @@ const Job = require('../models/job_model');
 module.exports.job_create_post = async (req, res, next) => {
 
     try {
-       
+       const job = req.body.job
         const client = await Client.findById(req.params.clientId);
-        const job = new Job(req.body.job);
+        
         job.created = new Date();
-        let {year, month, day} = req.body.job.due;
-        job.due = new Date(year, month, day );
-        console.log(job.dates);
+        job.due = new Date(job.due);
         job.client = client;
         job.creator = req.user;
         job.account = req.user.account;
-        client.jobs.push(job);
+        const newJob = new Job(job);
+        client.jobs.push(newJob);
    
 
-        await job.save();
+        await newJob.save();
         await client.save();
         res.redirect(`/clients/${req.params.clientId}`);
 
@@ -108,8 +107,6 @@ module.exports.job_update_get = async (req, res, next) => {
         const c = await Client.findOne({ _id:clientId, account});
         const job = await Job.findOne({ _id:jobId, account});
         console.log(job);
-    
-     
         res.render('jobs/job_update',{c, job,  page: 'jobs'});
     } catch(e) {
         console.log(e);
@@ -124,7 +121,6 @@ module.exports.job_update_put = async (req, res) => {
     try {
         const {clientId, jobId} = req.params;
         const account = req.user.account;
-
         if(req.body.job.update){
             const job = await Job.findOne({ _id: jobId, account});
             const c = await Client.findOne({ _id: clientId, account});
@@ -151,22 +147,15 @@ module.exports.job_update_put = async (req, res) => {
             res.redirect('back');
 
         } else {
-        
-          
+
             const job = req.body.job;
-            console.log(job);
 
-            let {year, month, day} = job.due;
-
-            job.due= new Date(year, month, day )
+            job.due = new Date(job.due);
          
             await Job.findOneAndUpdate({_id:jobId, account}, {...job});
 
             res.redirect(`/clients/${clientId}/jobs/${jobId}`);
         }
-
-        
-
     } catch(e) {
         console.log(e);
         req.flash('error', e.message);

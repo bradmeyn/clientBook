@@ -2,35 +2,21 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
-  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+  <div class="d-flex flex-column flex-grow-1" style="background-color: #f5f5f5">
     <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
 
     <main
       class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 900px"
+      style="max-width: 600px"
     >
       <div class="bg-white shadow-sm p-5">
         <form action="/clients/<%-c._id%>/jobs" method="POST">
-          <h1 class="mb-4 fs-3">
+          <h1 class="mb-4 pb-2 border-bottom border-muted fs-4">
             New Job for <%-c.preferredName%> <%-c.lastName%>
           </h1>
+
           <div class="form-group mb-3">
-            <!-- <div class="form-check my-3">
-              <input
-                class="form-check-input"
-                type="checkbox"
-                value="true"
-                id="jobIncludeRelated"
-                name="job[relatedClients]"
-                checked
-              />
-              <label class="form-check-label" for="jobIncludeRelated">
-                Add related clients
-              </label>
-            </div> -->
-          </div>
-          <div class="form-group mb-3">
-            <label class="form-label" for="jobTitle" style="font-weight: 700"
+            <label class="form-label small text-muted" for="jobTitle"
               >Job Title</label
             >
             <input
@@ -42,10 +28,7 @@
           </div>
 
           <div class="form-group mb-3">
-            <label
-              class="form-label"
-              for="jobDescription"
-              style="font-weight: 700"
+            <label class="form-label small text-muted" for="jobDescription"
               >Description</label
             >
             <textarea
@@ -56,7 +39,7 @@
             ></textarea>
           </div>
 
-          <div class="form-label" style="font-weight: 700">Job Type</div>
+          <div class="form-label small text-muted">Job Type</div>
           <div class="form-check form-check-inline">
             <input
               class="form-check-input"
@@ -94,7 +77,7 @@
           </div>
 
           <div class="form-group my-3">
-            <label class="form-label" for="jobRevenue" style="font-weight: 700"
+            <label class="form-label small text-muted" for="jobRevenue"
               >Revenue</label
             >
             <div class="input-group mb-3">
@@ -115,7 +98,7 @@
           </div>
 
           <div class="form-group mb-3">
-            <label class="form-label" for="jobStatus" style="font-weight: 700"
+            <label class="form-label small text-muted" for="jobStatus"
               >Job Status</label
             >
             <select
@@ -125,7 +108,7 @@
               required
             >
               <option value="" hidden class="text-muted" selected>
-                Select Job Status
+                Select job status
               </option>
               <option value="Not Started">Not Started</option>
               <option value="In Progress">In Progress</option>
@@ -134,119 +117,39 @@
             </select>
           </div>
 
-          <div class="form-row mb-5">
-            <label class="form-label" for="dueDate" style="font-weight: 700"
+          <div class="form-group mb-4">
+            <label class="form-label small text-muted" for="dueDate"
               >Due date:</label
             >
-
-            <div class="col-6 d-flex">
-              <div class="col-4">
-                <select
-                  name="job[due][day]"
-                  class="form-select"
-                  aria-label="Default select example"
-                  required
-                >
-                  <label for="dueDay"></label>
-                  <option hidden class="text-muted" selected value="">
-                    Day
-                  </option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                  <option value="13">13</option>
-                  <option value="14">14</option>
-                  <option value="15">15</option>
-                  <option value="16">16</option>
-                  <option value="17">17</option>
-                  <option value="18">18</option>
-                  <option value="19">19</option>
-                  <option value="20">20</option>
-                  <option value="21">21</option>
-                  <option value="22">22</option>
-                  <option value="23">23</option>
-                  <option value="24">24</option>
-                  <option value="25">25</option>
-                  <option value="26">26</option>
-                  <option value="27">27</option>
-                  <option value="28">28</option>
-                  <option value="29">29</option>
-                  <option value="30">30</option>
-                  <option value="31">31</option>
-                </select>
-              </div>
-
-              <div class="col-4">
-                <select
-                  name="job[due][month]"
-                  class="form-select"
-                  aria-label="Default select example"
-                  required
-                >
-                  <label for="dueMonth"></label>
-                  <option hidden class="text-muted" selected value="">
-                    Month
-                  </option>
-                  <option value="0">Jan</option>
-                  <option value="1">Feb</option>
-                  <option value="2">Mar</option>
-                  <option value="3">Apr</option>
-                  <option value="4">May</option>
-                  <option value="5">Jun</option>
-                  <option value="6">Jul</option>
-                  <option value="7">Aug</option>
-                  <option value="8">Sep</option>
-                  <option value="9">Oct</option>
-                  <option value="10">Nov</option>
-                  <option value="11">Dec</option>
-                </select>
-              </div>
-
-              <div class="col-4">
-                <select
-                  name="job[due][year]"
-                  class="form-select"
-                  aria-label="Default select example"
-                  required
-                >
-                  <label for="dueYear"></label>
-                  <option hidden selected value="">Year</option>
-
-                  <option value="2022">2022</option>
-                  <option value="2023">2023</option>
-                  <option value="2024">2024</option>
-                  <option value="2025">2025</option>
-                </select>
-              </div>
-            </div>
+            <input
+              type="date"
+              class="form-control"
+              id="dueDate"
+              placeholder=""
+              name="job[due]"
+              pattern="^[^0-9]+$"
+            />
           </div>
 
-          <div class="mt-5">
+          <div class="mt-3">
             <button
               type="submit"
               class="ms-auto btn btn-primary"
               data-bs-dismiss="modal"
               aria-label="Save"
             >
-              Save
+              Save Job
             </button>
-            <button
+
+            <a
+              href="#"
               type="button"
               class="btn btn-secondary"
-              data-bs-dismiss="modal"
               aria-label="Cancel"
+              onclick="javascript:window.history.back(-1);return false;"
             >
               Cancel
-            </button>
+            </a>
           </div>
         </form>
       </div>

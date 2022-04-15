@@ -2,21 +2,21 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh; height: 100%">
   <%- include('../partials/navbar') -%>
-  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+  <div class="d-flex flex-column flex-grow-1" style="background-color: #f5f5f5">
     <%- include('../partials/sidenav') -%>
     <main
       class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 900px"
+      style="max-width: 700px"
     >
       <%- include('../partials/flash') -%>
       <div class="shadow-sm p-5" style="background-color: #ffffff">
-        <h3 class="mb-2">Edit Note</h3>
+        <h1 class="fs-4 mb-3 pb-2 border-bottom border-muted">Edit Note</h1>
         <form
           action="/clients/<%-c._id%>/notes/<%-note._id%>?_method=PUT"
           method="POST"
         >
-          <div class="form-group mb-3" style="font-weight: 700">
-            <label for="noteTitle">Title</label>
+          <div class="form-group mb-3">
+            <label for="noteTitle" class="text-muted small">Title</label>
             <input
               type="text"
               class="form-control"
@@ -26,7 +26,7 @@
             />
           </div>
           <div class="form-group mb-3">
-            <label for="noteCategory" style="font-weight: 700">Category</label>
+            <label for="noteCategory" class="text-muted small">Category</label>
             <select
               name="note[category]"
               id="noteCategory"
@@ -43,12 +43,12 @@
             </select>
           </div>
           <div class="form-group mb-4">
-            <label for="noteDetail" style="font-weight: 700">Details</label>
+            <label for="noteDetail" class="text-muted small">Details</label>
             <textarea
               class="form-control"
               id="noteDetail"
               name="note[detail]"
-              rows="10"
+              rows="7"
             >
 <%- note.detail %></textarea
             >
@@ -56,10 +56,10 @@
 
           <div>
             <button type="submit" class="btn btn-primary" aria-label="Save">
-              Save
+              Save Note
             </button>
             <a
-              href="/clients/<%-c._id%>/notes"
+              href="/clients/<%-c._id%>/notes/<%-note.id%>"
               type="button"
               class="btn btn-secondary"
               aria-label="Cancel"
