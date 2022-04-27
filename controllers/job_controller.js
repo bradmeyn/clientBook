@@ -13,8 +13,9 @@ module.exports.job_create_post = async (req, res, next) => {
         job.created = new Date();
         job.due = new Date(job.due);
         job.client = client;
-        job.creator = req.user;
+        job.creator, job.owner = req.user;
         job.account = req.user.account;
+        job.client = req.params.clientId;
         const newJob = new Job(job);
         client.jobs.push(newJob);
    
@@ -82,15 +83,13 @@ module.exports.job_show = async (req, res, next) => {
         const c = await Client.findOne({ _id: clientId, account});
 
         const job = await Job.findOne({ _id: jobId, account}).populate({
-            
             path: 'notes',
             populate: {
             path: 'author'
             }
-            }).populate('owners');
+            }).populate('owner');
 
       
-
         res.render('jobs/job_show',{c, job, page: 'jobs'});
     } catch(e) {
         console.log(e);
@@ -106,7 +105,6 @@ module.exports.job_update_get = async (req, res, next) => {
         const account = req.user.account;
         const c = await Client.findOne({ _id:clientId, account});
         const job = await Job.findOne({ _id:jobId, account});
-        console.log(job);
         res.render('jobs/job_update',{c, job,  page: 'jobs'});
     } catch(e) {
         console.log(e);

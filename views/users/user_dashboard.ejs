@@ -3,106 +3,475 @@
 <body class="d-flex flex-column bg-light" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
 
-  <main class="container flex-grow-1 p-5">
+  <main class="container flex-grow-1 px-3 pb-5 pt-3" style="max-width: 1200px">
     <%- include('../partials/flash') -%>
-    
-    <h2>Hi, Brad</h2>
-    <hr />
-    <div class="g-3 row mb-5">
-      <h5 class="text-secondary">Quicklinks</h4>
 
-        <div class="col-md-4">
-          <a href="/clients" class="text-dark rounded  d-flex justify-content-center align-items-center p-3 quicklink quicklink--blue">
-            <div class="d-flex align-items-center justify-content-start" style="width: 100px">
-              <span class="fs-2  text-primary"><i class="fa-regular fa-user"></i></span>
-              <h5 class="ms-4 mb-0 fw-bold">Clients</h5>
-            </div>
-          </a>
-        </div>
+    <div
+      class="d-md-flex justify-content-between border-bottom border-muted mb-3 pb-2 align-items-center"
+    >
+      <div class="text-center text-md-start">
+        <h1 class="mb-0 pb-0 fs-4">Hi, <%-user%></h1>
+        <span class="text-muted small text-right"
+          ><%- new Date().toLocaleDateString( 'en-au', {weekday: 'long', year:
+          'numeric', month:'long', day: 'numeric' }) %>
+        </span>
+      </div>
 
-        <div class="col-md-4">
-          <a href="/notes" class="text-dark rounded d-flex justify-content-center align-items-center p-3 quicklink quicklink--yellow">
-              <div class="d-flex align-items-center justify-content-start" style="width: 100px">
-                <span class="fs-2  text-warning"><i class="fa-regular fa-note-sticky"></i></span>
-                <h5 class="ms-4 mb-0 fw-bold">Notes</h5>
-              </div>
-          </a>
-        </div>
-        
-        <div class="col-md-4">
-          <a href="/jobs" class="text-dark rounded d-flex justify-content-center align-items-center p-3 quicklink quicklink--green">
-              <div class="d-flex align-items-center justify-content-start" style="width: 100px">
-                <span class="fs-2  text-success"><i class="fa-regular fa-briefcase"></i></span>
-                <h5 class="ms-4 mb-0 fw-bold">Jobs</h5>
-              </div>
-          </a>
-        </div>
-
-
-        <!-- <div class="col-md-3">
-        <a href="/clients" class="text-dark rounded d-flex justify-content-center align-items-center p-3 quicklink quicklink--red">
-            <span class="fs-2  text-danger"><i class="fas fa-tv"></i></span>
-            <h5 class="ms-4 mb-0 fw-bold">Clients</h5>
+      <div class="d-flex justify-content-center justify-content-md-end my-2">
+        <a
+          class="text-dark rounded d-flex justify-content-center align-items-center px-2 py-1 quicklink quicklink--blue"
+          href="/clients"
+        >
+          <span class="text-primary"><i class="fa-regular fa-user"></i></span>
+          <span class="ms-3 mb-0 fw-bold">Clients </span>
         </a>
-      </div> -->
+        <a
+          href="/notes"
+          class="text-dark rounded d-flex justify-content-center align-items-center quicklink px-2 py-1 quicklink--yellow ms-3"
+          style="width: 120px"
+        >
+          <span class="fs-5 text-warning"
+            ><i class="fa-regular fa-note-sticky"></i
+          ></span>
+          <span class="ms-3 mb-0 fw-bold">Notes</span>
+        </a>
+
+        <a
+          class="text-dark rounded d-flex justify-content-center align-items-center quicklink px-2 py-1 quicklink--green ms-3"
+          style="width: 120px"
+          href="/jobs"
+        >
+          <span class="fs-5 text-success"
+            ><i class="fa-regular fa-briefcase"></i
+          ></span>
+          <span class="ms-3 mb-0 fw-bold">Jobs</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="row mb-4 position-relative">
+      <div class="position-absolute" style="top: -10px">
+        <button
+          class="btn dropdown-toggle p-0"
+          style="font-size: 0.8rem"
+          type="button"
+          id="dropdownMenuButton1"
+          data-bs-toggle="dropdown"
+          aria-expanded="true"
+        >
+          <i class="fa-light fa-calendar me-1"></i>
+          <span class="rev-period-selector">This Month</span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li class="dropdown-item rev-period-option" style="font-size: 0.8rem">
+            This Month
+          </li>
+          <li class="dropdown-item rev-period-option" style="font-size: 0.8rem">
+            This Year
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="shadow-sm bg-white mt-4 p-4">
+          <div class="position-relative">
+            <small class="text-muted">Revenue Earned </small>
+          </div>
+          <div class="fs-2 rev-earned">
+            <%-Intl.NumberFormat("en-US", { style: "currency", currency: "USD",
+            minimumFractionDigits: 0, maximumFractionDigits: 2,
+            }).format(completed.revenue.month)%>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="shadow-sm bg-white mt-4 p-4">
+          <small class="text-muted">Jobs Completed</small>
+          <div class="fs-2 jobs-completed"><%-completed.count.month%></div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="shadow-sm bg-white mt-4 p-4">
+          <small class="text-muted">Total Pipeline</small>
+          <div class="fs-2">
+            <%-Intl.NumberFormat("en-US", { style: "currency", currency: "USD",
+            minimumFractionDigits: 0, maximumFractionDigits: 2,
+            }).format(revPipeline.reduce((a, b) => { return a + b }, 0))%>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="shadow-sm bg-white mt-4 p-4">
+          <small class="text-muted">Jobs in Progress</small>
+          <div class="fs-2">
+            <%-jobStatusData.reduce((a, b) => { return a + b }, 0)%>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="row g-4 mb-4">
-      <div class="col-sm-6 col-xl-3 ">
-       <div class="shadow-sm p-5 bg-white fs-1">
-         Current Pipeline Value
-       </div>
+      <div class="col-12 col-md-6">
+        <div class="shadow-sm bg-white fs-1 p-4 h-100">
+          <h2 class="ps-2 fs-5">Monthly Revenue</h2>
+          <div>
+            <canvas id="revPerMonth"></canvas>
+          </div>
+        </div>
       </div>
-
-      <div class="col-sm-6 col-xl-3 ">
-        <div class="shadow-sm p-5 bg-white fs-1">
-          chart
+      <div class="col-12 col-md-6">
+        <div class="shadow-sm p-4 bg-white fs-1 h-100">
+          <h2 class="ps-2 fs-5">Pipeline $ by Status</h2>
+          <div>
+            <canvas id="revPerStatus"></canvas>
+          </div>
         </div>
-       </div>
-
-       <div class="col-sm-6 col-xl-3 ">
-        <div class="shadow-sm p-5 bg-white fs-1">
-          chart
-        </div>
-       </div>
-
-       <div class="col-sm-6 col-xl-3 ">
-        <div class="shadow-sm p-5 bg-white fs-1">
-          chart
-        </div>
-       </div>
-      
-       
+      </div>
     </div>
 
     <div class="row g-4 mb-4">
-      <div class="col-sm-6 col-xl-7 ">
-       <div class="shadow-sm p-5 bg-white fs-1">
-         Total Revenue
-       </div>
-      </div>
+      <div class="col-12 col-md-6">
+        <div class="shadow-sm p-4 bg-white h-100">
+          <div class="table-responsive-lg">
+            <h2 class="ps-2 fs-5">Active Jobs</h2>
+            <table class="table m-0">
+              <thead>
+                <tr class="border-muted border-bottom">
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Job
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Client
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Status
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Due
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% activeJobs.forEach(job => { %>
 
-      <div class="col-sm-6 col-xl-5 ">
-        <div class="shadow-sm p-5 bg-white fs-1">
-          Jobs Pie Chart
+                <tr class="note-link">
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <a
+                      class="link-success"
+                      style="text-decoration: none"
+                      href="clients/<%-job.client._id%>/jobs/<%-job._id%>"
+                      ><%- job.title %></a
+                    >
+                  </td>
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <%- job.client.preferredName%> <%- job.client.lastName%>
+                  </td>
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <%-job.status %>
+                  </td>
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <%-job.dueDate %>
+                  </td>
+                </tr>
+
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
 
-      <div class="col-sm-6 col-xl-5 ">
-        <div class="shadow-sm p-5 bg-white fs-1">
-          Client Birthdays
+      <div class="col-6 col-md-3">
+        <div class="shadow-sm p-4 bg-white fs-1 h-100">
+          <h2 class="ps-2 fs-5">Job per Status</h2>
+          <div>
+            <canvas id="jobStatus"></canvas>
+          </div>
         </div>
-       </div>
- 
-       <div class="col-sm-6 col-xl-7 ">
-         <div class="shadow-sm p-5 bg-white fs-1">
-           chart
-         </div>
-       </div>
-       
+      </div>
+
+      <div class="col-6 col-md-3">
+        <div class="shadow-sm p-4 bg-white h-100">
+          <div class="table-responsive-lg">
+            <h2 class="ps-2 fs-5">
+              <i class="fa-regular fa-cake-candles text-primary me-2"></i
+              >Birthdays
+            </h2>
+            <table class="table m-0">
+              <thead>
+                <tr class="border-muted border-bottom">
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Client
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Birthday
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% birthdays.forEach(birthday => { %>
+                <tr class="note-link">
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <a
+                      style="text-decoration: none"
+                      href="clients/<%-birthday._id%>"
+                      ><%- birthday.preferredName %> <%- birthday.lastName %></a
+                    >
+                  </td>
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <span><%- birthday.birthdate %></span>
+                  </td>
+                </tr>
+
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     </div>
-    
+
+    <div class="row g-4 mb-4">
+      <div class="col-12 col-md-6">
+        <div class="shadow-sm p-4 bg-white">
+          <div class="table-responsive-lg">
+            <h2 class="ps-2 fs-5">New Clients</h2>
+            <table class="table m-0">
+              <thead>
+                <tr class="border-muted border-bottom">
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Client
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Phone
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Email
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% newClients.forEach(client => { %>
+                <tr class="note-link">
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <a
+                      class="link-primary"
+                      style="text-decoration: none"
+                      href="clients/<%-client._id%>"
+                      ><%- client.preferredName %> <%- client.lastName %></a
+                    >
+                  </td>
+
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <%-client.phone%>
+                  </td>
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <%-client.email%>
+                  </td>
+                </tr>
+
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="shadow-sm p-4 bg-white">
+          <div class="table-responsive-lg">
+            <h2 class="ps-2 fs-5">Recent Notes</h2>
+            <table class="table m-0">
+              <thead>
+                <tr class="border-muted border-bottom">
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Title
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Client
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Type
+                  </th>
+                  <th class="fw-normal small border-0 text-muted" scope="col">
+                    Created
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <% recentNotes.forEach(note => { %>
+                <tr class="note-link">
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <a
+                      class="text-dark quicklink quicklink--yellow px-2"
+                      style="text-decoration: none"
+                      href="clients/<%-note.client._id%>/notes/<%-note.client._id%>"
+                      ><%- note.title %></a
+                    >
+                  </td>
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <span
+                      ><%- note.client.preferredName %> <%- note.client.lastName
+                      %></span
+                    >
+                  </td>
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <span><%- note.category %></span>
+                  </td>
+                  <td
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                  >
+                    <span><%- note.shortDate%></span>
+                  </td>
+                </tr>
+
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
   <%- include('../partials/footer') -%>
 </body>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    let revPeriod = "Month";
+    const revPeriods = document.querySelectorAll('.rev-period-option');
+    const revEarned = document.querySelector('.rev-earned');
+    const jobsCompleted = document.querySelector('.jobs-completed');
+    const revPeriodSelector = document.querySelector('.rev-period-selector');
+
+    revPeriods.forEach(option => {
+      option.addEventListener('click', e => {
+      revPeriodSelector.innerText = e.target.innerText;
+
+        if(e.target.innerText == "This Month"){
+          revEarned.innerText = Intl.NumberFormat("en-US", { style: "currency", currency: "USD",
+            minimumFractionDigits: 0, maximumFractionDigits: 2,
+            }).format(<%-completed.revenue.month %>);
+          jobsCompleted.innerText = <%-completed.count.month %>;
+        } else {
+          revEarned.innerText = Intl.NumberFormat("en-US", { style: "currency", currency: "USD",
+            minimumFractionDigits: 0, maximumFractionDigits: 2,
+            }).format(<%-completed.revenue.year %>);
+          jobsCompleted.innerText = <%-completed.count.year %>;
+        }
+        console.log(revPeriodSelector.innerText)
+    });
+    })
+
+    const barData = {
+      labels: ["Not Started", "On Hold", "In Progess", "Finalising"],
+
+      datasets: [
+        {
+
+          indexAxis: 'y',
+          backgroundColor: ["#DFEAE2", "#B4D6C1","#6BAF92", "#207567"],
+          borderRadius: 3,
+          data: [<%- revPipeline %>],
+        },
+      ],
+    };
+
+
+
+    const revPerStatus = new Chart(
+      document.getElementById("revPerStatus"),
+  {
+    type: "bar",
+      data: barData,
+      options: {
+          plugins: {
+              legend: {
+                  display: false,
+
+              }
+          }
+      }
+  }
+    );
+
+    const pieData = {
+      labels: ["Not Started", "On Hold", "In Progess", "Finalising"],
+      datasets: [
+        {
+          backgroundColor: ["#DFEAE2", "#B4D6C1","#6BAF92", "#207567"],
+          data: [<%- jobStatusData %>],
+        },
+      ],
+    };
+
+    const jobStatus = new Chart(
+      document.getElementById("jobStatus"),
+      {
+        type: "doughnut",
+        data: pieData,
+        options: {
+          plugins: {
+              legend: {
+                  display: false,
+              }
+          }
+        }
+      }
+    );
+
+
+    const barTwoData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+      datasets: [
+        {
+          label: "Last Year",
+          backgroundColor: ["#B4D6C1"],
+          data: [<%- revLastYear %>],
+          borderRadius: 3,
+        },
+        {
+          label: "This Year",
+          backgroundColor: ["#207567"],
+          data: [<%- revThisYear %>],
+          borderRadius: 3,
+        }
+      ],
+    };
+
+    const rpm = new Chart(
+      document.getElementById("revPerMonth"),
+      {
+        type: "bar",
+      data: barTwoData,
+
+      }
+    );
+</script>

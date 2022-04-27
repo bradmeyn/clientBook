@@ -24,4 +24,9 @@ router.route('/notes')
         isLoggedIn,
         catchAsync(user_controller.user_notes_get));
 
+router.route('/jobs')
+    .get(
+        isLoggedIn,
+        catchAsync(user_controller.user_jobs_get));
+
 module.exports = router;

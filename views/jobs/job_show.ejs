@@ -47,9 +47,7 @@
 
           <span class="text-success fw-bold">Status: <%- job.status %></span>
           <div class="text-muted">
-            Assigned to <% job.owners.forEach(owner => { %>
-            <span> - <%-owner.firstName %> <%-owner.lastName %></span>
-            <% }) %>
+            <span> - <%-job.owner.firstName %> <%-job.owner.lastName %></span>
           </div>
         </div>
 

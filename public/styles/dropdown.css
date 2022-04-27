@@ -91,10 +91,6 @@
   border: solid 3px #28a745;
 }
 
-.quicklink--red:hover {
-  border: solid 3px #dc3545;
-}
-
 .note-link {
   background-color: #ffffff;
   cursor: pointer;
@@ -102,8 +98,14 @@
   border: none;
 }
 
-.note-link:hover {
+.note-link:hover, .accordian-item:hover {
   background-color: #f9f9f9;
+}
+
+
+/* accordian */
+.accordian-item {
+  background-color: #ffffff;
 }
 
 .accordian-icon {

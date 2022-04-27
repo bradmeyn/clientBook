@@ -103,14 +103,7 @@ module.exports.client_details_get = async (req, res) => {
       return res.redirect('/clients')
     }
     //calculate age
-    let today = new Date();
-  
-    let age = today.getFullYear() - c.dob.getFullYear();
-    let m = today.getMonth() - c.dob.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < c.dob.getDate())) {
-        age--;
-    }
-    c.age = age;
+
     res.render("clients/client_show", {c, page: 'notes'});
 }
 

@@ -111,8 +111,50 @@ const clientSchema = new Schema({
         return dateValue;
     });
 
+    clientSchema.virtual('birthdate')
+    .get(function() {
 
+        const birthMonth = this.dob.getMonth();
+        const birthDay = this.dob.getDate();
+        const currentMonth = new Date().getMonth();
+        const currentDay = new Date().getDate();
+        const currentYear = new Date().getFullYear();
+        let birthdate;
 
-    
+        console.log(new Date(currentYear, birthMonth, birthDay).toLocaleDateString('en-AU', {timeZone: "Australia/Sydney", weekday: 'long'}));
+        console.log(currentYear, birthMonth, birthDay);
+        switch(true){
+            case birthMonth === currentMonth && birthDay === currentDay:
+                birthdate = "Today";
+                break;
+
+            case birthMonth === currentMonth && birthDay === currentDay + 1:
+                birthdate = "Tomorrow";
+                break;
+
+            case birthMonth === currentMonth && birthDay === currentDay - 1:
+                birthdate = "Yesterday";
+                break;
+
+            default:
+                
+                birthdate = `${new Date(currentYear, birthMonth, birthDay).toLocaleDateString('en-AU', {timeZone: "Australia/Sydney", weekday: 'long'})}, ${birthDay}${nth(birthDay)} ${this.dob.toLocaleDateString('en-US', {month: 'long'})}`
+
+                break;
+        }
+
+  
+        return birthdate;
+    });
+
+    const nth = (d) => {
+        if (d > 3 && d < 21) return 'th';
+        switch (d % 10) {
+            case 1:  return "st";
+            case 2:  return "nd";
+            case 3:  return "rd";
+            default: return "th";
+        }
+    }
 
 module.exports =  mongoose.model('Client', clientSchema);

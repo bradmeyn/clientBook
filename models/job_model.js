@@ -19,14 +19,18 @@ const jobSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User"
     },
-    owners: [{
+    owner: {
         type: Schema.Types.ObjectId,
         ref: "User"
-    }],
+    },
     notes: [{
         type: Schema.Types.ObjectId,
         ref: "Note"
     }],
+    client: {
+        type: Schema.Types.ObjectId,
+        ref: "Client"
+    },
 });
 
 jobSchema.virtual('activeDays')
