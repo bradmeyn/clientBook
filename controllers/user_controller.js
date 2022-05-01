@@ -99,12 +99,12 @@ module.exports.user_dashboard_get = async (req, res) => {
 
   const jOne = {
     account: acc,
-    title: 'Test Job 1',
-    type: 'New Client',
+    title: 'New Website',
+    type: 'New',
     revenue: 2000,
+    description: 'New website for personal training business',
     created: new Date(2022, 2, 10),
-    completed: new Date(),
-    due: new Date(2022, 5, 14),
+    completed: new Date(2022, 5, 14),
     status: 'Completed',
     creator: req.user,
     owner: req.user,
@@ -118,13 +118,13 @@ module.exports.user_dashboard_get = async (req, res) => {
 
   const jTwo = {
     account: acc,
-    title: 'Test Job 2',
-    type: 'New Client',
-    revenue: 3000,
-    created: new Date(2022, 2, 10),
-    completed: new Date(2022, 2, 10),
-    due: new Date(2022, 5, 14),
-    status: 'Completed',
+    title: 'Update existing website',
+    type: 'Update',
+    revenue: 1500,
+    description: 'Update to takeaway Thai restaurants current website',
+    created: new Date(2022, 4, 25),
+    due: new Date(2022, 7, 14),
+    status: 'In Progress',
     creator: req.user,
     owner: req.user,
     client: clientOne,
@@ -137,12 +137,13 @@ module.exports.user_dashboard_get = async (req, res) => {
 
   const jThree = {
     account: acc,
-    title: 'Test Job 3',
-    type: 'New Client',
-    revenue: 3000,
-    created: new Date(2022, 3, 15),
-    due: new Date(2022, 8, 14),
-    status: 'In Progress',
+    title: 'New eCommerce site',
+    type: 'New',
+    revenue: 7500,
+    description: 'New online store for the a cafe',
+    created: new Date(),
+    due: new Date(2022, 11, 25),
+    status: 'Not Started',
     creator: req.user,
     owner: req.user,
     client: clientOne,
@@ -155,11 +156,13 @@ module.exports.user_dashboard_get = async (req, res) => {
 
   const jFour = {
     account: acc,
-    title: 'Test Job 4',
-    type: 'New Client',
-    revenue: 3000,
+    title: 'Rework site',
+    type: 'Other',
+    revenue: 0,
+    description:
+      'Client wasnt happy with the colour scheme for the existing website, so we are reworking with new palettes.',
     created: new Date(),
-    due: new Date(2022, 5, 10),
+    due: new Date(2022, 9, 10),
     status: 'On Hold',
     creator: req.user,
     owner: req.user,
@@ -356,8 +359,6 @@ module.exports.user_notes_get = async (req, res) => {
       'client'
     );
 
-    console.log(notes);
-
     res.render('users/user_notes', { notes, page: 'notes' });
   } catch (e) {
     console.log(e);
@@ -369,18 +370,30 @@ module.exports.user_notes_get = async (req, res) => {
 module.exports.user_jobs_get = async (req, res) => {
   try {
     const account = req.user.account;
-    const jobs = await Job.find({ account }).populate('client');
+    let { status, type, min, max } = req.query;
+    if (max) {
+      max = parseInt(max);
+    } else {
+      max = 1000000;
+    }
 
-    const activeJobs = [];
-    const completedJobs = [];
+    if (min) {
+      min = parseInt(min);
+    } else {
+      min = 0;
+    }
 
-    jobs.forEach((job) => {
-      job.status === 'In Progress'
-        ? activeJobs.push(job)
-        : completedJobs.push(job);
-    });
+    const query = {
+      account: account,
+      revenue: { $lte: max, $gte: min },
+    };
 
-    res.render('users/user_jobs', { activeJobs, completedJobs });
+    if (status) query.status = status;
+    if (type) query.type = type;
+
+    const jobs = await Job.find(query).populate('client');
+
+    res.render('users/user_jobs', { jobs });
   } catch (e) {
     console.log(e);
     req.flash('error', e.message);

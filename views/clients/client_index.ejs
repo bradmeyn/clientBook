@@ -3,41 +3,107 @@
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
 
-  <main class="container flex-grow-1">
+  <main
+    class="d-flex flex-column flex-grow-1"
+    style="background-color: #f5f5f5"
+  >
     <%- include('../partials/flash') -%>
 
-    <div class="col-md-10 offset-md-1" style="min-height: 20rem;">
-      
-      <h3 class="mt-5 mb-4">All Clients</h3>
-      <table class="table table-striped" >
-        <thead>
-          <tr>
-            <th scope="col">Client Number</th>
-            <th scope="col">Full Name</th>
+    <div
+      class="container px-5 mx-auto w-100 h-100 my-5"
+      style="max-width: 1000px"
+    >
+      <div class="border-bottom border-muted">
+        <h1 class="fs-3">All Clients</h1>
+      </div>
+      <div class="bg-white shadow-sm">
+        <% if(clients.length > 0) { %>
+        <div class="table-responsive p-0 mt-3">
+          <table class="table m-0">
+            <thead>
+              <tr class="border-muted border-bottom">
+                <th
+                  class="fw-normal text-muted small border-0"
+                  scope="col"
+                >
+                  Client No.
+                </th>
+                <th
+                  class="fw-normal text-muted small border-0"
+                  scope="col"
+                >
+                  First Name
+                </th>
+                <th
+                  class="fw-normal text-muted small border-0"
+                  scope="col"
+                >
+                  Last Name
+                </th>
+                <th
+                  class="fw-normal text-muted small border-0"
+                  scope="col"
+                >
+                  Email
+                </th>
+                <th
+                  class="fw-normal text-muted small border-0"
+                  scope="col"
+                >
+                  Phone
+                </th>
 
-            <th class="d-none d-md-table-cell" scope="col">Email</th>
-            <th class="d-none d-md-table-cell" scope="col">Phone</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% clients.forEach(client => { %>
+              </tr>
+            </thead>
+            <tbody>
+              <% clients.forEach(client => { %>
 
-          <tr>
-            <td>
-              <a href="/clients/<%-client._id%>"><%=client.clientId %></a>
-            </td>
-            <td><%= client.firstName %> <%= client.lastName %></td>
-            <td class="d-none d-md-table-cell"><%= client.email %></td>
-            <td class="d-none d-md-table-cell"><%= client.phone %></td>
-          </tr>
-          <% }) %>
-        </tbody>
-      </table>
+              <tr class="bg-white">
+                <td
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                >
+                  <a href="/clients/<%-client._id%>" class="link"><%- client.clientId %></a>
+                </td>
 
-      
+                <td
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                >
+                  <%- client.firstName %>
+                </td>
+
+                <td
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                >
+                  <%- client.lastName %>
+                </td>
+
+                 <td
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                >
+                  <%- client.email %>
+                </td>
+
+                 <td
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                >
+                  <%- client.phone %>
+                </td>
+
+              </tr>
+
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+
+        <% } else { %>
+        <div class="px-4 py-3 mt-3 bg-white accordian-body">
+          <div>No active jobs</div>
+        </div>
+        <% } %>
+      </div>
     </div>
-
-    <nav aria-label="..." class="mt-5">
+        <nav aria-label="..." class="mt-5">
       <ul class="pagination justify-content-center">
 
         <% let pageNum, next, previous; %>
@@ -61,6 +127,5 @@
       </ul>
     </nav>
   </main>
-
   <%- include('../partials/footer') -%>
 </body>

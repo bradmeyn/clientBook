@@ -52,9 +52,9 @@
               type="radio"
               name="job[type]"
               id="jobTypeNew"
-              value="New Project"
+              value="New"
             />
-            <label class="form-check-label" for="jobTypeNew">New Project</label>
+            <label class="form-check-label" for="jobTypeNew">New</label>
           </div>
           <div class="form-check form-check-inline">
             <input
@@ -65,7 +65,7 @@
               value="Update"
             />
             <label class="form-check-label job-type" for="jobTypeUpdate"
-              >Project Update</label
+              >Update</label
             >
           </div>
 
@@ -177,8 +177,8 @@
 
   // });
 
-  const typeOptions = document.querySelectorAll(".job-type");
-  const jobType = "<%-job.type%>";
+  const typeOptions = document.querySelectorAll('.job-type');
+  const jobType = '<%-job.type%>';
 
   typeOptions.forEach((option) => {
     if (jobType === option.value) {
@@ -189,12 +189,12 @@
   let prefilSelect = (currentVal, options) => {
     options.forEach((option) => {
       if (currentVal == option.value) {
-        option.setAttribute("selected", "selected");
+        option.setAttribute('selected', 'selected');
       }
     });
   };
 
-  const statusOptions = document.querySelectorAll(".job-status");
-  const currentStatus = "<%- job.status %>";
+  const statusOptions = document.querySelectorAll('.job-status');
+  const currentStatus = '<%- job.status %>';
   prefilSelect(currentStatus, statusOptions);
 </script>

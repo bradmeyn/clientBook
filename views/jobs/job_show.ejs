@@ -6,7 +6,7 @@
     <%- include('../partials/sidenav') -%>
     <main
       class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 1000px"
+      style="max-width: 700px"
     >
       <%- include('../partials/flash') -%>
       <div class="shadow-sm bg-white position-relative">
@@ -30,8 +30,10 @@
             </div>
           </div>
           <small class="text-muted">
-            Due: <%-job.dueDate%> (active <%-job.activeDays %> days)</small
-          >
+            <%- job.status === "Completed" ? "Completed: " : "Due: "; %> <%-
+            job.status === "Completed" ? job.completedDate : job.dueDate %>
+            (active <%-job.activeDays %> days)
+          </small>
           <h3 class="mb-1"><%-job.title %></h3>
           <span
             class="badge badge-primary badge--green text-dark mb-0 me-3 mb-2"
@@ -39,11 +41,7 @@
           >
 
           <p class="fs-5"><%-job.description%></p>
-          <div class="fw-bold mb-1">
-            Expected Revenue:
-            <i class="fa-regular fw-bold fa-dollar-sign text-success"></i> <%-
-            job.revenue %>
-          </div>
+          <div class="fw-bold mb-1"><%- job.rev$ %></div>
 
           <span class="text-success fw-bold">Status: <%- job.status %></span>
           <div class="text-muted">
