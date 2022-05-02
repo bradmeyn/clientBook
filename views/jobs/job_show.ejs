@@ -29,23 +29,52 @@
               </a>
             </div>
           </div>
-          <small class="text-muted">
-            <%- job.status === "Completed" ? "Completed: " : "Due: "; %> <%-
-            job.status === "Completed" ? job.completedDate : job.dueDate %>
-            (active <%-job.activeDays %> days)
-          </small>
-          <h3 class="mb-1"><%-job.title %></h3>
-          <span
-            class="badge badge-primary badge--green text-dark mb-0 me-3 mb-2"
-            ><%= job.type %></span
-          >
 
-          <p class="fs-5"><%-job.description%></p>
-          <div class="fw-bold mb-1"><%- job.rev$ %></div>
+          <div class="mb-4">
+            <h1 class="fs-4 mb-0"><%- job.title %></h1>
+            <small class="text-muted"
+              ><i class="fa-light fa-clock me-1"></i>
+              <%-job.createdDate%></small
+            >
+          </div>
 
-          <span class="text-success fw-bold">Status: <%- job.status %></span>
-          <div class="text-muted">
-            <span> - <%-job.owner.firstName %> <%-job.owner.lastName %></span>
+          <p class="text-muted mb-4"><%- job.description %></p>
+          <hr />
+          <div class="d-flex mb-2 text-muted small">
+            <div style="min-width: 100px">Job Type:</div>
+            <span> <%- job.type %></span>
+          </div>
+
+          <div class="d-flex mb-2 text-muted small">
+            <div style="min-width: 100px">Revenue:</div>
+            <span> <%- job.rev$ %></span>
+          </div>
+
+          <div class="d-flex mb-2 text-muted small">
+            <div style="min-width: 100px">Status:</div>
+            <% if(job.status === "Completed"){ %>
+            <span class="text-success"><%-job.status%></span>
+            <% } else { %>
+            <span><%-job.status%></span>
+            <% } %>
+          </div>
+
+          <% if(job.status !== "Completed"){ %>
+          <div class="d-flex mb-2 text-muted small">
+            <div class="" style="min-width: 100px">Due:</div>
+            <% if(job.due < new Date()){ %>
+            <span class="text-danger"><%-job.dueDate%> </span>
+            <% } else { %>
+            <span><%-job.dueDate%> </span>
+            <% } %>
+          </div>
+          <% } %>
+
+          <hr />
+
+          <div class="d-flex mb-2 text-muted small">
+            <div style="min-width: 100px">Assigned to:</div>
+            <span> <%- job.owner.firstName %> <%- job.owner.lastName %></span>
           </div>
         </div>
 

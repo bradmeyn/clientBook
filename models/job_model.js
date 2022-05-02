@@ -51,6 +51,14 @@ jobSchema.virtual('dueDate').get(function () {
   });
 });
 
+jobSchema.virtual('createdDate').get(function () {
+  return this.created.toLocaleDateString('en-gb', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+});
+
 jobSchema.virtual('completedDate').get(function () {
   return this.completed.toLocaleDateString('en-gb', {
     year: 'numeric',
