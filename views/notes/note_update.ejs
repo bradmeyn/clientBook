@@ -38,8 +38,9 @@
               </option>
               <option class="category" value="General">General</option>
               <option class="category" value="Meeting">Meeting</option>
-              <option class="category" value="Phone call">Phone call</option>
+              <option class="category" value="Phone Call">Phone Call</option>
               <option class="category" value="Email">Email</option>
+              <option class="category" value="Job Update">Job Update</option>
             </select>
           </div>
           <div class="form-group mb-4">
@@ -79,11 +80,11 @@
   let prefilSelect = (currentVal, options) => {
     options.forEach((option) => {
       if (currentVal == option.value) {
-        option.setAttribute("selected", "selected");
+        option.setAttribute('selected', 'selected');
       }
     });
   };
-  const categories = document.querySelectorAll(".category");
-  const category = "<%-note.category%>";
+  const categories = document.querySelectorAll('.category');
+  const category = '<%-note.category%>';
   prefilSelect(category, categories);
 </script>

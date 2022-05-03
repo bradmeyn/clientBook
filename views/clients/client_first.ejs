@@ -1,0 +1,274 @@
+<%- include('../partials/head') -%>
+
+<body class="d-flex flex-column" style="min-height: 100vh">
+  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+    <main
+      class="container px-5 mx-auto w-100 h-100 my-5"
+      style="max-width: 900px"
+    >
+      <div class="bg-white shadow-sm p-5">
+        <h1 class="fs-2 mb-4">Welcome to Clientbook!</h1>
+        <p class="text-muted fs-6">
+          To get started create your first client below
+        </p>
+        <form action="/clients" method="POST">
+          <h6 class="mt-4 mb-3">Personal Information</h6>
+          <!-- title -->
+          <div class="mb-3">
+            <label class="d-block small text-muted mb-1" for="inputEmail4"
+              >Title</label
+            >
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="client[title]"
+                id="titlenMr"
+                value="Mr"
+                required
+              />
+              <label class="form-check-label" for="titleMr">Mr</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="client[title]"
+                id="titleMrs"
+                value="Mrs"
+                required
+              />
+              <label class="form-check-label" for="titleMrs">Mrs</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="client[title]"
+                id="titleMiss"
+                value="Miss"
+                required
+              />
+              <label class="form-check-label" for="titleMiss">Miss</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="client[title]"
+                id="titleDr"
+                value="Dr"
+                required
+              />
+              <label class="form-check-label" for="titleDr">Dr</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="client[title]"
+                id="titleNone"
+                value=""
+                required
+              />
+              <label class="form-check-label" for="titleNone">None</label>
+            </div>
+          </div>
+          <!-- title -->
+          <!-- name -->
+          <div class="row mb-3">
+            <div class="form-group col-md-6">
+              <label class="small text-muted mb-1" for="firstName"
+                >First Name *</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="firstName"
+                name="client[firstName]"
+                placeholder=""
+                pattern="^[^0-9]+$"
+                required
+              />
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="small text-muted mb-1" for="lastName"
+                >Last Name *</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="lastName"
+                placeholder=""
+                name="client[lastName]"
+                pattern="^[^0-9]+$"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label class="small text-muted mb-1" for="preferredName"
+                >Preferred Name</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="preferredName"
+                placeholder=""
+                name="client[preferredName]"
+                pattern="^[^0-9]+$"
+                required
+              />
+            </div>
+            <div class="form-group col-md-6">
+              <label class="small text-muted mb-1" for="dateOfBirth"
+                >Date of Birth</label
+              >
+              <input
+                type="date"
+                class="form-control"
+                id="dateOfBirth"
+                placeholder=""
+                name="client[dob]"
+                pattern="^[^0-9]+$"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <h6 class="mt-4 mb-3">Occupation Details</h6>
+            <!-- <label class="d-block fw-bold mb-2">Name:</label> -->
+            <div class="form-group col-md-6">
+              <label class="small text-muted mb-1" for="jobTitle"
+                >Job Title</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="jobTitle"
+                name="client[jobTitle]"
+                placeholder=""
+                pattern="^[^0-9]+$"
+                required
+              />
+            </div>
+
+            <div class="form-group col-md-6">
+              <label class="small text-muted mb-1" for="company">Company</label>
+              <input
+                type="text"
+                class="form-control"
+                id="company"
+                placeholder=""
+                name="client[company]"
+                pattern="^[^0-9]+$"
+                required
+              />
+            </div>
+          </div>
+
+          <h6 class="mt-4 mb-3">Contact Information</h6>
+
+          <div class="form-row row mb-3">
+            <div class="form-group col-md-6">
+              <label class="text-muted small mb-1" for="phone"
+                >Phone Number*</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="phone"
+                placeholder="0400 000 000"
+                name="client[phone]"
+                required
+              />
+            </div>
+            <div class="col-6">
+              <label class="text-muted small mb-1" for="email">Email*</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="example@mail.com"
+                name="client[email]"
+                required
+              />
+            </div>
+          </div>
+
+          <h6 class="mt-4 mb-3">Address</h6>
+
+          <div class="form-group col-12 mb-2">
+            <label class="text-muted small mb-1" for="street">Street</label>
+            <input
+              type="text"
+              class="form-control"
+              id="street"
+              placeholder=""
+              name="client[address][street]"
+              required
+            />
+          </div>
+
+          <div class="row">
+            <div class="form-group col-6">
+              <label class="text-muted small mb-1" for="suburb">Suburb</label>
+              <input
+                type="text"
+                class="form-control"
+                id="suburb"
+                placeholder=""
+                name="client[address][suburb]"
+                pattern="^[^0-9]+$"
+                required
+              />
+            </div>
+
+            <div class="form-group col-3">
+              <label class="text-muted small mb-1" for="state">State</label>
+              <select
+                name="client[address][state]"
+                id="state"
+                class="form-select"
+                required
+              >
+                <option value="" hidden class="text-muted" selected></option>
+                <option value="NSW">NSW</option>
+                <option value="QLD">QLD</option>
+                <option value="VIC">VIC</option>
+                <option value="WA">WA</option>
+                <option value="SA">SA</option>
+                <option value="ACT">ACT</option>
+              </select>
+            </div>
+
+            <div class="form-group col-3">
+              <label class="text-muted small mb-1" for="postcode"
+                >Postcode</label
+              >
+              <input
+                type="text"
+                pattern="[0-9]{4}"
+                class="form-control"
+                id="postcode"
+                placeholder=""
+                name="client[address][postcode]"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary mt-4">
+            Save Client
+          </button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <%- include('../partials/footer') -%>
+</body>

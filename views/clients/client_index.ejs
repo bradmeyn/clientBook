@@ -96,11 +96,7 @@
           </table>
         </div>
 
-        <% } else { %>
-        <div class="px-4 py-3 mt-3 bg-white accordian-body">
-          <div>No active jobs</div>
-        </div>
-        <% } %>
+
       </div>
     </div>
         <nav aria-label="..." class="mt-5">
@@ -126,6 +122,11 @@
       <% } %>
       </ul>
     </nav>
+            <% } else { %>
+        <div class="px-4 py-3 mt-3 bg-white fs-5 ">
+          <div>You have no existing clients, add one <a class="text" href="/clients/new">here</a></div>
+        </div>
+        <% } %>
   </main>
   <%- include('../partials/footer') -%>
 </body>

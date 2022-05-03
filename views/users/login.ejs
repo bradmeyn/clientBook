@@ -1,9 +1,9 @@
 <%- include('../partials/head') -%>
 
-<body class="d-flex flex-column" style="min-height: 100vh;">
+<body class="d-flex flex-column " style="height: 100vh;">
   <nav class="navbar navbar-light bg-white">
-    <div class="container d-flex justify-content-between">
-      <a class="navbar-brand fw-bold" href="/">
+    <div class="container d-flex justify-content-between flex-grow-1">
+      <a class="navbar-brand" href="/">
         ClientBook
       </a>
       <div class="d-flex">
@@ -15,24 +15,27 @@
 
     <!-- Navbar -->
 
-    <main class="d-flex flex-column h-100 w-100" style="background-color: #F5F5F5; min-height: 100vh;">
+    <main class="d-flex flex-column h-100 w-100" style="background-color: #F5F5F5;">
       <%- include('../partials/flash') -%>
      <div class="container">
-      <div class="mx-auto bg-white shadow-sm px-4 py-5 position-relative" style="top: 100px; max-width: 600px;">
-        <h3 class="mb-4 fs-2">Login</h3>
-
-        <form action'/login' method="POST"  novalidate class="needs-validation">
+      <div class="mx-auto bg-white shadow-sm px-4 py-5 position-relative rounded" style="top: 200px; max-width: 400px;">
+        <h3 class="mb-3 fs-2 text-center">Welcome Back!</h3>
+        <p class="text-muted text-center mb-4">Please enter your credentials to login.</pcla>
+        <form action'/login' method="POST"  novalidate class="needs-validation mb-4">
           <div class="form-group pb-3">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+            <label class="small text-muted" for="username">Username</label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="username">
           </div>
+          
           <div class="form-group pb-4">
-            <label for="password">Password</label>
-            <input type="Password" class="form-control" id="password" name="password" placeholder="Password">
+            <label class="small text-muted" for="password">Password</label>
+            <input type="Password" class="form-control" id="password" name="password" placeholder="****************">
           </div>
-        
-          <button type="submit" class="btn btn-primary btn-lg">Login</button>
+          <a class="mb-4 d-block text-center link ms-auto" href="#">Forgot Password?</a>
+          <button type="submit" class="btn btn-primary btn-lg w-100">Login</button>
         </form>
+        
+        <div class="small text-center"><span class="text-muted "> Don't have an account yet?</span> <a class="link text-center d-block" href="/register">Sign Up</a></div>
       </div>
      </div>
 

@@ -80,7 +80,7 @@ module.exports.job_create_get = async (req, res) => {
     const account = req.user.account;
     const c = await Client.findOne({ _id: clientId, account });
 
-    res.render('jobs/job_new', { c });
+    res.render('jobs/job_new', { c, page: '' });
   } catch (e) {
     console.log(e);
     req.flash('error', e.message);
@@ -103,7 +103,7 @@ module.exports.job_show = async (req, res, next) => {
       })
       .populate('owner');
 
-    res.render('jobs/job_show', { c, job, page: 'jobs' });
+    res.render('jobs/job_show', { c, job, page: '' });
   } catch (e) {
     console.log(e);
     req.flash('error', e.message);
@@ -117,7 +117,7 @@ module.exports.job_update_get = async (req, res, next) => {
     const account = req.user.account;
     const c = await Client.findOne({ _id: clientId, account });
     const job = await Job.findOne({ _id: jobId, account });
-    res.render('jobs/job_update', { c, job, page: 'jobs' });
+    res.render('jobs/job_update', { c, job, page: '' });
   } catch (e) {
     console.log(e);
     req.flash('error', e.message);

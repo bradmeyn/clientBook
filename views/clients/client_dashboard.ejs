@@ -84,8 +84,9 @@
                         </option>
                         <option value="General">General</option>
                         <option value="Meeting">Meeting</option>
-                        <option value="Phone call">Phone call</option>
+                        <option class="category" value="Phone Call">Phone Call</option>
                         <option value="Email">Email</option>
+                        <option value="Job Update">Job Update</option>
                       </select>
                     </div>
                     <div class="form-group">
@@ -206,12 +207,12 @@
                 <% c.jobs.forEach(job => { %>
                 
                 <tr class="note-link border-muted border-bottom">
-                  <td class="border-0 py-3 text-nowrap align-items-center justify-content-center col-sm"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link"><%- job.title %></a></td>
-                  <td class="border-0 py-3 text-center text-nowrap align-items-center justify-content-center col-sm"><span class="badge badge-primary badge--green text-dark mb-0"><%- job.type %></span></td>
-                  <td class="border-0 py-3 text-center text-nowrap align-items-center justify-content-center col-sm">Owner</td>
-                  <td class="border-0 py-3 text-center text-nowrap align-items-center justify-content-center col-sm"><%- job.rev$ %></td>
-                  <td class="border-0 text-center text-nowrap align-items-center justify-content-center col-sm"><span class=" p-2 text-success rounded badge--green   d-block"><%- job.status %></span></td>
-                  <td class="border-0 py-3 text-center text-nowrap align-items-center justify-content-center col-smsmall"><%- job.dueDate %></td>
+                  <td class=" border-0 py-3 text-nowrap align-items-center justify-content-center col-sm"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link-success"><%- job.title %></a></td>
+                  <td class="small border-0 py-3 text-center text-nowrap"><%- job.type %></td>
+                  <td class="small border-0 py-3 text-center text-nowrap"><%- job.owner.firstName %> <%- job.owner.lastName %></td>
+                  <td class="small border-0 py-3 text-center text-nowrap"><%- job.rev$ %></td>
+                  <td class="small border-0 py-3 text-center text-nowrap"><%- job.status %></td>
+                  <td class="small border-0 py-3 text-center text-nowrap"><%- job.dueDate %></td>
                 </tr>
            
                 <% }); %>
@@ -220,7 +221,7 @@
               </div>
             <% } else { %>
               <h2 class="fs-5 border-muted border-bottom pb-2">Active Jobs</h2>
-              <div class="p-2 text-muted">No active jobs</div>
+              <div class="p-2 text-muted">There are no active jobs for <%-c.preferredName%>.</div>
             </div>
             <% } %>
           </div>
@@ -237,7 +238,7 @@
                   class="text-dark note-link p-2 d-flex align-items-center justify-content-between border-bottom border-muted"
                 >
                   <div class="pe-2">
-                    <small class="text-muted"><%-note.shortDate %> - <%-note.author.fullName %></small>
+                    <small class="text-muted"><%-note.createdDate %> - <%-note.author.fullName %></small>
                     <div class="d-flex align-items-center mb-1">
                       <h6 class="card-title me-3 mb-0"><%-note.title%></h6>
                       <span
@@ -255,7 +256,7 @@
                 <% }); %>
 
                 <% } else { %>
-                  <div class="p-2 mt-2 text-muted">No recent notes</div>
+                  <div class="p-2 mt-2 text-muted">No notes have been created for <%-c.preferredName%>.</div>
                 </div>
                 <% } %>
               </div>

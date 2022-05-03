@@ -65,6 +65,14 @@
   background-color: #e6f0f9;
 }
 
+.navbar-brand {
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-brand:hover {
+  color: #e6f0f9;
+}
+
 .quicklink--yellow,
 .badge--yellow {
   background-color: #fef6e0;

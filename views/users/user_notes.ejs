@@ -5,46 +5,152 @@
   <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
     <main
       class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 900px"
+      style="max-width: 1000px"
     >
-      <% if(notes.length > 0){ %>
-      <div class="accordion" id="accordionExample">
-        <% notes.forEach(note => { %> <% let itemCount = 1; %>
-        <div class="accordion-item shadow-sm border-0">
-          <h2 class="accordion-header" id="heading<%-itemCount%>">
-            <button
-              class="accordion-button"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapse<%-itemCount%>"
-              aria-expanded="true"
-              aria-controls="collapse<%-itemCount%>"
-            >
-              <div class="d-flex flex-column">
-                <small class="text-muted"><%-note.shortDate %></small>
-                <span class="fs-5"><%-note.title%></span>
+      <div class="border-bottom border-muted mb-3">
+        <h1 class="fs-3">Your Notes</h1>
+      </div>
+
+      <div class="row">
+        <div class="col-3">
+          <form action="/notes" method="GET">
+            <div class="" style="min-width: 100px">
+              <h2 class="fs-5 p-1">Filter</h2>
+              <div
+                class="accordion accordion-flush border-top border-muted"
+                id="accordionFlushExample"
+              >
+                <div class="accordion-item accordian-custom">
+                  <h2
+                    class="accordion-header accordian-custom"
+                    id="flush-headingOne"
+                  >
+                    <button
+                      class="accordion-button accordian-custom collapsed p-1 py-2"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseOne"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseOne"
+                    >
+                      Category
+                    </button>
+                  </h2>
+                  <div
+                    id="flush-collapseOne"
+                    class="accordion-collapse collapse"
+                    aria-labelledby="flush-headingOne"
+                  >
+                    <div class="accordion-body accordian-custom">
+                      <div class="form-check px-2 py-0">
+                        <input
+                          class="form-check-input check-filter"
+                          type="checkbox"
+                          id="catAll"
+                        />
+                        <label class="form-check-label" for="catAll">
+                          All
+                        </label>
+                      </div>
+
+                      <div class="form-check px-2 py-0">
+                        <input
+                          class="form-check-input check-filter cat-filter"
+                          type="checkbox"
+                          value="Phone Call"
+                          id="catPhone"
+                          name="category"
+                        />
+                        <label class="form-check-label" for="catPhone">
+                          Phone Call
+                        </label>
+                      </div>
+                      <div class="form-check px-2 py-0">
+                        <input
+                          class="form-check-input check-filter cat-filter"
+                          type="checkbox"
+                          value="Email"
+                          name="category"
+                          id="catEmail"
+                        />
+                        <label class="form-check-label" for="catEmail">
+                          Email
+                        </label>
+                      </div>
+                      <div class="form-check px-2 py-0">
+                        <input
+                          class="form-check-input check-filter cat-filter"
+                          type="checkbox"
+                          value="Meeting"
+                          name="category"
+                          id="catMeeting"
+                        />
+                        <label class="form-check-label" for="catMeeting">
+                          Meeting
+                        </label>
+                      </div>
+
+                      <div class="form-check px-2 py-0">
+                        <input
+                          class="form-check-input check-filter cat-filter"
+                          type="checkbox"
+                          value="Job Update"
+                          name="category"
+                          id="catUpdate"
+                        />
+                        <label class="form-check-label" for="catUpdate">
+                          Job Update
+                        </label>
+                      </div>
+
+                      <div class="form-check px-2 py-0">
+                        <input
+                          class="form-check-input check-filter cat-filter"
+                          type="checkbox"
+                          value="General"
+                          name="category"
+                          id="catGeneral"
+                        />
+                        <label class="form-check-label" for="catGeneral">
+                          General
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary my-2" type="submit">Update</button>
+          </form>
+        </div>
+        <div class="col-9 pb-4">
+          <% if(notes.length > 0){ %> <% notes.forEach(note => { %>
+          <a
+            href="/clients/<%-note.author._id%>/notes/<%-note._id%>"
+            class="text-dark note-link p-2 d-flex align-items-center justify-content-between border-bottom border-muted shadow-sm mb-3 p-4 bg-white rounded"
+          >
+            <div class="pe-2">
+              <small class="text-muted"><%-note.createdDate %></small>
+              <div class="d-flex align-items-center mb-1">
+                <h2 class="fs-5 me-3 mb-0"><%-note.title%></h2>
                 <span
                   class="badge badge-primary badge--yellow text-dark mb-0 me-3"
                   ><%-note.category%></span
                 >
               </div>
-            </button>
-          </h2>
-          <div
-            id="collapse<%-itemCount%>"
-            class="accordion-collapse collapse show"
-            aria-labelledby="heading<%-itemCount%>"
-            data-bs-parent="#accordionExample"
-          >
-            <div class="accordion-body"><%-note.detail %></div>
+              <div class="small mb-1"><%- note.detail %></div>
+            </div>
+            <div class="text-primary">
+              <i class="fa-regular fa-chevron-right"></i>
+            </div>
+          </a>
+          <% }); %> <% } else { %>
+          <div class="p-4 fs-5 mt-3 rounded text-muted shadow-sm bg-white">
+            You have not created any client notes.
           </div>
+          <% } %>
         </div>
-        <% itemCount++ }); %>
       </div>
-
-      <% } else { %>
-      <div class="bg-white shadow-sm p-3">You haven't created any notes.</div>
-      <% } %>
     </main>
   </div>
 

@@ -1,8 +1,10 @@
-process.env.NODE_ENV !== 'production' ? require('dotenv').config() : '';
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const path = require('path');
-const port = process.env.PORT || 3000;
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
 
@@ -32,6 +34,7 @@ mongoose.connect(dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
+  useCreateIndex: true,
 });
 
 //connect to database
@@ -135,10 +138,7 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render('error', { err });
 });
 
-// app.post('/search', (req, res) => {
-// console.log(req.body);
-// })
-
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server running on ${port}`);
 });

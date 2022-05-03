@@ -3,34 +3,58 @@
     class="h-100 d-flex align-items-center justify-content-between container px-5"
     style="max-width: 1100px"
   >
-    <ul class="nav nav-pills d-flex align-items-center py-1">
+    <ul
+      class="nav nav-pills d-flex justify-content-md-start justify-content-center align-items-center py-1 w-100"
+    >
+      <% if(page ==='client'){ %>
       <li class="nav-item">
         <a
           href="/clients/<%-c._id%>"
-          class="link-dark pe-4 border-end border-muted"
+          class="link-dark nav-link"
           style="text-decoration: none"
-          ><%-c.firstName%> <%-c.lastName%></a
+          ><i class="fa-regular fa-circle-user text-primary me-2"></i
+          ><%-c.firstName.slice(0,1)%> <%-c.lastName%></a
         >
       </li>
-      <li>
-        <a href="/clients/<%-c._id%>" class="nav-link link-secondary">
-          <i class="fa-regular fa-house mx-2"></i>
-
-          Home
+      <% } else { %>
+      <li class="nav-item">
+        <a
+          href="/clients/<%-c._id%>"
+          class="link-secondary nav-link"
+          style="text-decoration: none"
+          ><i class="fa-regular fa-circle-user me-2"></i
+          ><%-c.firstName.slice(0,1)%> <%-c.lastName%></a
+        >
+      </li>
+      <% } %> <% if(page ==='notes'){ %>
+      <li class="nav-item">
+        <a href="/clients/<%-c._id%>/notes" class="nav-link link-dark">
+          <i class="me-2 fa-regular fa-note-sticky text-warning"></i>
+          Notes
         </a>
       </li>
-      <li>
+      <% } else { %>
+      <li class="nav-item">
         <a href="/clients/<%-c._id%>/notes" class="nav-link link-secondary">
           <i class="me-2 fa-regular fa-note-sticky"></i>
           Notes
         </a>
       </li>
-      <li>
+      <% } %> <% if(page ==='jobs'){ %>
+      <li class="nav-item">
+        <a href="/clients/<%-c._id%>/jobs" class="nav-link link-dark">
+          <i class="me-2 fa-regular fa-briefcase text-success"></i>
+          Jobs
+        </a>
+      </li>
+      <% } else { %>
+      <li class="nav-item">
         <a href="/clients/<%-c._id%>/jobs" class="nav-link link-secondary">
           <i class="me-2 fa-regular fa-briefcase"></i>
           Jobs
         </a>
       </li>
+      <% } %>
     </ul>
   </nav>
 </div>

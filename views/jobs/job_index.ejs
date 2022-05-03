@@ -6,17 +6,14 @@
     class="d-flex flex-column flex-grow-1"
     style="background-color: #f5f5f5"
   >
-    <div
-      class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 1100px"
-    >
+    <div class="px-5 mx-auto w-100 h-100 my-5" style="max-width: 1000px">
       <div
         class="border-bottom border-muted mb-3 pb-2 d-flex justify-content-between align-items-center"
       >
         <h1 class="fs-3">All Jobs: <%-c.preferredName%> <%-c.lastName%></h1>
         <a
           class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--green ms-auto mb-1"
-          style="font-size: 0.9rem; right: 0"
+          style="right: 0; width: 150px"
           href="/clients/<%-c._id%>/jobs/new"
         >
           <span class="fs-5 text-success"
@@ -339,8 +336,8 @@
             </div>
 
             <% } else { %>
-            <div class="px-4 py-3 mt-3 bg-white accordian-body">
-              <div>No jobs</div>
+            <div class="p-4 fs-5 mt-3 rounded text-muted shadow-sm">
+              There are no jobs assosciated with this client.
             </div>
             <% } %>
           </div>

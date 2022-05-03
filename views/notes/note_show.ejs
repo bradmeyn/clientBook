@@ -9,39 +9,32 @@
       style="max-width: 700px"
     >
       <%- include('../partials/flash') -%>
-      <div class="shadow-sm p-5 bg-white position-relative">
-        <div
-          class="note-links fs-5 position-absolute pe-5 d-flex"
-          style="right: 0; text-decoration: none"
-        >
-          <div class="">
-            <a
-              href="/clients/<%-c._id%>/notes/<%-note._id%>/update"
-              class="pe-4"
+      <div class="shadow-sm bg-white position-relative">
+        <div class="p-5 pb-4">
+          <div
+            class="note-links fs-5 position-absolute pe-5 d-flex"
+            style="right: 0; text-decoration: none"
+          >
+            <div class="">
+              <a
+                href="/clients/<%-c._id%>/notes/<%-note._id%>/update"
+                class="pe-4"
+              >
+                <i class="fa-light fa-pencil"></i>
+              </a>
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <h1 class="fs-4 mb-0"><%- note.title %></h1>
+            <small class="text-muted"
+              ><i class="fa-light fa-clock me-1"></i>
+              <%-note.createdDate%></small
             >
-              <i class="fa-light fa-pencil"></i>
-            </a>
           </div>
-          <div class="">
-            <a href="" class="text-danger">
-              <i class="fa-light fa-trash-can"></i>
-            </a>
-          </div>
+
+          <p class="text-muted mb-4"><%- note.detail %></p>
         </div>
-        <small class="text-muted"
-          ><%- note.shortDate%> - <%-note.author.fullName%></small
-        >
-        <h1 class="mb-1 fs-4"><%-note.title %></h1>
-        <span class="badge badge--yellow text-dark mb-3"
-          ><%= note.category %></span
-        >
-        <p><%-note.detail%></p>
-        <div class="text-muted mb-2"></div>
-        <% if(note.job){ %>
-        <a href="/clients/<%-c._id%>/jobs/<%-note.job%>" class="link-primary"
-          >View job</a
-        >
-        <% } %>
       </div>
     </main>
   </div>
