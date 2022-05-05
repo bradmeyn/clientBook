@@ -4,13 +4,19 @@
     class="d-flex w-100 h-100"
     style="background-color: #f5f5f5; min-height: 100vh"
   >
-    <main class="container px-5 py-4 mx-auto w-100" style="max-width: 900px">
-      <div class="mx-auto mt-5 alert alert-danger" role="alert">
-        <h4 class="fs-3 text-center alert-heading">
+    <main class="container px-3 py-4 mx-auto w-100" style="max-width: 900px">
+      <div class="mx-auto mt-5" role="alert">
+        <h4 class="fs-3 text-center text-danger">
           That was not meant to happen!
         </h4>
-        <a class="link-primary" href="/dashboard"> Back to the dashboard</a>
+
+        <div class="mx-auto">
+          <img class="w-100" src="/images/td-simpsons-dog.jpeg " alt="" />
+        </div>
       </div>
+      <a class="link-primary text-center mt-3 d-block" href="/dashboard">
+        Back to the dashboard</a
+      >
     </main>
   </div>
   <%- include('./partials/footer') -%>

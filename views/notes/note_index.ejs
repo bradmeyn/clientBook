@@ -2,136 +2,134 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
-  <div class="d-flex flex-column flex-grow-1" style="background-color: #f5f5f5">
+  <div class="d-flex flex-column flex-grow-1 bg-light">
     <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
 
-    <main
-      class=" px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 1000px"
-    >
-    <div class="border-bottom border-muted mb-3 pb-2 d-flex justify-content-between align-items-center">
-      <h1 class="fs-3">All Notes: <%- c.preferredName%> <%-c.lastName%></h1>
-      <div class="">
-              <!-- Button trigger modal -->
-      <button
-      type="button"
-      class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--yellow ms-auto mb-1"
-    
-      data-bs-toggle="modal"
-      data-bs-target="#newNoteModal"
-    >
-    <div
-    class="d-flex align-items-center justify-content-start"
-    >
-    <span class="fs-5 text-warning"
-      ><i class="fa-regular fa-circle-plus"></i>
-    </span>
-    <h6 class="ms-4 mb-0 fw-bold">New Note</h5>
-  </div>
-      </button>
-      <!-- Modal -->
+    <main class="px-3 mx-auto w-100 h-100 my-5" style="max-width: 1000px">
       <div
-      class="modal fade bd-example-modal-lg"
-      id="newNoteModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered modal-lg">
-        <div class="modal-content px-4 py-2">
-          <div class="modal-header mx-3 px-0">
-            <h5 class="modal-title" id="exampleModalLabel">New Note</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+        class="border-bottom border-muted mb-3 pb-2 d-flex justify-content-between align-items-center"
+      >
+        <h1 class="fs-4">Notes: <%- c.preferredName%> <%-c.lastName%></h1>
+        <div class="">
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--yellow ms-auto mb-1"
+            data-bs-toggle="modal"
+            data-bs-target="#newNoteModal"
+          >
+            <div class="d-flex align-items-center justify-content-start small">
+              <i class="text-warning fa-regular fa-circle-plus"></i>
+              <span class="ms-3 mb-0 fw-bold">New Note</span>
+            </div>
+          </button>
+          <!-- Modal -->
+          <div
+            class="modal fade bd-example-modal-lg"
+            id="newNoteModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content p-2">
+                <div class="modal-header mx-3 px-0">
+                  <h5 class="modal-title" id="exampleModalLabel">New Note</h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <form action="/clients/<%-c._id%>/notes" method="POST">
+                  <div class="modal-body">
+                    <div class="form-group mb-3">
+                      <label class="form-label text-muted small" for="noteTitle"
+                        >Title</label
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="noteTitle"
+                        name="note[title]"
+                      />
+                    </div>
+                    <div class="form-group mb-3">
+                      <label
+                        class="form-label text-muted small"
+                        for="noteCategory"
+                        >Category</label
+                      >
+                      <select
+                        name="note[category]"
+                        id="noteCategory"
+                        class="form-select"
+                        required
+                      >
+                        <option value="" hidden class="text-muted" selected>
+                          Select Category
+                        </option>
+                        <option value="General">General</option>
+                        <option value="Meeting">Meeting</option>
+                        <option class="category" value="Phone Call">
+                          Phone Call
+                        </option>
+                        <option class="category" value="Email">Email</option>
+                        <option class="category" value="Job Update">
+                          Job Update
+                        </option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label
+                        class="form-label text-muted small"
+                        for="noteDetail"
+                        >Details</label
+                      >
+                      <textarea
+                        class="form-control"
+                        id="noteDetail"
+                        name="note[detail]"
+                        rows="8"
+                      ></textarea>
+                    </div>
+                  </div>
+                  <div class="modal-footer border-0">
+                    <button
+                      type="submit"
+                      class="ms-auto btn btn-primary"
+                      data-bs-dismiss="modal"
+                      aria-label="Save"
+                    >
+                      Save Note
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-secondary"
+                      data-bs-dismiss="modal"
+                      aria-label="Cancel"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
-          <form action="/clients/<%-c._id%>/notes" method="POST">
-            <div class="modal-body">
-              <div class="form-group mb-3">
-                <label
-                  class="form-label text-muted small"
-                  for="noteTitle"
-                  >Title</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="noteTitle"
-                  name="note[title]"
-                />
-              </div>
-              <div class="form-group mb-3">
-                <label
-                  class="form-label text-muted small"
-                  for="noteCategory"
-                  >Category</label
-                >
-                <select
-                  name="note[category]"
-                  id="noteCategory"
-                  class="form-select"
-                  required
-                >
-                  <option value="" hidden class="text-muted" selected>
-                    Select Category
-                  </option>
-                  <option value="General">General</option>
-                  <option value="Meeting">Meeting</option>
-                  <option class="category" value="Phone Call">Phone Call</option>
-              <option class="category" value="Email">Email</option>
-              <option class="category" value="Job Update">Job Update</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label
-                  class="form-label text-muted small"
-                  for="noteDetail"
-                  >Details</label
-                >
-                <textarea
-                  class="form-control"
-                  id="noteDetail"
-                  name="note[detail]"
-                  rows="8"
-                ></textarea>
-              </div>
-            </div>
-            <div class="modal-footer border-0">
-              <button
-                type="submit"
-                class="ms-auto btn btn-primary"
-                data-bs-dismiss="modal"
-                aria-label="Save"
-              >
-                Save Note
-              </button>
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-                aria-label="Cancel"
-              >
-                Cancel
-              </button>
-            </div>
-          </form>
+          <!-- Modal -->
         </div>
       </div>
-    </div>
-      <!-- Modal -->
-      </div>
-    </div>
-      
 
-        <div class="row">
-          <div class="col-3">
+      <div class="row">
+        <div class="col-12 col-md-3">
           <form action="/clients/<%-c._id%>/notes" method="GET">
             <div class="" style="min-width: 100px">
-              <h2 class="fs-5 p-1">Filter</h2>
-              <div class="accordion accordion-flush border-top border-muted" id="accordionFlushExample">
+              <h2 class="fs-6 p-1">Filter</h2>
+              <div
+                class="accordion accordion-flush border-top border-muted"
+                id="accordionFlushExample"
+              >
                 <div class="accordion-item accordian-custom">
                   <h2
                     class="accordion-header accordian-custom"
@@ -230,43 +228,43 @@
                     </div>
                   </div>
                 </div>
- 
               </div>
             </div>
-            <button class="btn btn-primary my-2" type="submit">Update</button>
+            <button class="btn btn-sm btn-primary mt-2 mb-4" type="submit">
+              Update
+            </button>
           </form>
         </div>
-        <div class="col-9 pb-4">
-          
-            <% if(c.notes.length > 0){ %>
-            <% c.notes.forEach(note => { %>
-            <a
-              href="/clients/<%-c._id%>/notes/<%-note._id%>"
-              class="text-dark note-link p-2 d-flex align-items-center justify-content-between border-bottom border-muted shadow-sm mb-3 p-4 bg-white rounded"
-            >
-              <div class="pe-2">
-                <small class="text-muted"><%-note.createdDate %> - <%-note.author.fullName %></small>
-                <div class="d-flex align-items-center mb-1">
-                  <h2 class="fs-5 me-3 mb-0"><%-note.title%></h2>
-                  <span
-                    class="badge badge-primary badge--yellow text-dark mb-0 me-3"
-                    ><%-note.category%></span
-                  >
-                </div>
-                <div class="small mb-1"><%- note.detail %></div>
-                
+        <div class="col-12 col-md-9 pb-4">
+          <% if(c.notes.length > 0){ %> <% c.notes.forEach(note => { %>
+          <a
+            href="/clients/<%-c._id%>/notes/<%-note._id%>"
+            class="text-dark note-link p-2 d-flex align-items-center justify-content-between border-bottom border-muted shadow-sm mb-3 p-4 bg-white rounded"
+          >
+            <div class="pe-2">
+              <small class="text-muted"
+                ><%-note.createdDate %> - <%-note.author.fullName %></small
+              >
+              <div class="d-flex align-items-center mb-1">
+                <h2 class="fs-5 me-3 mb-0"><%-note.title%></h2>
+                <span
+                  class="badge badge-primary badge--yellow text-dark mb-0 me-3"
+                  ><%-note.category%></span
+                >
               </div>
-              <div class="text-primary">
-                <i class="fa-regular fa-chevron-right"></i>
-              </div>
-            </a>
-            <% }); %>
-
-            <% } else { %>
-              <div class="p-4 fs-5 mt-3 rounded text-muted shadow-sm bg-white">No notes have been created for this client.</div>
-            <% } %>
+              <div class="small mb-1"><%- note.detail %></div>
+            </div>
+            <div class="text-primary">
+              <i class="fa-regular fa-chevron-right"></i>
+            </div>
+          </a>
+          <% }); %> <% } else { %>
+          <div class="p-4 fs-5 mt-3 rounded text-muted shadow-sm bg-white">
+            No notes have been created for this client.
+          </div>
+          <% } %>
         </div>
-        </div>
+      </div>
     </main>
   </div>
 
@@ -274,45 +272,45 @@
 </body>
 <script>
   //input filter options
-const checkboxFilters = document.querySelectorAll('.check-filter');
-const params = new URLSearchParams(window.location.search);
+  const checkboxFilters = document.querySelectorAll('.check-filter');
+  const params = new URLSearchParams(window.location.search);
 
-for (const input of checkboxFilters) {
-  for (const param of params.values()) {
-    if (input.value === param) {
-      input.checked = true;
+  for (const input of checkboxFilters) {
+    for (const param of params.values()) {
+      if (input.value === param) {
+        input.checked = true;
+      }
     }
   }
-}
 
-//note category filters
-const catFilters = document.querySelectorAll('.cat-filter');
-const catAll = document.querySelector('#catAll');
+  //note category filters
+  const catFilters = document.querySelectorAll('.cat-filter');
+  const catAll = document.querySelector('#catAll');
 
-catFilters.forEach((box) => {
-  box.addEventListener('change', () => {
-    catAll.checked = false;
-  });
-});
-
-catAll.addEventListener('change', () => {
   catFilters.forEach((box) => {
-    box.checked = false;
+    box.addEventListener('change', () => {
+      catAll.checked = false;
+    });
   });
-});
 
-if (!params.has('category')) {
-  catAll.checked = true;
-}
-
-document.querySelectorAll('.accordian-item').forEach((item) => {
-  item.addEventListener('click', (e) => {
-    if (
-      item.contains(e.target) &&
-      !e.target.parentElement.classList.contains('accordian-body')
-    ) {
-      item.classList.toggle('accordian-item-active');
-    }
+  catAll.addEventListener('change', () => {
+    catFilters.forEach((box) => {
+      box.checked = false;
+    });
   });
-});
+
+  if (!params.has('category')) {
+    catAll.checked = true;
+  }
+
+  document.querySelectorAll('.accordian-item').forEach((item) => {
+    item.addEventListener('click', (e) => {
+      if (
+        item.contains(e.target) &&
+        !e.target.parentElement.classList.contains('accordian-body')
+      ) {
+        item.classList.toggle('accordian-item-active');
+      }
+    });
+  });
 </script>

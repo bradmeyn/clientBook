@@ -2,34 +2,30 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%> <%- include('../partials/sidenav') -%>
-  <main
-    class="d-flex flex-column flex-grow-1"
-    style="background-color: #f5f5f5"
-  >
-    <div class="px-5 mx-auto w-100 h-100 my-5" style="max-width: 1000px">
+  <main class="d-flex flex-column flex-grow-1 bg-light">
+    <div class="px-3 mx-auto w-100 h-100 my-5" style="max-width: 1000px">
       <div
         class="border-bottom border-muted mb-3 pb-2 d-flex justify-content-between align-items-center"
       >
-        <h1 class="fs-3">All Jobs: <%-c.preferredName%> <%-c.lastName%></h1>
+        <h1 class="fs-4">Jobs: <%-c.preferredName%> <%-c.lastName%></h1>
         <a
-          class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--green ms-auto mb-1"
-          style="right: 0; width: 150px"
+          class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--green ms-auto mb-1 small"
           href="/clients/<%-c._id%>/jobs/new"
         >
-          <span class="fs-5 text-success"
-            ><i class="fa-regular fa-circle-plus"></i
-          ></span>
+          <i class="text-success fa-regular fa-circle-plus"></i>
           <span class="ms-3 mb-0 fw-bold">New Job</span>
         </a>
       </div>
 
       <div class="row">
-        <div class="col-3">
+        <div class="col-12 col-md-3">
           <form action="/clients/<%-c._id%>/jobs" method="GET">
             <div class="" style="min-width: 100px">
-              <h2 class="fs-5 p-1">Filter</h2>
+              <h2 class="fs-6 p-1">Filter</h2>
               <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item border-bottom border-muted">
+                <div
+                  class="accordion-item accordian-custom border-bottom border-muted"
+                >
                   <h2
                     class="accordion-header accordian-custom"
                     id="flush-headingOne"
@@ -240,11 +236,13 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary my-2" type="submit">Update</button>
+            <button class="btn btn-sm btn-primary my-2 mb-4" type="submit">
+              Update
+            </button>
           </form>
         </div>
 
-        <div class="col-9">
+        <div class="col-12 col-md-9">
           <div class="bg-white shadow-sm">
             <% if(c.jobs.length > 0) { %>
             <div class="table-responsive p-0">
@@ -277,7 +275,7 @@
 
                   <tr class="bg-white">
                     <td
-                      class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                      class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                     >
                       <a
                         href="/clients/<%-c._id%>/jobs/<%-job._id%>"

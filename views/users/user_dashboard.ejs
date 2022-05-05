@@ -19,33 +19,29 @@
 
       <div class="d-flex justify-content-center justify-content-md-end my-2">
         <a
-          class="text-dark rounded d-flex justify-content-center align-items-center px-2 py-1 quicklink quicklink--blue"
+          class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--blue"
           href="/clients"
           style="width: 120px"
         >
-          <span class="text-primary"><i class="fa-regular fa-user"></i></span>
-          <span class="ms-3 mb-0 fw-bold">Clients </span>
+          <i class="text-primary fa-regular fa-user"></i>
+          <span class="ms-3 mb-0 fw-bold small">Clients </span>
         </a>
         <a
           href="/notes"
-          class="text-dark rounded d-flex justify-content-center align-items-center quicklink px-2 py-1 quicklink--yellow ms-3"
+          class="text-dark rounded d-flex justify-content-center align-items-center quicklink p-2 quicklink--yellow ms-3"
           style="width: 120px"
         >
-          <span class="fs-5 text-warning"
-            ><i class="fa-regular fa-note-sticky"></i
-          ></span>
-          <span class="ms-3 mb-0 fw-bold">Notes</span>
+          <i class="text-warning fa-regular fa-note-sticky"></i>
+          <span class="ms-3 mb-0 fw-bold small">Notes</span>
         </a>
 
         <a
-          class="text-dark rounded d-flex justify-content-center align-items-center quicklink px-2 py-1 quicklink--green ms-3"
+          class="text-dark rounded d-flex justify-content-center align-items-center quicklink p-2 quicklink--green ms-3"
           style="width: 120px"
           href="/jobs"
         >
-          <span class="fs-5 text-success"
-            ><i class="fa-regular fa-briefcase"></i
-          ></span>
-          <span class="ms-3 mb-0 fw-bold">Jobs</span>
+          <i class="text-success fa-regular fa-briefcase"></i>
+          <span class="ms-3 mb-0 fw-bold small">Jobs</span>
         </a>
       </div>
     </div>
@@ -73,14 +69,14 @@
         </ul>
       </div>
 
-      <div class="col-6 col-md-3 mb-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
         <div class="shadow-sm rounded bg-white mt-4 p-3 d-flex align-items-center h-100 ">
           <span
-            class="badge--green text-center me-3 pt-1 rounded-circle d-flex justify-content-center align-items-center icon-circle"
+            class=" badge--green text-center me-3 pt-1 rounded-circle d-flex justify-content-center align-items-center icon-circle"
 
             ><i class="fa-regular fa-dollar-sign text-success fs-3"></i
           ></span>
-          <div class="position-relative">
+          <div class=" position-relative">
             <small class="text-muted">Revenue Earned </small>
             <div class="fs-3 rev-earned">
               <%-Intl.NumberFormat("en-US", { style: "currency", currency:
@@ -91,7 +87,7 @@
         </div>
       </div>
 
-      <div class="col-6 col-md-3 mb-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
         <div class="shadow-sm bg-white mt-4 p-3 d-flex align-items-center h-100">
           <span
             class="icon-circle badge--purple text-center me-3 pt-1 rounded-circle d-flex justify-content-center align-items-center"
@@ -104,7 +100,7 @@
         </div>
       </div>
 
-      <div class="col-6 col-md-3 mb-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
         <div class="shadow-sm rounded bg-white mt-4 p-3 d-flex align-items-center h-100">
           <span
             class="icon-circle badge--blue text-center me-3 rounded-circle d-flex justify-content-center align-items-center"
@@ -120,7 +116,7 @@
         </div>
       </div>
 
-      <div class="col-6 col-md-3 mb-4">
+      <div class="col-12 col-md-6 col-lg-3 mb-4">
         <div class="shadow-sm rounded bg-white mt-4 p-3 d-flex align-items-center h-100">
           <span
             class="icon-circle badge--yellow text-center me-3 rounded-circle d-flex justify-content-center align-items-center"
@@ -139,7 +135,7 @@
     <div class="row g-4 mb-4">
       <div class="col-12 col-md-6">
         <div class="shadow-sm rounded bg-white fs-1 p-3 h-100">
-          <h2 class="ps-2 fs-5">Monthly Revenue</h2>
+          <h2 class="fs-6">Monthly Revenue</h2>
           <div>
             <canvas id="monthly-revenue-chart"></canvas>
           </div>
@@ -147,7 +143,7 @@
       </div>
       <div class="col-12 col-md-6">
         <div class="shadow-sm rounded p-3 bg-white fs-1 h-100">
-          <h2 class="ps-2 fs-5">Pipeline $ by Status</h2>
+          <h2 class="fs-6">Pipeline $ by Status</h2>
           <div>
             <canvas id="revenue-status-chart"></canvas>
           </div>
@@ -159,7 +155,7 @@
       <div class="col-12 col-md-6">
         <div class="shadow-sm rounded p-3 bg-white h-100">
           <div class="table-responsive">
-            <h2 class="ps-2 fs-5">Active Jobs</h2>
+            <h2 class="fs-6">Active Jobs</h2>
             <table class="table m-0">
               <thead>
                 <tr class="border-muted border-bottom">
@@ -217,7 +213,7 @@
 
       <div class="col-6 col-md-3">
         <div class="shadow-sm rounded p-3 bg-white fs-1 h-100">
-          <h2 class="ps-2 fs-5">Job per Status</h2>
+          <h2 class="fs-6">Job per Status</h2>
           <div>
             <canvas id="job-status-chart"></canvas>
           </div>
@@ -227,7 +223,7 @@
       <div class="col-6 col-md-3">
         <div class="shadow-sm rounded p-3 bg-white h-100">
           <div class="table-responsive">
-            <h2 class="fs-5">
+            <h2 class="fs-6">
               Upcoming Birthdays
             </h2>
             <table class="table m-0">
@@ -273,7 +269,7 @@
       <div class="col-12 col-md-6">
         <div class="shadow-sm rounded p-3 bg-white">
           <div class="table-responsive">
-            <h2 class="ps-2 fs-5">New Clients</h2>
+            <h2 class="fs-6">New Clients</h2>
             <table class="table m-0">
               <thead>
                 <tr class="border-muted border-bottom">
@@ -323,7 +319,7 @@
       <div class="col-12 col-md-6">
         <div class="shadow-sm rounded p-3 bg-white">
           <div class="table-responsive">
-            <h2 class="ps-2 fs-5">Recent Notes</h2>
+            <h2 class="fs-6">Recent Notes</h2>
             <table class="table m-0">
               <thead>
                 <tr class="border-muted border-bottom">

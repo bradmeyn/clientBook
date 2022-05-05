@@ -3,34 +3,30 @@
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
 
-  <div class="d-flex flex-column flex-grow-1 w-100" style="background-color: #f5f5f5">
+  <div class="d-flex flex-column flex-grow-1 w-100 bg-light">
     <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
 
-    <main class="container mx-auto px-5 pb-5" style="max-width: 1000px;">
+    <main class="container mx-auto px-3 pb-5" style="max-width: 1000px;">
       <div class="row  mt-1">
         <div class="d-flex justify-content-center justify-content-md-end my-2">
           <a
             href="/clients/<%-c._id%>/update"
-            class="text-dark rounded d-flex justify-content-center align-items-center px-2 py-1 quicklink quicklink--blue "
+            class="text-dark rounded d-flex justify-content-center align-items-center p-1 py-2 quicklink quicklink--blue "
             style="font-size: .8rem;"
           >
-              <span class=" text-primary"
-                ><i class="fa-regular fa-pencil"></i></span>
+              <i class="text-primary fa-regular fa-pencil"></i>
               <span class="ms-3 mb-0 fw-bold">Edit Client</span>
-  
           </a>
           <!-- Button trigger modal -->
           <button
           type="button"
-          class="text-dark rounded d-flex justify-content-center align-items-center px-2 py-1 quicklink quicklink--yellow ms-3"
+          class="text-dark rounded d-flex justify-content-center align-items-center p-1 py-2 quicklink quicklink--yellow ms-3"
           data-bs-toggle="modal"
           data-bs-target="#newNoteModal"
           style="font-size: .8rem;"
         >
-  
-        <span class="fs-5 text-warning"
-          ><i class="fa-regular fa-circle-plus"></i></span>
-        <span class="ms-3 mb-0 fw-bold">New Note</span>
+        <i class="text-warning fa-regular fa-circle-plus"></i>
+        <span class="ms-3 mb-0 fw-bold">Add Note</span>
   
           </button>
           <!-- Modal -->
@@ -42,7 +38,7 @@
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered modal-lg">
-              <div class="modal-content px-4 py-2">
+              <div class="modal-content px-2 py-2">
                 <div class="modal-header mx-3 px-0">
                   <h5 class="modal-title" id="exampleModalLabel">New Note</h5>
                   <button
@@ -128,13 +124,12 @@
           <!-- Modal -->
           <a
             href="/clients/<%-c._id%>/jobs/new"
-            class="text-dark rounded d-flex justify-content-center align-items-center quicklink px-2 py-1 quicklink--green ms-3"
+            class="text-dark rounded d-flex justify-content-center align-items-center quicklink p-1 py-2 quicklink--green ms-3"
             style="font-size: .8rem;"
   
           >
-              <span class="fs-5 text-success"
-                ><i class="fa-regular fa-circle-plus"></i></span>
-              <span class="ms-3 mb-0 fw-bold" >New Job</span>
+              <i class="text-success fa-regular fa-circle-plus"></i>
+              <span class="ms-3 mb-0 fw-bold" >Add Job</span>
           </a>
         </div>
         <div class="col-md-6 pb-4">
@@ -149,13 +144,13 @@
             </div>
 
             <div class="mb-2">
-              <i class="text-primary bi bi-calendar3 me-2"></i>
+              <i class="text-primary fa-regular fa-cake me-2"></i>
               <%=c.shortDob; %> <%- `(${c.age} years old)` %>
             </div>
 
             <% if(c.jobTitle) { %>
-            <div class="mb-2 me-4">
-              <i class="text-primary bi bi-briefcase me-2"></i>
+            <div class="mb-2">
+              <i class="text-primary fa-regular fa-briefcase me-2"></i>
               <%-c.jobTitle %> <%-c.company ? `at ${c.company}`: '' %>
             </div>
             <% } %>
@@ -166,20 +161,20 @@
         </div>
         <div class="col-md-6 pb-4">
           <div class="bg-white shadow-sm p-4 rounded d-flex flex-column">
-            <h2 class="fs-5 pb-2 mb-3 border-muted border-bottom">Contact Details</h2>
+            <h2 class="fs-6 pb-2 mb-3 border-muted border-bottom">Contact Details</h2>
             <div class="text-muted small mb-1">Preferred Phone:</div>
             <div class="mb-2">
-              <i class="text-primary bi bi-telephone me-2"></i><%- c.phone%>
+              <i class="text-primary fa-regular fa-phone me-2"></i><%- c.phone%>
             </div>
   
             <div class="text-muted small mb-1">Preferred Email:</div>
             <div class="mb-2">
-              <i class="text-primary bi bi-envelope me-2"></i><%-c.email %>
+              <i class="text-primary fa-regular fa-envelope me-2"></i><%-c.email %>
             </div>
   
             <div class="text-muted small mb-1">Address:</div>
             <div class="mb-2">
-              <i class="text-primary bi bi-geo-alt me-2"></i><%-c.home%>
+              <i class="text-primary fa-regular fa-location-dot me-2"></i><%-c.home%>
             </div>
           </div>
         </div>
@@ -193,7 +188,7 @@
               <table class="table m-0">
                 <thead>
                   <tr class="border-muted border-bottom">
-                    <th class="fw-normal border-0 " scope="col"><h2 class="fs-5 mb-0">Active Jobs</h2></th>
+                    <th class="fw-normal border-0 " scope="col"><h2 class="fs-6 mb-0">Active Jobs</h2></th>
                     <th class="fw-normal text-center small border-0 text-muted " scope="col">Type</th>
                     <th class="fw-normal text-center small border-0 text-muted " scope="col">Owner</th>
                     <th class="fw-normal text-center small border-0 text-muted " scope="col">Revenue</th>
@@ -207,7 +202,7 @@
                 <% c.jobs.forEach(job => { %>
                 
                 <tr class="border-muted border-bottom">
-                  <td class=" border-0 py-3 text-nowrap align-items-center justify-content-center col-sm"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link-success"><%- job.title %></a></td>
+                  <td class=" border-0 py-3 text-nowrap align-items-center justify-content-center small"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link-success"><%- job.title %></a></td>
                   <td class="small border-0 py-3 text-center text-nowrap"><%- job.type %></td>
                   <td class="small border-0 py-3 text-center text-nowrap"><%- job.owner.firstName %> <%- job.owner.lastName %></td>
                   <td class="small border-0 py-3 text-center text-nowrap"><%- job.rev$ %></td>
@@ -220,7 +215,7 @@
               </table>
               </div>
             <% } else { %>
-              <h2 class="fs-5 border-muted border-bottom pb-2">Active Jobs</h2>
+              <h2 class="fs-6 border-muted border-bottom pb-2">Active Jobs</h2>
               <div class="p-2 text-muted">There are no active jobs for <%-c.preferredName%>.</div>
             </div>
             <% } %>
@@ -230,7 +225,7 @@
           
             <div class="col-12 pb-4">
               <div class="shadow-sm mb-3 p-4 bg-white rounded">
-                <h2 class="m-0 fs-5 border-muted border-bottom pb-2">Recent Notes</h2>
+                <h2 class="m-0 fs-6 border-muted border-bottom pb-2">Recent Notes</h2>
                 <% if(c.notes.length > 0){ %>
                 <% c.notes.forEach(note => { %>
                 <a

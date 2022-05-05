@@ -3,18 +3,20 @@
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
   <main class="d-flex flex-column flex-grow-1 bg-light">
-    <div class="container px-5 mx-auto w-100 h-100 my-5">
+    <div class="container px-3 mx-auto w-100 h-100 my-5">
       <div class="border-bottom border-muted mb-3">
         <h1 class="fs-3">Your Jobs</h1>
       </div>
 
       <div class="row">
-        <div class="col-3">
+        <div class="col-12 col-md-3">
           <form action="/jobs" method="GET">
             <div class="" style="min-width: 100px">
-              <h2 class="fs-5 p-1">Filter</h2>
+              <h2 class="fs-6 p-1">Filter</h2>
               <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item border-bottom border-muted">
+                <div
+                  class="accordion-item accordian-custom border-bottom border-muted"
+                >
                   <h2
                     class="accordion-header accordian-custom"
                     id="flush-headingOne"
@@ -225,11 +227,13 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary my-2" type="submit">Update</button>
+            <button class="btn-sm btn-primary mt-2 mb-4" type="submit">
+              Update
+            </button>
           </form>
         </div>
 
-        <div class="col-9">
+        <div class="col-12 col-md-9">
           <div class="bg-white shadow-sm">
             <% if(jobs.length > 0) { %>
             <div class="table-responsive p-0">
@@ -266,8 +270,7 @@
                     >
                       <a
                         href="clients/<%-job.client._id%>/jobs/<%-job._id%>"
-                        class="link-success"
-                        style="text-decoration: none"
+                        class="link-success small"
                         ><%- job.title %></a
                       >
                     </td>

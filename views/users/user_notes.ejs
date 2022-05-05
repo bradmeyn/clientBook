@@ -4,7 +4,7 @@
   <%- include('../partials/navbar') -%>
   <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
     <main
-      class="container px-5 mx-auto w-100 h-100 my-5"
+      class="container px-3 mx-auto w-100 h-100 my-5"
       style="max-width: 1000px"
     >
       <div class="border-bottom border-muted mb-3">
@@ -12,10 +12,10 @@
       </div>
 
       <div class="row">
-        <div class="col-3">
+        <div class="col-12 col-md-3">
           <form action="/notes" method="GET">
             <div class="" style="min-width: 100px">
-              <h2 class="fs-5 p-1">Filter</h2>
+              <h2 class="fs-6 p-1">Filter</h2>
               <div
                 class="accordion accordion-flush border-top border-muted"
                 id="accordionFlushExample"
@@ -120,10 +120,12 @@
                 </div>
               </div>
             </div>
-            <button class="btn btn-primary my-2" type="submit">Update</button>
+            <button class="btn-sm btn btn-primary my-2 mb-4" type="submit">
+              Update
+            </button>
           </form>
         </div>
-        <div class="col-9 pb-4">
+        <div class="col-12 col-md-9 pb-4">
           <% if(notes.length > 0){ %> <% notes.forEach(note => { %>
           <a
             href="/clients/<%-note.author._id%>/notes/<%-note._id%>"

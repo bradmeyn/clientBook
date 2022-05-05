@@ -4,27 +4,25 @@
   <%- include('../partials/navbar') -%>
 
   <main
-    class="d-flex flex-column flex-grow-1"
-    style="background-color: #f5f5f5"
+    class="d-flex flex-column flex-grow-1 bg-light"
+
   >
     <%- include('../partials/flash') -%>
 
     <div
-      class="container px-5 mx-auto w-100 h-100 my-5"
+      class="container px-3 mx-auto w-100 h-100 my-5"
       style="max-width: 1000px"
     >
       <div
         class="border-bottom border-muted mb-3 pb-2 d-flex justify-content-between align-items-center"
       >
-        <h1 class="fs-3">All Clients</h1>
+        <h1 class="fs-4">All Clients</h1>
         <a
-          class="text-dark rounded d-flex justify-content-center align-items-center px-2 py-1 quicklink quicklink--blue ms-auto mb-1"
-          style="right: 0; width: 150px"
+          class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--blue ms-auto mb-1"
           href="/clients/new"
         >
-          <span class="fs-5 text-primary"
-            ><i class="fa-regular fa-user-plus"></i></span>
-          <span class="ms-3 mb-0 fw-bold">Add Client</span>
+          <i class="text-primary fa-regular fa-user-plus"></i>
+          <span class="ms-2 mb-0 fw-bold small text-nowrap">Add Client</span>
         </a>
       </div>
       <div class="bg-white shadow-sm">
@@ -71,31 +69,31 @@
 
               <tr class="bg-white">
                 <td
-                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                 >
                   <a href="/clients/<%-client._id%>" class="link"><%- client.clientId %></a>
                 </td>
 
                 <td
-                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                 >
                   <%- client.firstName %>
                 </td>
 
                 <td
-                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                 >
                   <%- client.lastName %>
                 </td>
 
                  <td
-                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                 >
                   <%- client.email %>
                 </td>
 
                  <td
-                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                  class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                 >
                   <%- client.phone %>
                 </td>

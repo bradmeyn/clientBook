@@ -2,26 +2,24 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
-  <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
+  <div class="d-flex flex-grow-1 bg-light">
     <main
-      class="container px-5 mx-auto w-100 h-100 my-5"
+      class="container px-3 mx-auto w-100 h-100 my-5"
       style="max-width: 900px"
     >
-      <div class="bg-white shadow-sm p-5">
+      <div class="bg-white shadow-sm rounded px-3 py-5">
         <h3 class="mb-4">New Client</h3>
         <form action="/clients" method="POST">
           <h6 class="mt-4 mb-3">Personal Information</h6>
           <!-- title -->
           <div class="mb-3">
-            <label class="d-block small text-muted mb-1" for="inputEmail4"
-              >Title</label
-            >
+            <label class="d-block small text-muted mb-1">Title</label>
             <div class="form-check form-check-inline">
               <input
                 class="form-check-input"
                 type="radio"
                 name="client[title]"
-                id="titlenMr"
+                id="titleMr"
                 value="Mr"
                 required
               />
@@ -60,28 +58,17 @@
               />
               <label class="form-check-label" for="titleDr">Dr</label>
             </div>
-            <div class="form-check form-check-inline">
-              <input
-                class="form-check-input"
-                type="radio"
-                name="client[title]"
-                id="titleNone"
-                value=""
-                required
-              />
-              <label class="form-check-label" for="titleNone">None</label>
-            </div>
           </div>
           <!-- title -->
           <!-- name -->
-          <div class="row mb-3">
+          <div class="row">
             <div class="form-group col-md-6">
               <label class="small text-muted mb-1" for="firstName"
                 >First Name *</label
               >
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="firstName"
                 name="client[firstName]"
                 placeholder=""
@@ -96,7 +83,7 @@
               >
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="lastName"
                 placeholder=""
                 name="client[lastName]"
@@ -113,7 +100,7 @@
               >
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="preferredName"
                 placeholder=""
                 name="client[preferredName]"
@@ -127,7 +114,7 @@
               >
               <input
                 type="date"
-                class="form-control"
+                class="form-control mb-2"
                 id="dateOfBirth"
                 placeholder=""
                 name="client[dob]"
@@ -146,7 +133,7 @@
               >
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="jobTitle"
                 name="client[jobTitle]"
                 placeholder=""
@@ -178,18 +165,18 @@
               >
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="phone"
                 placeholder="0400 000 000"
                 name="client[phone]"
                 required
               />
             </div>
-            <div class="col-6">
+            <div class="col-12 col-md-6">
               <label class="text-muted small mb-1" for="email">Email*</label>
               <input
                 type="email"
-                class="form-control"
+                class="form-control mb-2"
                 id="email"
                 placeholder="example@mail.com"
                 name="client[email]"
@@ -204,7 +191,7 @@
             <label class="text-muted small mb-1" for="street">Street</label>
             <input
               type="text"
-              class="form-control"
+              class="form-control mb-2"
               id="street"
               placeholder=""
               name="client[address][street]"
@@ -213,11 +200,11 @@
           </div>
 
           <div class="row">
-            <div class="form-group col-6">
+            <div class="form-group col-12 col-md-6">
               <label class="text-muted small mb-1" for="suburb">Suburb</label>
               <input
                 type="text"
-                class="form-control"
+                class="form-control mb-2"
                 id="suburb"
                 placeholder=""
                 name="client[address][suburb]"
@@ -226,7 +213,7 @@
               />
             </div>
 
-            <div class="form-group col-3">
+            <div class="form-group col-6 col-md-3">
               <label class="text-muted small mb-1" for="state">State</label>
               <select
                 name="client[address][state]"
@@ -244,7 +231,7 @@
               </select>
             </div>
 
-            <div class="form-group col-3">
+            <div class="form-group col-6 col-md-3">
               <label class="text-muted small mb-1" for="postcode"
                 >Postcode</label
               >
