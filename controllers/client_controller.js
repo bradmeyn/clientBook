@@ -12,7 +12,6 @@ module.exports.client_index = async (req, res) => {
       const pageCount = Math.ceil(resultCount / resultsPerPage);
       //current page
       let page = req.query.page ? Number(req.query.page) : 1;
-      console.log(req.query.page);
 
       if (page > pageCount) {
         //redirect to last
@@ -121,8 +120,6 @@ module.exports.client_update_put = async (req, res) => {
     const id = req.params.clientId;
     const client = req.body.client;
     client.dob = new Date(client.dob);
-
-    console.log(client);
     const account = req.user.account;
     await Client.findOneAndUpdate({ _id: id, account }, { ...client });
     req.flash('success', 'Details updated.');
@@ -158,7 +155,6 @@ module.exports.client_notes_post = async (req, res, next) => {
 module.exports.client_search = async (req, res) => {
   const query = req.body.query;
   const account = req.user.account;
-  console.log(query);
 
   let clients = await Client.aggregate([
     {

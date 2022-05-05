@@ -1,24 +1,18 @@
 <%- include('../partials/head') -%>
 
 <body class="d-flex flex-column " style="height: 100vh;">
-  <nav class="navbar navbar-light bg-white">
+  <nav class="navbar navbar-dark shadow-sm">
     <div class="container d-flex justify-content-between flex-grow-1">
-      <a class="navbar-brand" href="/">
-        ClientBook
-      </a>
-      <div class="d-flex">
-        
-          
-      </div>
+      <a class="navbar-brand d-flex align-items-center" href="/">
+    <img src="/images/logo.svg" class="me-2" alt=""><span class="fs-3">Clientbook</span>
+  </a>
     </div>
   </nav>
 
-    <!-- Navbar -->
-
-    <main class="d-flex flex-column h-100 w-100" style="background-color: #F5F5F5;">
+    <main class="d-flex flex-column h-100 w-100 bg-light">
       <%- include('../partials/flash') -%>
      <div class="container">
-      <div class="mx-auto bg-white shadow-sm px-4 py-5 position-relative rounded" style="top: 200px; max-width: 400px;">
+      <div class="mx-auto bg-white shadow-sm px-4 py-5 position-relative rounded mt-5" style=" max-width: 400px;">
         <h3 class="mb-3 fs-2 text-center">Welcome Back!</h3>
         <p class="text-muted text-center mb-4">Please enter your credentials to login.</pcla>
         <form action'/login' method="POST"  novalidate class="needs-validation mb-4">

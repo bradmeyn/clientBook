@@ -293,7 +293,11 @@
                     <td
                       class="small py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
                     >
-                      <%- job.type %>
+                      <span
+                        class="badge badge-primary badge--green text-dark mb-0"
+                      >
+                        <%- job.type %></span
+                      >
                     </td>
 
                     <td
@@ -348,3 +352,62 @@
 
   <%- include('../partials/footer') -%>
 </body>
+<script>
+  //input filter options
+  const checkboxFilters = document.querySelectorAll('.check-filter');
+  const params = new URLSearchParams(window.location.search);
+
+  for (const input of checkboxFilters) {
+    for (const param of params.values()) {
+      if (input.value === param) {
+        input.checked = true;
+      }
+    }
+  }
+
+  //job status filters
+  const statusFilters = document.querySelectorAll('.status-filter');
+  const statusAll = document.querySelector('#statusAll');
+
+  statusFilters.forEach((box) => {
+    box.addEventListener('change', () => {
+      statusAll.checked = false;
+    });
+  });
+
+  statusAll.addEventListener('change', () => {
+    statusFilters.forEach((box) => {
+      box.checked = false;
+    });
+  });
+
+  if (!params.has('status')) {
+    statusAll.checked = true;
+  }
+
+  //job type filters
+  const typeFilters = document.querySelectorAll('.type-filter');
+  const typeAll = document.querySelector('#typeAll');
+
+  typeFilters.forEach((box) => {
+    box.addEventListener('change', () => {
+      typeAll.checked = false;
+    });
+  });
+
+  typeAll.addEventListener('change', () => {
+    typeFilters.forEach((box) => {
+      box.checked = false;
+    });
+  });
+
+  const minFilter = document.querySelector('#filter-min');
+  const maxFilter = document.querySelector('#filter-max');
+  if (params.has('min')) {
+    minFilter.value = params.get('min');
+  }
+
+  if (params.has('max')) {
+    maxFilter.value = params.get('max');
+  }
+</script>

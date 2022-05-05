@@ -1,15 +1,17 @@
 <% if(success && success.length){ %>
 <div
-  class="alert alert-primary alert-dismissible fade show w-100 my-3"
+  class="alert alert-primary alert-dismissible fade show w-100 small"
   style="
-    max-width: 500px;
-    left: 50%;
-    transform: translateX(-50%);
+    max-width: 300px;
+    top: 3%;
+    right: 5%;
+
     position: absolute;
+    z-index: 1000;
   "
   role="alert"
 >
-  <strong class="d-block text-center"><%- success %></strong>
+  <span class="d-block text-center"><%- success %></span>
   <button
     type="button"
     class="btn-close"
@@ -20,16 +22,18 @@
 
 <% } %> <% if(error && error.length){ %>
 <div
-  class="alert alert-danger alert-dismissible fade show w-100 my-4"
+  class="alert alert-danger alert-dismissible fade show w-100 small error"
   style="
-    max-width: 500px;
-    left: 50%;
-    transform: translateX(-50%);
+    max-width: 300px;
+    top: 2%;
+    right: 5%;
+
     position: absolute;
+    z-index: 1000;
   "
   role="alert"
 >
-  <strong class="d-block text-center"><%- error %></strong>
+  <span class="d-block text-center"><%- error %></span>
   <button
     type="button"
     class="btn-close"

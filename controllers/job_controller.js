@@ -52,7 +52,7 @@ module.exports.job_index_get = async (req, res, next) => {
 
     if (status) query.status = status;
     if (type) query.type = type;
-    console.log(query);
+
     const c = await Client.findOne({ _id: clientId, account })
       .populate({
         path: 'jobs',

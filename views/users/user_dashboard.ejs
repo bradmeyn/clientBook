@@ -3,7 +3,7 @@
 <body class="d-flex flex-column bg-light" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
 
-  <main class="container flex-grow-1 px-3 pb-5 pt-3" style="max-width: 1200px">
+  <main class="container flex-grow-1 px-3 pb-5 pt-3" style="max-width: 1200px; ">
     <%- include('../partials/flash') -%>
 
     <div
@@ -73,42 +73,64 @@
         </ul>
       </div>
 
-      <div class="col-6 col-md-3">
-        <div class="shadow-sm bg-white mt-4 p-4">
+      <div class="col-6 col-md-3 mb-4">
+        <div class="shadow-sm rounded bg-white mt-4 p-3 d-flex align-items-center h-100 ">
+          <span
+            class="badge--green text-center me-3 pt-1 rounded-circle d-flex justify-content-center align-items-center icon-circle"
+
+            ><i class="fa-regular fa-dollar-sign text-success fs-3"></i
+          ></span>
           <div class="position-relative">
             <small class="text-muted">Revenue Earned </small>
-          </div>
-          <div class="fs-2 rev-earned">
-            <%-Intl.NumberFormat("en-US", { style: "currency", currency: "USD",
-            minimumFractionDigits: 0, maximumFractionDigits: 2,
-            }).format(completed.revenue.month)%>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="shadow-sm bg-white mt-4 p-4">
-          <small class="text-muted">Jobs Completed</small>
-          <div class="fs-2 jobs-completed"><%-completed.count.month%></div>
-        </div>
-      </div>
-
-      <div class="col-6 col-md-3">
-        <div class="shadow-sm bg-white mt-4 p-4">
-          <small class="text-muted">Total Pipeline</small>
-          <div class="fs-2">
-            <%-Intl.NumberFormat("en-US", { style: "currency", currency: "USD",
-            minimumFractionDigits: 0, maximumFractionDigits: 2,
-            }).format(revPipeline.reduce((a, b) => { return a + b }, 0))%>
+            <div class="fs-3 rev-earned">
+              <%-Intl.NumberFormat("en-US", { style: "currency", currency:
+              "USD", minimumFractionDigits: 0, maximumFractionDigits: 2,
+              }).format(completed.revenue.month)%>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="col-6 col-md-3">
-        <div class="shadow-sm bg-white mt-4 p-4">
-          <small class="text-muted">Jobs in Progress</small>
-          <div class="fs-2">
-            <%-jobStatusData.reduce((a, b) => { return a + b }, 0)%>
+      <div class="col-6 col-md-3 mb-4">
+        <div class="shadow-sm bg-white mt-4 p-3 d-flex align-items-center h-100">
+          <span
+            class="icon-circle badge--purple text-center me-3 pt-1 rounded-circle d-flex justify-content-center align-items-center"
+            ><i class="fa-regular fa-check text-purple fs-3"></i></i
+          ></span>
+          <div>
+            <small class="text-muted">Jobs Completed</small>
+            <div class="fs-3 jobs-completed"><%-completed.count.month%></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 mb-4">
+        <div class="shadow-sm rounded bg-white mt-4 p-3 d-flex align-items-center h-100">
+          <span
+            class="icon-circle badge--blue text-center me-3 rounded-circle d-flex justify-content-center align-items-center"
+            ><i class="fa-regular fa-hand-holding-dollar fs-3 text-primary"></i></span>
+          <div class="">
+            <small class="text-muted">Total Pipeline</small>
+            <div class="fs-3">
+              <%-Intl.NumberFormat("en-US", { style: "currency", currency:
+              "USD", minimumFractionDigits: 0, maximumFractionDigits: 2,
+              }).format(revPipeline.reduce((a, b) => { return a + b }, 0))%>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-3 mb-4">
+        <div class="shadow-sm rounded bg-white mt-4 p-3 d-flex align-items-center h-100">
+          <span
+            class="icon-circle badge--yellow text-center me-3 rounded-circle d-flex justify-content-center align-items-center"
+
+            ><i class="fa-regular fa-person-digging fs-3 text-warning"></i></span>
+          <div class="">
+            <small class="text-muted">Jobs in Progress</small>
+            <div class="fs-3">
+              <%-jobStatusData.reduce((a, b) => { return a + b }, 0)%>
+            </div>
           </div>
         </div>
       </div>
@@ -116,18 +138,18 @@
 
     <div class="row g-4 mb-4">
       <div class="col-12 col-md-6">
-        <div class="shadow-sm bg-white fs-1 p-4 h-100">
+        <div class="shadow-sm rounded bg-white fs-1 p-3 h-100">
           <h2 class="ps-2 fs-5">Monthly Revenue</h2>
           <div>
-            <canvas id="revPerMonth"></canvas>
+            <canvas id="monthly-revenue-chart"></canvas>
           </div>
         </div>
       </div>
       <div class="col-12 col-md-6">
-        <div class="shadow-sm p-4 bg-white fs-1 h-100">
+        <div class="shadow-sm rounded p-3 bg-white fs-1 h-100">
           <h2 class="ps-2 fs-5">Pipeline $ by Status</h2>
           <div>
-            <canvas id="revPerStatus"></canvas>
+            <canvas id="revenue-status-chart"></canvas>
           </div>
         </div>
       </div>
@@ -135,8 +157,8 @@
 
     <div class="row g-4 mb-4">
       <div class="col-12 col-md-6">
-        <div class="shadow-sm p-4 bg-white h-100">
-          <div class="table-responsive-lg">
+        <div class="shadow-sm rounded p-3 bg-white h-100">
+          <div class="table-responsive">
             <h2 class="ps-2 fs-5">Active Jobs</h2>
             <table class="table m-0">
               <thead>
@@ -158,9 +180,9 @@
               <tbody>
                 <% activeJobs.forEach(job => { %>
 
-                <tr class="note-link">
+                <tr>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <a
                       class="link-success"
@@ -170,17 +192,17 @@
                     >
                   </td>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <%- job.client.preferredName%> <%- job.client.lastName%>
                   </td>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <%-job.status %>
                   </td>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <%-job.dueDate %>
                   </td>
@@ -194,20 +216,19 @@
       </div>
 
       <div class="col-6 col-md-3">
-        <div class="shadow-sm p-4 bg-white fs-1 h-100">
+        <div class="shadow-sm rounded p-3 bg-white fs-1 h-100">
           <h2 class="ps-2 fs-5">Job per Status</h2>
           <div>
-            <canvas id="jobStatus"></canvas>
+            <canvas id="job-status-chart"></canvas>
           </div>
         </div>
       </div>
 
       <div class="col-6 col-md-3">
-        <div class="shadow-sm p-4 bg-white h-100">
-          <div class="table-responsive-lg">
-            <h2 class="ps-2 fs-5">
-              <i class="fa-regular fa-cake-candles text-primary me-2"></i
-              >Birthdays
+        <div class="shadow-sm rounded p-3 bg-white h-100">
+          <div class="table-responsive">
+            <h2 class="fs-5">
+              Upcoming Birthdays
             </h2>
             <table class="table m-0">
               <thead>
@@ -222,18 +243,19 @@
               </thead>
               <tbody>
                 <% birthdays.forEach(birthday => { %>
-                <tr class="note-link">
+                <tr class="">
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small "
                   >
                     <a
+                    class=""
                       style="text-decoration: none"
                       href="clients/<%-birthday._id%>"
                       ><%- birthday.preferredName %> <%- birthday.lastName %></a
                     >
                   </td>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <span><%- birthday.birthdate %></span>
                   </td>
@@ -249,8 +271,8 @@
 
     <div class="row g-4 mb-4">
       <div class="col-12 col-md-6">
-        <div class="shadow-sm p-4 bg-white">
-          <div class="table-responsive-lg">
+        <div class="shadow-sm rounded p-3 bg-white">
+          <div class="table-responsive">
             <h2 class="ps-2 fs-5">New Clients</h2>
             <table class="table m-0">
               <thead>
@@ -268,9 +290,9 @@
               </thead>
               <tbody>
                 <% newClients.forEach(client => { %>
-                <tr class="note-link">
+                <tr>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <a
                       class="link-primary"
@@ -281,12 +303,12 @@
                   </td>
 
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <%-client.phone%>
                   </td>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <%-client.email%>
                   </td>
@@ -299,8 +321,8 @@
         </div>
       </div>
       <div class="col-12 col-md-6">
-        <div class="shadow-sm p-4 bg-white">
-          <div class="table-responsive-lg">
+        <div class="shadow-sm rounded p-3 bg-white">
+          <div class="table-responsive">
             <h2 class="ps-2 fs-5">Recent Notes</h2>
             <table class="table m-0">
               <thead>
@@ -321,9 +343,9 @@
               </thead>
               <tbody>
                 <% recentNotes.forEach(note => { %>
-                <tr class="note-link">
+                <tr>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <a
                       class="text-dark quicklink quicklink--yellow px-2"
@@ -333,7 +355,7 @@
                     >
                   </td>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <span
                       ><%- note.client.preferredName %> <%- note.client.lastName
@@ -341,14 +363,14 @@
                     >
                   </td>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <span><%- note.category %></span>
                   </td>
                   <td
-                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm"
+                    class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
-                    <span><%- note.shortDate%></span>
+                    <span><%- note.createdDate%></span>
                   </td>
                 </tr>
 
@@ -361,10 +383,10 @@
     </div>
   </main>
 
-  <%- include('../partials/footer') -%>
-</body>
-
+    <%- include('../partials/footer') -%>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 <script>
     let revPeriod = "Month";
     const revPeriods = document.querySelectorAll('.rev-period-option');
@@ -387,57 +409,104 @@
             }).format(<%-completed.revenue.year %>);
           jobsCompleted.innerText = <%-completed.count.year %>;
         }
-        console.log(revPeriodSelector.innerText)
+    
     });
     })
+    
+</script>
 
-    const barData = {
-      labels: ["Not Started", "On Hold", "In Progess", "Finalising"],
+<script> 
+    //chart js configuration   
+    const chartColors = ["#7231db", "#ffc107","#007bff", "#28a745"];
+    const statusLables = ["Not Started", "On Hold", "In Progess", "Finalising"];
 
+    //bar chart for monthly revenue
+    const monthlyRevData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
+      datasets: [
+        {
+          label: "Last Year",
+          backgroundColor: ["#B4D6C1"],
+          data: [<%- revLastYear %>],
+          borderRadius: 20,
+        },
+        {
+          label: "This Year",
+          backgroundColor: ["#28a745"],
+          data: [<%- revThisYear %>],
+          borderRadius: 20,
+        }
+      ],
+    };
+
+    const monthlyRevChart = new Chart(
+      document.getElementById("monthly-revenue-chart"),
+      {
+        type: "bar",
+      data: monthlyRevData,
+      options: {
+        scales: {
+          y: {
+            ticks: {
+              callback: (value, index, values) => {
+                return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD',minimumFractionDigits: 0,minimumFractionDigits: 0 }).format(value);
+              }
+            }
+          }
+        }
+      }
+
+      }
+    );
+
+    //horizontal bar chart for pipeline value based on job status
+    const revStatusDate = {
+      labels: statusLables,
       datasets: [
         {
 
           indexAxis: 'y',
-          backgroundColor: ["#DFEAE2", "#B4D6C1","#6BAF92", "#207567"],
-          borderRadius: 3,
+          backgroundColor: chartColors,
+          borderRadius: 20,
           data: [<%- revPipeline %>],
         },
       ],
     };
 
-
-
-    const revPerStatus = new Chart(
-      document.getElementById("revPerStatus"),
-  {
-    type: "bar",
-      data: barData,
-      options: {
-          plugins: {
-              legend: {
-                  display: false,
-
-              }
-          }
-      }
-  }
+    const revStatusChart = new Chart(
+        document.getElementById("revenue-status-chart"),
+        {
+        type: "bar",
+        data: revStatusDate,
+        options: {
+            plugins: {
+                legend: {
+                    display: false,
+                }
+            }
+            }
+        
+        }
     );
 
-    const pieData = {
-      labels: ["Not Started", "On Hold", "In Progess", "Finalising"],
+
+    //pie chart for job per status
+    const jobStatusData = {
+      labels: statusLables,
       datasets: [
         {
-          backgroundColor: ["#DFEAE2", "#B4D6C1","#6BAF92", "#207567"],
+        
+          backgroundColor: chartColors,
           data: [<%- jobStatusData %>],
         },
       ],
     };
 
-    const jobStatus = new Chart(
-      document.getElementById("jobStatus"),
+    const jobStatusChart = new Chart(
+      document.getElementById("job-status-chart"),
       {
-        type: "doughnut",
-        data: pieData,
+        type: "pie",
+        data: jobStatusData,
         options: {
           plugins: {
               legend: {
@@ -447,32 +516,9 @@
         }
       }
     );
-
-
-    const barTwoData = {
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'],
-      datasets: [
-        {
-          label: "Last Year",
-          backgroundColor: ["#B4D6C1"],
-          data: [<%- revLastYear %>],
-          borderRadius: 3,
-        },
-        {
-          label: "This Year",
-          backgroundColor: ["#207567"],
-          data: [<%- revThisYear %>],
-          borderRadius: 3,
-        }
-      ],
-    };
-
-    const rpm = new Chart(
-      document.getElementById("revPerMonth"),
-      {
-        type: "bar",
-      data: barTwoData,
-
-      }
-    );
 </script>
+
+</body>
+
+
+

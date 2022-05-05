@@ -272,3 +272,47 @@
 
   <%- include('../partials/footer') -%>
 </body>
+<script>
+  //input filter options
+const checkboxFilters = document.querySelectorAll('.check-filter');
+const params = new URLSearchParams(window.location.search);
+
+for (const input of checkboxFilters) {
+  for (const param of params.values()) {
+    if (input.value === param) {
+      input.checked = true;
+    }
+  }
+}
+
+//note category filters
+const catFilters = document.querySelectorAll('.cat-filter');
+const catAll = document.querySelector('#catAll');
+
+catFilters.forEach((box) => {
+  box.addEventListener('change', () => {
+    catAll.checked = false;
+  });
+});
+
+catAll.addEventListener('change', () => {
+  catFilters.forEach((box) => {
+    box.checked = false;
+  });
+});
+
+if (!params.has('category')) {
+  catAll.checked = true;
+}
+
+document.querySelectorAll('.accordian-item').forEach((item) => {
+  item.addEventListener('click', (e) => {
+    if (
+      item.contains(e.target) &&
+      !e.target.parentElement.classList.contains('accordian-body')
+    ) {
+      item.classList.toggle('accordian-item-active');
+    }
+  });
+});
+</script>

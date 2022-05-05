@@ -2,10 +2,7 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
-  <main
-    class="d-flex flex-column flex-grow-1"
-    style="background-color: #f5f5f5"
-  >
+  <main class="d-flex flex-column flex-grow-1 bg-light">
     <div class="container px-5 mx-auto w-100 h-100 my-5">
       <div class="border-bottom border-muted mb-3">
         <h1 class="fs-3">Your Jobs</h1>
@@ -243,11 +240,12 @@
                       Job
                     </th>
                     <th class="fw-normal text-muted small border-0" scope="col">
-                      Type
-                    </th>
-                    <th class="fw-normal text-muted small border-0" scope="col">
                       Client
                     </th>
+                    <th class="fw-normal text-muted small border-0" scope="col">
+                      Type
+                    </th>
+
                     <th class="fw-normal text-muted small border-0" scope="col">
                       Revenue
                     </th>
@@ -274,18 +272,19 @@
                       >
                     </td>
                     <td
-                      class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
+                      class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
+                    >
+                      <%- job.client.firstName %> <%- job.client.lastName %>
+                    </td>
+                    <td
+                      class="small py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted"
                     >
                       <span
                         class="badge badge-primary badge--green text-dark mb-0"
                         ><%- job.type %></span
                       >
                     </td>
-                    <td
-                      class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
-                    >
-                      <%- job.client.firstName %> <%- job.client.lastName %>
-                    </td>
+
                     <td
                       class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                     >
@@ -294,17 +293,30 @@
                     <td
                       class="text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                     >
+                      <% if(job.status === 'Completed'){ %>
                       <span
                         class="py-2 text-success text-center rounded badge--green d-block"
                         ><%- job.status %></span
                       >
+                      <% } else { %>
+                      <span class="py-2 text-center rounded d-block"
+                        ><%- job.status %></span
+                      >
+                      <% } %>
                     </td>
+                    <% if(job.status === 'Completed'){ %>
+                    <td
+                      class="py-3 text-nowrap text-success align-items-center justify-content-center col-sm border-bottom border-muted small"
+                    >
+                      <%- job.completedDate %>
+                    </td>
+                    <% } else { %>
                     <td
                       class="py-3 text-nowrap align-items-center justify-content-center col-sm border-bottom border-muted small"
                     >
-                      <%- job.status === "Completed" ? job.completedDate :
-                      job.dueDate %>
+                      <%- job.dueDate %>
                     </td>
+                    <% } %>
                   </tr>
 
                   <% }) %>
@@ -325,3 +337,62 @@
 
   <%- include('../partials/footer') -%>
 </body>
+<script>
+  //input filter options
+  const checkboxFilters = document.querySelectorAll('.check-filter');
+  const params = new URLSearchParams(window.location.search);
+
+  for (const input of checkboxFilters) {
+    for (const param of params.values()) {
+      if (input.value === param) {
+        input.checked = true;
+      }
+    }
+  }
+
+  //job status filters
+  const statusFilters = document.querySelectorAll('.status-filter');
+  const statusAll = document.querySelector('#statusAll');
+
+  statusFilters.forEach((box) => {
+    box.addEventListener('change', () => {
+      statusAll.checked = false;
+    });
+  });
+
+  statusAll.addEventListener('change', () => {
+    statusFilters.forEach((box) => {
+      box.checked = false;
+    });
+  });
+
+  if (!params.has('status')) {
+    statusAll.checked = true;
+  }
+
+  //job type filters
+  const typeFilters = document.querySelectorAll('.type-filter');
+  const typeAll = document.querySelector('#typeAll');
+
+  typeFilters.forEach((box) => {
+    box.addEventListener('change', () => {
+      typeAll.checked = false;
+    });
+  });
+
+  typeAll.addEventListener('change', () => {
+    typeFilters.forEach((box) => {
+      box.checked = false;
+    });
+  });
+
+  const minFilter = document.querySelector('#filter-min');
+  const maxFilter = document.querySelector('#filter-max');
+  if (params.has('min')) {
+    minFilter.value = params.get('min');
+  }
+
+  if (params.has('max')) {
+    maxFilter.value = params.get('max');
+  }
+</script>

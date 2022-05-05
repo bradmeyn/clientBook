@@ -16,16 +16,8 @@
             style="right: 0; text-decoration: none"
           >
             <div class="">
-              <a
-                href="/clients/<%-c._id%>/jobs/<%-job._id%>/update"
-                class="pe-4"
-              >
+              <a href="/clients/<%-c._id%>/jobs/<%-job._id%>/update">
                 <i class="fa-light fa-pencil"></i>
-              </a>
-            </div>
-            <div class="">
-              <a href="" class="text-danger">
-                <i class="fa-light fa-trash-can"></i>
               </a>
             </div>
           </div>
@@ -80,7 +72,7 @@
 
         <div class="border-muted border-top shadow-sm px-5 p-3 bg-white">
           <div class="text-muted small">
-            <span><%- note.shortDate %></span> -
+            <span><%- note.createdDate %></span> -
             <span><%- note.author.fullName %></span>
           </div>
           <div class="small"><%- note.detail %></div>
