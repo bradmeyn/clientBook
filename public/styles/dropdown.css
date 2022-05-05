@@ -180,7 +180,7 @@ tr:hover {
   height: 70%;
   width: 20%;
 
-  right: -2rem;
+  right: -1rem;
   bottom: -2rem;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
 }
@@ -204,5 +204,5 @@ tr:hover {
 }
 
 i {
-  font-family: fontAwesome;
+  font-family: 'Font Awesome 5 Pro';
 }
