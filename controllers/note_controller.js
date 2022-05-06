@@ -68,12 +68,13 @@ module.exports.note_show = async (req, res, next) => {
     const { clientId, noteId } = req.params;
     const account = req.user.account;
 
+    console.log(clientId);
+
     const c = await Client.findOne({ _id: clientId, account });
+    console.log(c);
     const note = await Note.findOne({ _id: noteId, account }).populate({
       path: 'author',
     });
-
-    console.log('client:', c, 'Note:', note);
 
     res.render('notes/note_show', { c, note, page: '' });
   } catch (e) {

@@ -3,11 +3,8 @@
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%>
   <div class="d-flex flex-grow-1 bg-light">
-    <main
-      class="container px-3 mx-auto w-100 h-100 my-5"
-      style="max-width: 900px"
-    >
-      <div class="bg-white shadow-sm rounded px-3 py-5">
+    <main class="container px-3 mx-auto w-100 h-100 my-5">
+      <div class="bg-white shadow-sm rounded p-4 card-max-width">
         <h3 class="mb-4">New Client</h3>
         <form action="/clients" method="POST">
           <h6 class="mt-4 mb-3">Personal Information</h6>

@@ -93,7 +93,6 @@ module.exports.job_show = async (req, res, next) => {
     const { clientId, jobId } = req.params;
     const account = req.user.account;
     const c = await Client.findOne({ _id: clientId, account });
-
     const job = await Job.findOne({ _id: jobId, account })
       .populate({
         path: 'notes',

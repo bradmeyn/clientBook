@@ -3,11 +3,11 @@
 <body class="d-flex flex-column" style="min-height: 100vh">
   <%- include('../partials/navbar') -%> <%- include('../partials/sidenav') -%>
   <main class="d-flex flex-column flex-grow-1 bg-light">
-    <div class="px-3 mx-auto w-100 h-100 my-5" style="max-width: 1000px">
+    <div class="px-3 mx-auto w-100 h-100 my-5 container-max-width">
       <div
         class="border-bottom border-muted mb-3 pb-2 d-flex justify-content-between align-items-center"
       >
-        <h1 class="fs-4">Jobs: <%-c.preferredName%> <%-c.lastName%></h1>
+        <h1 class="fs-5">Jobs: <%-c.preferredName%> <%-c.lastName%></h1>
         <a
           class="text-dark rounded d-flex justify-content-center align-items-center p-2 quicklink quicklink--green ms-auto mb-1 small"
           href="/clients/<%-c._id%>/jobs/new"
@@ -338,8 +338,8 @@
             </div>
 
             <% } else { %>
-            <div class="p-4 fs-5 mt-3 rounded text-muted shadow-sm">
-              There are no jobs assosciated with this client.
+            <div class="p-4 mt-3 rounded text-muted shadow-sm">
+              No jobs found
             </div>
             <% } %>
           </div>

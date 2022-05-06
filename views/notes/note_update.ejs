@@ -2,14 +2,11 @@
 
 <body class="d-flex flex-column" style="min-height: 100vh; height: 100%">
   <%- include('../partials/navbar') -%>
-  <div class="d-flex flex-column flex-grow-1" style="background-color: #f5f5f5">
+  <div class="d-flex flex-column flex-grow-1 bg-light">
     <%- include('../partials/sidenav') -%>
-    <main
-      class="container px-5 mx-auto w-100 h-100 my-5"
-      style="max-width: 700px"
-    >
+    <main class="container px-3 mx-auto w-100 h-100 my-5">
       <%- include('../partials/flash') -%>
-      <div class="shadow-sm p-5" style="background-color: #ffffff">
+      <div class="shadow-sm p-4 bg-white card-max-width">
         <h1 class="fs-4 mb-3 pb-2 border-bottom border-muted">Edit Note</h1>
         <form
           action="/clients/<%-c._id%>/notes/<%-note._id%>?_method=PUT"

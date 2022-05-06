@@ -6,7 +6,7 @@
   <div class="d-flex flex-column flex-grow-1 w-100 bg-light">
     <%- include('../partials/flash') -%> <%- include('../partials/sidenav') -%>
 
-    <main class="container mx-auto px-3 pb-5" style="max-width: 1000px;">
+    <main class="container mx-auto px-3 pb-5 container-max-width">
       <div class="row  mt-1">
         <div class="d-flex justify-content-center justify-content-md-end my-2">
           <a
@@ -200,7 +200,7 @@
                 <tbody>
 
                 <% c.jobs.forEach(job => { %>
-                
+
                 <tr class="border-muted border-bottom">
                   <td class=" border-0 py-3 text-nowrap align-items-center justify-content-center small"><a href="/clients/<%-c._id%>/jobs/<%-job._id%>" class="link-success"><%- job.title %></a></td>
                   <td class="small border-0 py-3 text-center text-nowrap"><%- job.type %></td>
@@ -209,7 +209,6 @@
                   <td class="small border-0 py-3 text-center text-nowrap"><%- job.status %></td>
                   <td class="small border-0 py-3 text-center text-nowrap"><%- job.dueDate %></td>
                 </tr>
-           
                 <% }); %>
                 </tbody>
               </table>
@@ -233,15 +232,15 @@
                   class="text-dark note-link p-2 d-flex align-items-center justify-content-between border-bottom border-muted"
                 >
                   <div class="pe-2">
-                    <small class="text-muted"><%-note.createdDate %> - <%-note.author.fullName %></small>
-                    <div class="d-flex align-items-center mb-1">
-                      <h6 class="card-title me-3 mb-0"><%-note.title%></h6>
-                      <span
-                        class="badge badge-primary badge--yellow text-dark mb-0 me-3"
+                    <small class="text-muted"><%-note.createdDate %></small>
+                    
+                      <h6 class="card-title me-3 mb-1"><%-note.title%></h6>
+                    <span
+                        class="badge badge-primary badge--yellow text-dark mb-2 me-1"
                         ><%-note.category%></span
                       >
-                    </div>
-                    <div class="small mb-1"><%- note.detail %></div>
+         
+                    <small class="d-block text-muted">By <%-note.author.fullName %></small>
                     
                   </div>
                   <div class="text-primary">

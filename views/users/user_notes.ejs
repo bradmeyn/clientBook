@@ -4,7 +4,7 @@
   <%- include('../partials/navbar') -%>
   <div class="d-flex flex-grow-1" style="background-color: #f5f5f5">
     <main
-      class="container px-3 mx-auto w-100 h-100 my-5"
+      class="container px-3 mx-auto w-100 h-100 my-5 container-max-width"
       style="max-width: 1000px"
     >
       <div class="border-bottom border-muted mb-3">
@@ -128,26 +128,30 @@
         <div class="col-12 col-md-9 pb-4">
           <% if(notes.length > 0){ %> <% notes.forEach(note => { %>
           <a
-            href="/clients/<%-note.author._id%>/notes/<%-note._id%>"
-            class="text-dark note-link p-2 d-flex align-items-center justify-content-between border-bottom border-muted shadow-sm mb-3 p-4 bg-white rounded"
+            href="/clients/<%-note.client._id%>/notes/<%-note._id%>"
+            class="text-dark note-link p-2 d-flex align-items-center justify-content-between border-bottom border-muted shadow-sm mb-3 p-4 note-link rounded"
           >
             <div class="pe-2">
               <small class="text-muted"><%-note.createdDate %></small>
-              <div class="d-flex align-items-center mb-1">
-                <h2 class="fs-5 me-3 mb-0"><%-note.title%></h2>
-                <span
-                  class="badge badge-primary badge--yellow text-dark mb-0 me-3"
-                  ><%-note.category%></span
-                >
-              </div>
+
+              <h2 class="fs-5 me-3 mb-1"><%-note.title%></h2>
+              <span class="badge badge-primary badge--yellow text-dark mb-1"
+                ><%-note.category%></span
+              >
+
               <div class="small mb-1"><%- note.detail %></div>
+              <small class="text-muted"
+                ><i class="fa-regular fa-user me-2 text-muted"></i
+                ><%-note.client.preferredName %> <%-note.client.lastName
+                %></small
+              >
             </div>
             <div class="text-primary">
               <i class="fa-regular fa-chevron-right"></i>
             </div>
           </a>
           <% }); %> <% } else { %>
-          <div class="p-4 fs-5 mt-3 rounded text-muted shadow-sm bg-white">
+          <div class="p-4 fs-6 mt-3 rounded text-muted shadow-sm bg-white">
             You have not created any client notes.
           </div>
           <% } %>

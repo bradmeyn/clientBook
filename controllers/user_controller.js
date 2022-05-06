@@ -383,9 +383,12 @@ module.exports.user_notes_get = async (req, res) => {
       account: account,
       category,
     };
-    const notes = await Note.find(query).sort({ _id: -1 }).populate('client');
+    const notes = await Note.find(query)
+      .sort({ _id: -1 })
+      .populate('client')
+      .populate('author');
 
-    res.render('users/user_notes', { notes, page: 'notes' });
+    res.render('users/user_notes', { notes });
   } catch (e) {
     console.log(e);
     req.flash('error', e.message);
