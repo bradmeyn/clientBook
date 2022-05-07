@@ -143,12 +143,8 @@ module.exports.job_update_put = async (req, res) => {
 
       c.notes.push(note);
       job.notes.push(note);
-      await note.save(() => {
-        console.log('Note Saved: ', note);
-      });
-      await job.save(() => {
-        console.log('Job Saved: ', job);
-      });
+      await note.save();
+      await job.save();
       await c.save();
 
       res.redirect('back');

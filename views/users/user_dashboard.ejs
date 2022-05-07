@@ -190,7 +190,7 @@
                   <td
                     class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
-                    <%- job.client.preferredName%> <%- job.client.lastName%>
+                    <%- job.client.name %>
                   </td>
                   <td
                     class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
@@ -247,7 +247,7 @@
                     class=""
                       style="text-decoration: none"
                       href="clients/<%-birthday._id%>"
-                      ><%- birthday.preferredName %> <%- birthday.lastName %></a
+                      ><%- birthday.name %></a
                     >
                   </td>
                   <td
@@ -294,7 +294,7 @@
                       class="link-primary"
                       style="text-decoration: none"
                       href="clients/<%-client._id%>"
-                      ><%- client.preferredName %> <%- client.lastName %></a
+                      ><%- client.name%></a
                     >
                   </td>
 
@@ -354,8 +354,7 @@
                     class="border-0 py-2 text-nowrap align-items-center justify-content-center col-sm small"
                   >
                     <span
-                      ><%- note.client.preferredName %> <%- note.client.lastName
-                      %></span
+                      ><%- note.client.name %> </span
                     >
                   </td>
                   <td

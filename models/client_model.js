@@ -77,8 +77,7 @@ clientSchema.virtual('fullName').get(function () {
 });
 
 clientSchema.virtual('name').get(function () {
-  this.preferredName == false;
-  let preferred = this.preferredName ? `(${this.preferredName}) ` : '';
+  let preferred = this.preferredName || this.firstName;
   return `${preferred} ${this.lastName}`;
 });
 
