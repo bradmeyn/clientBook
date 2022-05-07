@@ -74,15 +74,11 @@ app.use(helmet({ contentSecurityPolicy: false }));
 
 const sessionConfig = {
   store,
-  ttl: 1 * 24 * 60 * 60,
   name: 'session-cb',
   secret,
   resave: false,
-  saveUninitialized: false,
-  cookie: {
-    httpOnly: true,
-    secure: true,
-  },
+  saveUninitialized: true,
+  cookie: { maxAge: 60 * 60 * 1000 },
 };
 
 app.use(session(sessionConfig));
