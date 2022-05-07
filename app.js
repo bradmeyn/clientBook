@@ -49,7 +49,7 @@ const secret = process.env.SECRET || 'charlieisagoodboy';
 //store session in mongo
 const store = MongoStore.create({
   mongoUrl: dbUrl,
-  touchAfter: 24 * 60 * 60,
+  autoRemove: 'native',
   crypto: {
     secret,
   },
@@ -74,14 +74,14 @@ app.use(helmet({ contentSecurityPolicy: false }));
 
 const sessionConfig = {
   store,
+  ttl: 1 * 24 * 60 * 60,
   name: 'session-cb',
   secret,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     httpOnly: true,
     secure: true,
-    expires: Date.now() + 1000 * 60 * 60,
   },
 };
 

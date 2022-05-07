@@ -15,7 +15,7 @@
       <div class="mx-auto bg-white shadow-sm p-4 position-relative rounded mt-5" style=" max-width: 400px;">
         <h3 class="mb-3 fs-2 text-center">Welcome Back!</h3>
         <p class="text-muted text-center mb-4">Please enter your credentials to login.</pcla>
-        <form action'/login' method="POST"  novalidate class="needs-validation mb-4">
+        <form action'/login' method="POST"  novalidate class="needs-validation mb-4 login-form">
           <div class="form-group pb-3">
             <label class="small text-muted" for="username">Username</label>
             <input type="text" class="form-control" id="username" name="username" placeholder="username">
@@ -26,7 +26,7 @@
             <input type="Password" class="form-control" id="password" name="password" placeholder="****************">
           </div>
           <!-- <a class="mb-4 d-block text-center link ms-auto" href="#">Forgot Password?</a> -->
-          <button type="submit" class="btn btn-primary btn-lg w-100">Login</button>
+                    <button type="submit" class="btn btn-primary btn-lg w-100 d-flex justify-content-center btn-submit"><span> Login</span></button>
         </form>
         
         <div class="small text-center"><span class="text-muted "> Don't have an account yet?</span> <a class="link text-center d-block" href="/register">Sign Up</a></div>
@@ -42,3 +42,11 @@
 </body>
 
 <%- include('../partials/footer') -%>
+<script>
+const form = document.querySelector('.login-form');
+const submitBtn = document.querySelector('.btn-submit')
+
+form.addEventListener('submit', (e) => {
+  submitBtn.innerHTML = '<span class="loader"></span>'
+})
+</script>

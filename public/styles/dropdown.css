@@ -166,7 +166,6 @@ tr:hover {
   margin: auto 0;
   border-radius: 10px;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
-  border: solid 8px var(--primary);
 }
 
 .img--desktop {
@@ -180,11 +179,11 @@ tr:hover {
   transition: all 0.6s ease;
   border-radius: 10px;
   position: absolute;
-  border: solid 4px var(--primary);
-  height: 70%;
-  width: 20%;
-  border: solid 2px #292f4c;
-  right: -0.6rem;
+
+  height: 60%;
+
+  border: solid 4px #292f4c;
+  right: -0.8rem;
   bottom: -1rem;
   box-shadow: 0 0 11px rgba(33, 33, 33, 0.2);
 }
@@ -213,4 +212,26 @@ i {
 
 .container-max-width {
   max-width: 1000px;
+}
+
+@keyframes spin {
+  from {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.loader {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;
+  border: 4px solid #fff;
+  border-top-color: transparent;
+  -webkit-animation: 1s spin linear infinite;
+  animation: 1s spin linear infinite;
 }

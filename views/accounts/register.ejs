@@ -16,7 +16,7 @@
         <h3 class="mb-3 fs-2">Sign up for Clientbook</h3>
         <p class="mb-4 fs-6  text-muted">Discover why ClientBook is the fastest growing client management software in the world today</p>
 
-        <form action'/register' method="POST"  novalidate class="needs-validation mb-4">
+        <form action'/register' method="POST"  novalidate class="needs-validation mb-4 login-form">
           <div class="form-group pb-2">
             <label class="text-muted small" for="businessName">Business Name</label>
             <input type="text" class="form-control" id="businessName" name="account[name]" >
@@ -45,10 +45,16 @@
             <input type="Password" class="form-control" id="password" name="user[password]" >
           </div>
         
-          <button type="submit" class="btn btn-primary btn-lg w-100">Sign up</button>
-        </form>
-        <div class="small text-center"><span class="text-muted "> Already have an account?</span> <a class="link text-center d-block" href="/login">Login</a></div>
+          <button type="submit" class="btn btn-primary btn-lg w-100 d-flex justify-content-center btn-submit"><span> Sign Up</span></button>
+
+            <div class="small text-center mt-4"><span class="text-muted "> Already have an account?</span> <a class="link text-center d-block" href="/login">Login</a></div>
         </div>
+
+  
+
+          
+        </form>
+      
         </div>
       
       </div>
@@ -64,3 +70,12 @@
 </body>
 
 <%- include('../partials/footer') -%>
+
+<script>
+const form = document.querySelector('.login-form');
+const submitBtn = document.querySelector('.btn-submit')
+
+form.addEventListener('submit', (e) => {
+  submitBtn.innerHTML = '<span class="loader"></span>'
+})
+</script>
