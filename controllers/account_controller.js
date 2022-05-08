@@ -26,7 +26,7 @@ module.exports.account_register_post = async (req, res, next) => {
       if (err) return next(err);
     });
 
-    if (account.name === 'Demo') populateDb();
+    if (account.name === 'Demo') populateDb(account, newUser);
     res.redirect('/dashboard');
   } catch (e) {
     req.flash('error', e.message);
@@ -34,7 +34,7 @@ module.exports.account_register_post = async (req, res, next) => {
   }
 };
 
-let populateDb = async () => {
+let populateDb = async (account, user) => {
   console.log('Demo account login, populating database');
 
   await Client.deleteMany();
@@ -65,7 +65,7 @@ let populateDb = async () => {
 
   const homerNote = new Note({
     account,
-    author: req.user,
+    author: user,
     client: homer,
     title: 'Mr Plow Website',
     date: new Date(2021, 1, 1),
@@ -79,8 +79,8 @@ let populateDb = async () => {
 
   const plow = new Job({
     account,
-    creator: req.user,
-    owner: req.user,
+    creator: user,
+    owner: user,
     client: homer,
     type: 'New',
     revenue: 5000,
@@ -97,8 +97,8 @@ let populateDb = async () => {
 
   const mrX = new Job({
     account,
-    creator: req.user,
-    owner: req.user,
+    creator: user,
+    owner: user,
     client: homer,
     type: 'Update',
     revenue: 3000,
@@ -158,8 +158,8 @@ let populateDb = async () => {
 
   const hams = new Job({
     account,
-    creator: req.user,
-    owner: req.user,
+    creator: user,
+    owner: user,
     client: skinner,
     type: 'New',
     revenue: 8000,
@@ -199,7 +199,7 @@ let populateDb = async () => {
 
   const apuNote = new Note({
     account,
-    author: req.user,
+    author: user,
     client: apu,
     title: 'Kwik-E-Mart Website',
     date: new Date(2021, 10, 23),
@@ -213,8 +213,8 @@ let populateDb = async () => {
 
   const kwik = new Job({
     account,
-    creator: req.user,
-    owner: req.user,
+    creator: user,
+    owner: user,
     client: apu,
     type: 'New',
     revenue: 2000,
@@ -278,8 +278,8 @@ let populateDb = async () => {
   for (let i = 0; i < 12; i++) {
     let job = new Job({
       account,
-      creator: req.user,
-      owner: req.user,
+      creator: user,
+      owner: user,
       client: flanders,
       type: 'Other',
       revenue: Math.floor(Math.random() * 11 * 1000),
@@ -299,8 +299,8 @@ let populateDb = async () => {
   for (let i = 0; i < 5; i++) {
     let job = new Job({
       account,
-      creator: req.user,
-      owner: req.user,
+      creator: user,
+      owner: user,
       client: flanders,
       type: 'Other',
       revenue: Math.floor(Math.random() * 11 * 1000),
@@ -319,7 +319,7 @@ let populateDb = async () => {
 
   const flandersNote = new Note({
     account,
-    author: req.user,
+    author: user,
     client: flanders,
     title: 'Leftorium Online Store',
     date: new Date(2021, 11, 20),
@@ -357,8 +357,8 @@ let populateDb = async () => {
 
   const vest = new Job({
     account,
-    creator: req.user,
-    owner: req.user,
+    creator: user,
+    owner: user,
     client: burns,
     type: 'New',
     revenue: 5000,
@@ -375,7 +375,7 @@ let populateDb = async () => {
 
   const burnsNote1 = new Note({
     account,
-    author: req.user,
+    author: user,
     client: burns,
     title: 'Request for Payment',
     date: new Date(2022, 3, 1),
@@ -391,7 +391,7 @@ let populateDb = async () => {
 
   const burnsNote2 = new Note({
     account,
-    author: req.user,
+    author: user,
     client: burns,
     title: '2nd payment follow up',
     date: new Date(2022, 3, 20),
@@ -406,7 +406,7 @@ let populateDb = async () => {
 
   const burnsNote3 = new Note({
     account,
-    author: req.user,
+    author: user,
     client: burns,
     title: 'Hounds Released, Bill Cancelled',
     date: new Date(),
@@ -442,7 +442,7 @@ let populateDb = async () => {
 
   const krustyNote = new Note({
     account,
-    author: req.user,
+    author: user,
     client: krusty,
     title: 'Stingy and Battery Game',
     date: new Date(2021, 11, 20),
@@ -480,8 +480,8 @@ let populateDb = async () => {
 
   const flaming = new Job({
     account,
-    creator: req.user,
-    owner: req.user,
+    creator: user,
+    owner: user,
     client: moe,
     type: 'New',
     revenue: 1000,
@@ -499,8 +499,8 @@ let populateDb = async () => {
 
   const uncle = new Job({
     account,
-    creator: req.user,
-    owner: req.user,
+    creator: user,
+    owner: user,
     client: moe,
     type: 'Update',
     revenue: 4200,
@@ -519,7 +519,7 @@ let populateDb = async () => {
 
   const moeNote = new Note({
     account,
-    author: req.user,
+    author: user,
     client: moe,
     title: 'Flamin Moes Website',
     date: new Date(2021, 11, 20),
@@ -578,8 +578,8 @@ let populateDb = async () => {
 
   const fan = new Job({
     account,
-    creator: req.user,
-    owner: req.user,
+    creator: user,
+    owner: user,
     client: patty,
     type: 'New',
     revenue: 3500,

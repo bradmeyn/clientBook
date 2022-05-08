@@ -13,7 +13,7 @@ module.exports.user_login_get = (req, res) => {
 //Handle user login on POST
 module.exports.user_login_post = (req, res) => {
   try {
-    res.redirect('/dashboard');
+    // res.redirect('/dashboard');
   } catch (e) {
     console.log(e);
     req.flash('error', e.message);
@@ -28,6 +28,7 @@ module.exports.user_dashboard_get = async (req, res) => {
     const account = req.user.account;
     const clientCount = await Client.find({ account }).countDocuments();
 
+    console.log(clientCount);
     if (clientCount > 0) {
       const jobs = await Job.find({
         account,

@@ -11,7 +11,7 @@ router
   .post(
     passport.authenticate('local', {
       failureRedirect: '/login',
-      // successRedirect: '/dashboard',
+      successRedirect: '/dashboard',
       failureFlash: true,
     }),
     user_controller.user_login_post
