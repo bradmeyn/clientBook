@@ -10,23 +10,20 @@ module.exports.user_login_get = (req, res) => {
   res.render('users/login');
 };
 
-// //Handle user login on POST
-// module.exports.user_login_post = (req, res) => {
-//   try {
-//     console.log('logging in');
-//     //login after succussfully being authenticated
-//     res.redirect('/dashboard');
-//   } catch (e) {
-//     console.log(e);
-//     req.flash('error', e.message);
-//     res.redirect('back');
-//   }
-// };
+//Handle user login on POST
+module.exports.user_login_post = (req, res) => {
+  try {
+    res.redirect('/dashboard');
+  } catch (e) {
+    console.log(e);
+    req.flash('error', e.message);
+    res.redirect('back');
+  }
+};
 
 //Display user dashboard
 module.exports.user_dashboard_get = async (req, res) => {
   try {
-    req.flash('success', 'welcome back');
     const user = req.user.firstName;
     const account = req.user.account;
     const clientCount = await Client.find({ account }).countDocuments();

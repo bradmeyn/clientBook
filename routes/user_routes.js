@@ -11,10 +11,10 @@ router
   .post(
     passport.authenticate('local', {
       failureRedirect: '/login',
-      successRedirect: '/dashboard',
+      // successRedirect: '/dashboard',
       failureFlash: true,
-    })
-    // user_controller.user_login_post
+    }),
+    user_controller.user_login_post
   );
 
 router.route('/logout').get(user_controller.user_logout);

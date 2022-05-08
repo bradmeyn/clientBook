@@ -4,12 +4,24 @@
   <nav class="navbar navbar-dark shadow-sm">
     <div class="container d-flex justify-content-between flex-grow-1">
       <a class="navbar-brand d-flex align-items-center" href="/">
-    <img src="/images/logo.svg" class="me-2" alt=""><span class="fs-4">Clientbook</span>
+    <img src="/images/logo.svg" class="me-2" alt=""><span class="fs-5">Clientbook</span>
   </a>
     </div>
   </nav>
 
     <main class="d-flex flex-column h-100 w-100 bg-light">
+      <div
+  class="alert alert-primary alert-dismissible fade show w-100 small"
+  role="alert"
+>
+  <span class="d-block text-center"><div>Welcome to my app. It's still a work in progress!</div>A fully populated account can be found under the login: <div class="fw-bold">Username: 123</div><div class="fw-bold">Password: 123</div></span>
+  <button
+    type="button"
+    class="btn-close"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  ></button>
+</div>
       <%- include('../partials/flash') -%>
      <div class="container">
       <div class="mx-auto bg-white shadow-sm p-4 position-relative rounded mt-5" style=" max-width: 400px;">

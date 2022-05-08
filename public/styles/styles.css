@@ -173,6 +173,7 @@ tr:hover {
   width: 100%;
   transition: all 0.6s ease;
   border-radius: 10px;
+  border: solid 4px #292f4c;
 }
 
 .img--mobile {
@@ -234,4 +235,14 @@ i {
   border-top-color: transparent;
   -webkit-animation: 1s spin linear infinite;
   animation: 1s spin linear infinite;
+}
+
+.alert {
+  max-width: 500px;
+  top: 3%;
+  right: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  position: absolute;
+  z-index: 1000;
 }
