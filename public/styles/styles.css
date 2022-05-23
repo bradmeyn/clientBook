@@ -171,13 +171,11 @@ tr:hover {
 .img--desktop {
   position: relative;
   width: 100%;
-  transition: all 0.6s ease;
   border-radius: 10px;
   border: solid 4px #292f4c;
 }
 
 .img--mobile {
-  transition: all 0.6s ease;
   border-radius: 10px;
   position: absolute;
 

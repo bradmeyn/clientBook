@@ -30,15 +30,17 @@
         <form action'/login' method="POST"  novalidate class="needs-validation mb-4 login-form">
           <div class="form-group pb-3">
             <label class="small text-muted" for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="username">
+            <input type="text" class="form-control" id="username" name="username" placeholder="username" required>
+            <div class="invalid-feedback">Username cannot be blank</div>
           </div>
           
           <div class="form-group pb-4">
             <label class="small text-muted" for="password">Password</label>
-            <input type="Password" class="form-control" id="password" name="password" placeholder="****************">
+            <input type="Password" class="form-control" id="password" name="password" placeholder="****************" required>
+             <div class="invalid-feedback">Password cannot be blank.</div>
           </div>
-          <!-- <a class="mb-4 d-block text-center link ms-auto" href="#">Forgot Password?</a> -->
-                    <button type="submit" class="btn btn-primary btn-lg w-100 d-flex justify-content-center btn-submit"><span> Login</span></button>
+         
+          <button type="submit" class="btn btn-primary btn-lg w-100 d-flex justify-content-center btn-submit"><span> Login</span></button>
         </form>
         
         <div class="small text-center"><span class="text-muted "> Don't have an account yet?</span> <a class="link text-center d-block" href="/register">Sign Up</a></div>
@@ -58,7 +60,19 @@
 const form = document.querySelector('.login-form');
 const submitBtn = document.querySelector('.btn-submit')
 
-form.addEventListener('submit', (e) => {
+// form.addEventListener('submit', (e) => {
+  
+// })
+
+form.addEventListener('submit', function (event) {
   submitBtn.innerHTML = '<span class="loader"></span>'
-})
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+          submitBtn.innerHTML = '<span> Sign Up</span>'
+          
+        }
+
+        form.classList.add('was-validated')
+      }, false)
 </script>
