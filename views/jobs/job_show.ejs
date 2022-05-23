@@ -76,16 +76,13 @@
 
       <% if(job.status !== "Completed"){ %>
       <div class="shadow-sm p-3 bg-white mt-3 card-max-width">
-        <form
-          action="/clients/<%- c._id %>/jobs/<%- job._id %>?_method=PUT"
-          method="POST"
-        >
+        <form action="/clients/<%- c._id %>/jobs/<%- job._id %>" method="POST">
           <div class="form-group">
             <input
               type="text"
               class="form-control bg-light border px-3 py-2 border-light"
               style="border-radius: 1000px"
-              name="job[update]"
+              name="job[note]"
               id="jobUpdate"
               placeholder="Add update note..."
             />

@@ -10,8 +10,7 @@ router
   .get(user_controller.user_login_get)
   .post(
     passport.authenticate('local', {
-      failureRedirect: '/login',
-      successRedirect: '/dashboard',
+      failureRedirect: '/',
       failureFlash: true,
     }),
     user_controller.user_login_post

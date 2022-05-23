@@ -18,7 +18,10 @@ const noteSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'Client',
   },
-  job: String,
+  job: {
+    type: Schema.Types.ObjectId,
+    ref: 'job',
+  },
 });
 
 noteSchema.virtual('createdDate').get(function () {

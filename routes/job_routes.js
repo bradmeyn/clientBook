@@ -16,6 +16,7 @@ router.get('/new', isLoggedIn, job_controller.job_create_get);
 router
   .route('/:jobId')
   .get(isLoggedIn, catchAsync(job_controller.job_show))
+  .post(isLoggedIn, catchAsync(job_controller.job_note_post))
   .put(isLoggedIn, catchAsync(job_controller.job_update_put))
   .delete(isLoggedIn, catchAsync(job_controller.job_delete));
 

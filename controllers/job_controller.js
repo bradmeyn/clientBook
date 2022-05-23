@@ -2,25 +2,35 @@ const Client = require('../models/client_model');
 const Note = require('../models/note_model');
 const Job = require('../models/job_model');
 
-//Handle user creation on POST
+//POST route for creating a new job
 module.exports.job_create_post = async (req, res, next) => {
   try {
-    const job = req.body.job;
-    const client = await Client.findById(req.params.clientId);
+    const { job } = req.body;
+    const { clientId } = req.params;
+    const { account } = req.user;
 
+    const client = await Client.findById(clientId);
+
+    //if job value is null assign as 0
     !job.revenue ? (job.revenue = 0) : job.revenue;
+
+    //attach created data and covert due value to date format
     job.created = new Date();
     job.due = new Date(job.due);
     job.client = client;
-    job.creator, (job.owner = req.user);
-    job.account = req.user.account;
-    job.client = req.params.clientId;
+
+    //attach creator, owner, client and account to a job
+    job.creator = job.owner = req.user;
+    job.account = account;
+    job.client = clientId;
+
+    //create job and push it to the clients jobs
     const newJob = new Job(job);
     client.jobs.push(newJob);
 
     await newJob.save();
     await client.save();
-    res.redirect(`/clients/${req.params.clientId}`);
+    res.redirect(`/clients/${clientId}`);
   } catch (e) {
     req.flash('error', e.message);
     res.redirect('back');
@@ -30,10 +40,13 @@ module.exports.job_create_post = async (req, res, next) => {
 //Display all jobs associated with client
 module.exports.job_index_get = async (req, res, next) => {
   try {
-    const clientId = req.params.clientId;
-    const account = req.user.account;
+    const { clientId } = req.params;
+    const { account } = req.user;
 
+    //destructure filter values
     let { status, type, min, max } = req.query;
+
+    //assign min and max as int
     if (max) {
       max = parseInt(max);
     } else {
@@ -46,13 +59,16 @@ module.exports.job_index_get = async (req, res, next) => {
       min = 0;
     }
 
+    //build query with revenue range
     const query = {
       revenue: { $lte: max, $gte: min },
     };
 
+    //add status and type filters to query if they exist
     if (status) query.status = status;
     if (type) query.type = type;
 
+    // find client and any matching jobs
     const c = await Client.findOne({ _id: clientId, account })
       .populate({
         path: 'jobs',
@@ -74,12 +90,14 @@ module.exports.job_index_get = async (req, res, next) => {
   }
 };
 
+//GET request to display the create job form
 module.exports.job_create_get = async (req, res) => {
   try {
-    const clientId = req.params.clientId;
-    const account = req.user.account;
-    const c = await Client.findOne({ _id: clientId, account });
+    const { clientId } = req.params;
+    const { account } = req.user;
 
+    //find client for subnav bar
+    const c = await Client.findOne({ _id: clientId, account });
     res.render('jobs/job_new', { c, page: '' });
   } catch (e) {
     console.log(e);
@@ -88,10 +106,11 @@ module.exports.job_create_get = async (req, res) => {
   }
 };
 
+//GET request for single job page
 module.exports.job_show = async (req, res, next) => {
   try {
     const { clientId, jobId } = req.params;
-    const account = req.user.account;
+    const { account } = req.user;
     const c = await Client.findOne({ _id: clientId, account });
     const job = await Job.findOne({ _id: jobId, account })
       .populate({
@@ -110,10 +129,11 @@ module.exports.job_show = async (req, res, next) => {
   }
 };
 
+//GET request for job update form
 module.exports.job_update_get = async (req, res, next) => {
   try {
     const { clientId, jobId } = req.params;
-    const account = req.user.account;
+    const { account } = req.user;
     const c = await Client.findOne({ _id: clientId, account });
     const job = await Job.findOne({ _id: jobId, account });
     res.render('jobs/job_update', { c, job, page: '' });
@@ -124,39 +144,52 @@ module.exports.job_update_get = async (req, res, next) => {
   }
 };
 
+//PUT request to update a client
 module.exports.job_update_put = async (req, res) => {
   try {
     const { clientId, jobId } = req.params;
-    const account = req.user.account;
-    if (req.body.job.update) {
-      const job = await Job.findOne({ _id: jobId, account });
-      const c = await Client.findOne({ _id: clientId, account });
-      const note = new Note({
-        account: account,
-        title: `Job Update: ${job.title}`,
-        category: 'Job Update',
-        date: new Date(),
-        detail: req.body.job.update,
-        author: req.user,
-        job: jobId,
-      });
+    const { account } = req.user;
+    const { job } = req.body;
+    job.due = new Date(job.due);
+    await Job.findOneAndUpdate({ _id: jobId, account }, { ...job });
+    res.redirect(`/clients/${clientId}/jobs/${jobId}`);
+  } catch (e) {
+    console.log(e);
+    req.flash('error', e.message);
+    res.redirect('/');
+  }
+};
 
-      c.notes.push(note);
-      job.notes.push(note);
-      await note.save();
-      await job.save();
-      await c.save();
+//POST for job-related notes
+module.exports.job_note_post = async (req, res) => {
+  try {
+    const { clientId, jobId } = req.params;
+    const { account } = req.user;
 
-      res.redirect('back');
-    } else {
-      const job = req.body.job;
+    //find the client and job
+    const job = await Job.findOne({ _id: jobId, account });
+    const c = await Client.findOne({ _id: clientId, account });
 
-      job.due = new Date(job.due);
+    //create the new note
+    const note = new Note({
+      account: account,
+      title: `Job Update: ${job.title}`,
+      category: 'Update',
+      date: new Date(),
+      detail: req.body.job.note,
+      author: req.user,
+      client: c,
+      job: jobId,
+    });
 
-      await Job.findOneAndUpdate({ _id: jobId, account }, { ...job });
+    //add the note to the client and the job
+    c.notes.push(note);
+    job.notes.push(note);
+    await note.save();
+    await job.save();
+    await c.save();
 
-      res.redirect(`/clients/${clientId}/jobs/${jobId}`);
-    }
+    res.redirect(`/clients/${clientId}/jobs/${jobId}`);
   } catch (e) {
     console.log(e);
     req.flash('error', e.message);

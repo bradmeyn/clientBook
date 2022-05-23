@@ -1,10 +1,10 @@
 const Client = require('../models/client_model');
 const Note = require('../models/note_model');
 
-//Display all clients
+//Display all clients (5 per page)
 module.exports.client_index = async (req, res) => {
   try {
-    const account = req.user.account;
+    const { account } = req.user;
     const resultCount = await Client.find({ account }).countDocuments();
 
     if (resultCount > 0) {
@@ -35,6 +35,7 @@ module.exports.client_index = async (req, res) => {
     }
   } catch (e) {
     console.log(e);
+    req.flash('error', e.message);
     res.redirect('back');
   }
 };
@@ -42,18 +43,25 @@ module.exports.client_index = async (req, res) => {
 //Handle client create on POST
 module.exports.client_create_post = async (req, res) => {
   try {
-    const client = req.body.client;
+    const { client } = req.body;
+
+    //convert form dob into date format
     client.dob = new Date(client.dob);
+
+    //attach client to current users associated account
     client.account = req.user.account;
+
+    //create a public facing client id
     client.clientId = Date.now();
 
     const newClient = new Client(client);
 
-    req.flash('success', 'A new client has been created');
     await newClient.save();
+    req.flash('success', 'A new client has been created');
     res.redirect(`/clients/${newClient._id}`);
   } catch (e) {
     console.log(e);
+    req.flash('error', e.message);
     res.redirect('back');
   }
 };
@@ -65,9 +73,11 @@ module.exports.client_create_get = (req, res) => {
 
 //Display single client
 module.exports.client_dashboard_get = async (req, res) => {
-  const id = req.params.clientId;
-  const account = req.user.account;
-  const c = await Client.findOne({ _id: id, account })
+  const { clientId } = req.params;
+  const { account } = req.user;
+
+  //return client with id & account including notes & active jobs
+  const c = await Client.findOne({ _id: clientId, account })
     .populate({
       path: 'notes',
       options: { sort: { _id: -1 }, limit: 5 },
@@ -85,47 +95,50 @@ module.exports.client_dashboard_get = async (req, res) => {
     });
 
   if (!c) {
-    console.log('nothing found');
     req.flash('error', 'Cannot find that client');
-    return res.redirect('/clients');
+    res.redirect('/clients');
+  } else {
+    res.render('clients/client_dashboard', { c, page: 'client' });
   }
-
-  res.render('clients/client_dashboard', { c, page: 'client' });
 };
 
 //Handle client deletion
 module.exports.client_delete = async (req, res) => {
-  const id = req.params.clientId;
-  const account = req.user.account;
-  const client = await Client.findOneAndDelete({ _id: id, account });
+  const { clientId } = req.params;
+  const { account } = req.user;
+
+  //delete client with id & account
+  const client = await Client.findOneAndDelete({ _id: clientId, account });
   req.flash('success', `${client.firstName} ${client.lastName} deleted`);
   res.redirect('/clients');
 };
 
 //Display client update form on GET
 module.exports.client_update_get = async (req, res) => {
-  const id = req.params.clientId;
-  const c = await Client.findById(id);
+  const { clientId } = req.params;
+
+  const c = await Client.findById(clientId);
   if (!c) {
-    console.log('nothing found');
     req.flash('error', 'Cannot find that client');
-    return res.redirect('/clients');
+    res.redirect('/clients');
+  } else {
+    res.render('clients/client_update', { c, page: '' });
   }
-  res.render('clients/client_update', { c, page: '' });
 };
 
 //Handle client update on PUT
 module.exports.client_update_put = async (req, res) => {
   try {
-    const id = req.params.clientId;
-    const client = req.body.client;
+    const { clientId } = req.params;
+    const { account } = req.user;
+    const { client } = req.body;
     client.dob = new Date(client.dob);
-    const account = req.user.account;
-    await Client.findOneAndUpdate({ _id: id, account }, { ...client });
+    await Client.findOneAndUpdate({ _id: clientId, account }, { ...client });
     req.flash('success', 'Details updated.');
-    res.redirect(`${id}`);
-  } catch (error) {
-    console.log(error);
+    res.redirect(`/clients/${newClient._id}`);
+  } catch (e) {
+    console.log(e);
+    req.flash('error', e.message);
     res.redirect('back');
   }
 };
@@ -133,12 +146,18 @@ module.exports.client_update_put = async (req, res) => {
 //Create new note associated with client
 module.exports.client_notes_post = async (req, res, next) => {
   try {
+    //search client
     const client = await Client.findById(req.params.clientId);
+
+    //create note
     const note = new Note(req.body.note);
 
+    //attach current date, user and account to the note
     note.date = new Date();
     note.author = req.user;
     note.account = req.user.account;
+
+    //add the note to client
     client.notes.push(note);
     await note.save();
     await client.save();
@@ -151,12 +170,12 @@ module.exports.client_notes_post = async (req, res, next) => {
   }
 };
 
-//Handle search
+//dedicated route for client search bar
 module.exports.client_search = async (req, res) => {
-  const query = req.body.query;
-  const account = req.user.account;
+  const { query } = req.body;
+  const { account } = req.user;
 
-  let clients = await Client.aggregate([
+  const clients = await Client.aggregate([
     {
       $project: {
         fullName: { $concat: ['$firstName', ' ', '$lastName'] },

@@ -1,53 +1,26 @@
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-
+require('dotenv').config();
 const express = require('express');
 const app = express();
+
 const path = require('path');
 const methodOverride = require('method-override');
 const mongoSanitize = require('express-mongo-sanitize');
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
-
 const flash = require('connect-flash');
 const helmet = require('helmet');
 
-//routes
-const client_routes = require('./routes/client_routes');
-const account_routes = require('./routes/account_routes');
-const user_routes = require('./routes/user_routes');
-const note_routes = require('./routes/note_routes');
-const job_routes = require('./routes/job_routes');
-const mongoose = require('mongoose');
-const User = require('./models/user_model');
-const Account = require('./models/account_model');
+const connectDB = require('./config/database')();
 
-const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/client-book';
-
-//passport
+// Passport Config
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
-
-mongoose.connect(dbUrl, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
-});
-
-//connect to database
-const db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', () => {
-  console.log('database connected');
-});
-
-const secret = process.env.SECRET || 'charlieisagoodboy';
+require('./config/passport')(passport);
 
 //store session in mongo
-const store = MongoStore.create({
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/client-book';
+const secret = process.env.SECRET || 'charlieisagoodboy';
+const sessionStore = MongoStore.create({
   mongoUrl: dbUrl,
   autoRemove: 'native',
   crypto: {
@@ -55,9 +28,21 @@ const store = MongoStore.create({
   },
 });
 
-store.on('error', (e) => {
+const sessionConfig = {
+  store: sessionStore,
+  name: 'session-cb',
+  secret,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { maxAge: 60 * 60 * 1000 * 24 }, // 1 day
+};
+
+app.use(session(sessionConfig));
+
+sessionStore.on('error', (e) => {
   console.log('Session store error: ', e);
 });
+
 //set view engine to ejs
 app.set('views', [
   path.join(__dirname, 'views'),
@@ -72,25 +57,12 @@ app.use(express.json());
 app.use(mongoSanitize());
 app.use(helmet({ contentSecurityPolicy: false }));
 
-const sessionConfig = {
-  store,
-  name: 'session-cb',
-  secret,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge: 60 * 60 * 1000 },
-};
-
-app.use(session(sessionConfig));
-app.use(flash());
-
-//passport persistent sessions
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
 
+app.use(flash());
+
+const Account = require('./models/account_model');
 app.use(async (req, res, next) => {
   //make current user details available across all templates
   res.locals.currentUser = req.user;
@@ -103,6 +75,13 @@ app.use(async (req, res, next) => {
   res.locals.error = req.flash('error');
   next();
 });
+
+//routes
+const client_routes = require('./routes/client_routes');
+const account_routes = require('./routes/account_routes');
+const user_routes = require('./routes/user_routes');
+const note_routes = require('./routes/note_routes');
+const job_routes = require('./routes/job_routes');
 
 app.use('/', account_routes);
 app.use('/', user_routes);
@@ -132,6 +111,8 @@ app.use((err, req, res, next) => {
   }
   res.status(statusCode).render('error', { err });
 });
+
+// --------------- SERVER ---------------
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {

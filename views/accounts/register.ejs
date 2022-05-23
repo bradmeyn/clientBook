@@ -10,53 +10,52 @@
   </nav>
 
     <main class="d-flex flex-column h-100 w-100 flex-grow-1 bg-light" >
-       <div
-  class="alert alert-primary alert-dismissible fade show w-100 small"
-  role="alert"
->
-  <span class="d-block text-center"><div>Welcome to my app. It's still a work in progress!</div>A fully populated account can be found under the login: <div class="fw-bold">Username: 123</div><div class="fw-bold">Password: 123</div> <a href="/login">Login ></a></span>
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-  ></button>
-</div>
+       
 
         <div class="container my-3">
         <div class="bg-white p-4 shadow-sm mx-auto mt-3 card-max-width">
+ 
         <h3 class="mb-3 fs-2">Sign up for Clientbook</h3>
-        <p class="mb-4 fs-6  text-muted">Discover why ClientBook is the fastest growing client management software in the world today</p>
-
+        <p class="mb-2 fs-6  text-muted">Discover why ClientBook is the fastest growing management software in the world today</p>
+        <%- include('../partials/message') -%>
+          <small class="text-muted mb-2 d-block">All fields required</small>
         <form action'/register' method="POST"  novalidate class="needs-validation mb-4 login-form">
           <div class="form-group pb-2">
             <label class="text-muted small" for="businessName">Business Name</label>
-            <input type="text" class="form-control" id="businessName" name="account[name]" >
+            <input type="text" class="form-control" id="businessName" name="account[name]" required >
           </div>
-          <h6 class="my-3">Administrator Details</h6>
+          <h6 class="my-2">Administrator Details</h6>
           <div class="row">
             <div class="form-group col-md-6 pb-2">
               <label class="text-muted small" for="firstName">First Name</label>
-              <input type="text" class="form-control" id="firstName" name="user[firstName]" >
+              <input type="text" class="form-control" id="firstName" name="user[firstName]" required >
             </div>
             <div class="form-group col-md-6 pb-2">
               <label class="text-muted small" for="lastName">Last Name</label>
-              <input type="text" class="form-control" id="lastName"  name="user[lastName]">
+              <input type="text" class="form-control" id="lastName"  name="user[lastName]" required>
             </div>
           </div>
-          <div class="form-group pb-2">
+          <!-- <div class="form-group pb-2">
             <label class="text-muted small" for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="user[email]" >
-          </div>
-          <div class="form-group pb-2">
+            <input type="email" class="form-control" id="email" name="user[email]" required >
+            <div class="invalid-feedback">
+              Please enter a valid email.
+            </div>
+          </div> -->
+          <div class="form-group pb-2 position-relative">
             <label class="text-muted small" for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="user[username]" >
+            <input type="text" class="form-control" id="username" name="user[username]" required >
+            <div class="invalid-feedback">
+              Please enter a unique username.
+            </div>
           </div>
           <div class="form-group pb-4 mb-2">
             <label class="text-muted small" for="password">Password</label>
-            <input type="Password" class="form-control" id="password" name="user[password]" >
+            <input type="Password" class="form-control" id="password" name="user[password]" required >
           </div>
-        
+          <div class="invalid-feedback">
+              Please enter a valid password.
+            </div>
           <button type="submit" class="btn btn-primary btn-lg w-100 d-flex justify-content-center btn-submit"><span> Sign Up</span></button>
 
             <div class="small text-center mt-4"><span class="text-muted "> Already have an account?</span> <a class="link text-center d-block" href="/login">Login</a></div>
@@ -87,7 +86,19 @@
 const form = document.querySelector('.login-form');
 const submitBtn = document.querySelector('.btn-submit')
 
-form.addEventListener('submit', (e) => {
+// form.addEventListener('submit', (e) => {
+  
+// })
+
+form.addEventListener('submit', function (event) {
   submitBtn.innerHTML = '<span class="loader"></span>'
-})
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+          submitBtn.innerHTML = '<span> Sign Up</span>'
+          
+        }
+
+        form.classList.add('was-validated')
+      }, false)
 </script>

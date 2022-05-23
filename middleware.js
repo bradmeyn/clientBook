@@ -3,11 +3,15 @@ const AppError = require('./utils/AppError');
 const { clientSchema } = require('./joiSchemas.js');
 
 module.exports.isLoggedIn = (req, res, next) => {
-  if (!req.isAuthenticated()) {
+  if (req.isAuthenticated()) {
+    console.log('User IS authenticated');
+
+    next();
+  } else {
+    console.log('User IS NOT authenticated');
     req.flash('error', 'Please login');
     return res.redirect('/login');
   }
-  next();
 };
 
 module.exports.validateClient = (req, res, next) => {
