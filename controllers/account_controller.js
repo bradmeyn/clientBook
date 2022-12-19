@@ -3,7 +3,7 @@ const User = require('../models/user_model');
 const populateDb = require('../utils/populateDb');
 const bcrypt = require('bcrypt');
 
-//Display account registor form on GET
+//Display account registration form on GET
 module.exports.account_register_get = async (req, res) => {
   res.render('accounts/register');
 };
@@ -31,8 +31,6 @@ module.exports.account_register_post = async (req, res, next) => {
       console.log('invalid registration details');
       res.render('accounts/register', { errors, account, user });
     } else {
-      console.log('valid registration');
-
       //initial registration checks
       const hashedPassword = await bcrypt.hash(user.password, 10);
       user.password = hashedPassword;
@@ -40,13 +38,13 @@ module.exports.account_register_post = async (req, res, next) => {
       //create new account
       const newAccount = new Account(account);
       const newUser = new User(user);
+
       //create new user and add user to account
       newAccount.users.push(newUser);
       await newAccount.save();
 
       newUser.account = newAccount;
       newUser.save();
-      console.log(newUser, newAccount);
 
       //populate demo account with clients
       if (newAccount.name === 'Demo') {
