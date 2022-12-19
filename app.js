@@ -1,26 +1,25 @@
-require('dotenv').config();
-const express = require('express');
+import express, { urlencoded, static, json } from 'express';
 const app = express();
+require('dotenv').config();
+import { join } from 'path';
+import methodOverride from 'method-override';
+import mongoSanitize from 'express-mongo-sanitize';
 
-const path = require('path');
-const methodOverride = require('method-override');
-const mongoSanitize = require('express-mongo-sanitize');
-
-const session = require('express-session');
-const MongoStore = require('connect-mongo');
-const flash = require('connect-flash');
-const helmet = require('helmet');
+import session from 'express-session';
+import { create } from 'connect-mongo';
+import flash from 'connect-flash';
+import helmet from 'helmet';
 
 const connectDB = require('./config/database')();
 
 // Passport Config
-const passport = require('passport');
+import passport, { initialize, session as _session } from 'passport';
 require('./config/passport')(passport);
 
 //store session in mongo
 const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/client-book';
 const secret = process.env.SECRET || 'charlieisagoodboy';
-const sessionStore = MongoStore.create({
+const sessionStore = create({
   mongoUrl: dbUrl,
   autoRemove: 'native',
   crypto: {
@@ -44,32 +43,29 @@ sessionStore.on('error', (e) => {
 });
 
 //set view engine to ejs
-app.set('views', [
-  path.join(__dirname, 'views'),
-  path.join(__dirname, 'views/clients'),
-]);
+app.set('views', [join(__dirname, 'views'), join(__dirname, 'views/clients')]);
 app.set('view engine', 'ejs');
 
-app.use(express.urlencoded({ extended: true })); //Parse URL-encoded bodies
+app.use(urlencoded({ extended: true })); //Parse URL-encoded bodies
 app.use(methodOverride('_method')); // for put/delete requests
-app.use(express.static('public')); //make public
-app.use(express.json());
+app.use(static('public')); //make public
+app.use(json());
 app.use(mongoSanitize());
 app.use(helmet({ contentSecurityPolicy: false }));
 
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(initialize());
+app.use(_session());
 
 app.use(flash());
 
-const Account = require('./models/account_model');
+import { findById } from './models/account_model';
 app.use(async (req, res, next) => {
   //make current user details available across all templates
   res.locals.currentUser = req.user;
 
   if (req.user) {
     const account = req.user.account;
-    res.locals.currentAccount = await Account.findById(account);
+    res.locals.currentAccount = await findById(account);
   }
   res.locals.success = req.flash('success');
   res.locals.error = req.flash('error');
@@ -77,11 +73,11 @@ app.use(async (req, res, next) => {
 });
 
 //routes
-const client_routes = require('./routes/client_routes');
-const account_routes = require('./routes/account_routes');
-const user_routes = require('./routes/user_routes');
-const note_routes = require('./routes/note_routes');
-const job_routes = require('./routes/job_routes');
+import client_routes from './routes/client_routes';
+import account_routes from './routes/account_routes';
+import user_routes from './routes/user_routes';
+import note_routes from './routes/note_routes';
+import job_routes from './routes/job_routes';
 
 app.use('/', account_routes);
 app.use('/', user_routes);
