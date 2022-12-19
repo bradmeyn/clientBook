@@ -1,4 +1,4 @@
-import express, { urlencoded, static, json } from 'express';
+import express, { urlencoded, json } from 'express';
 const app = express();
 require('dotenv').config();
 import { join } from 'path';
@@ -48,7 +48,7 @@ app.set('view engine', 'ejs');
 
 app.use(urlencoded({ extended: true })); //Parse URL-encoded bodies
 app.use(methodOverride('_method')); // for put/delete requests
-app.use(static('public')); //make public
+app.use(express.static('public')); //make public
 app.use(json());
 app.use(mongoSanitize());
 app.use(helmet({ contentSecurityPolicy: false }));
